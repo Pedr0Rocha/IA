@@ -25,7 +25,6 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-112,0,0,3,42"/>
   </AuxValues>
 
   <Layout>
@@ -67,12 +66,12 @@
                       <EmptySpace min="94" pref="94" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxProd21" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblQta21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="preco_produto2" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="qta_prod21" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -80,9 +79,9 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="preco_producao1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoProd21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jTextField7" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_producao21" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -90,9 +89,9 @@
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                       <Component id="preco_venda1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoVenda21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                      <Component id="jTextField8" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_venda21" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -104,11 +103,11 @@
                       <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
                       <Component id="btnStart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
-                      <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkboxProd22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblQta22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="preco_produto4" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="qta_prod22" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -116,9 +115,9 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="preco_producao2" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoProd22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jTextField9" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_producao22" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -126,9 +125,9 @@
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                       <Component id="preco_venda2" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoVenda22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                      <Component id="jTextField10" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_venda22" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -138,11 +137,11 @@
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                       <Component id="qta_prod3" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkboxProd23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblQta23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="preco_produto5" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="qta_prod23" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -150,9 +149,9 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="preco_producao3" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoProd23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jTextField11" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_producao23" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -160,9 +159,9 @@
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                       <Component id="preco_venda3" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
-                      <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrecoVenda23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                      <Component id="jTextField12" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="preco_venda23" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
@@ -172,7 +171,7 @@
                       <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                      <Component id="gasto_propaganda1" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="gasto_propaganda2" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="540" pref="540" max="-2" attributes="0"/>
@@ -214,11 +213,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel30" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="selectPredio1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="selectPredio2" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton2" pref="40" max="32767" attributes="0"/>
+                                  <Component id="btnDuvida2" pref="40" max="32767" attributes="0"/>
                                   <Component id="btnAtualizaValor2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -274,8 +273,8 @@
                   <Component id="selectPredio" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDuvida" min="-2" max="-2" attributes="0"/>
                   <Component id="selectInvestimentoInicial" min="-2" max="-2" attributes="0"/>
-                  <Component id="selectPredio1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="selectPredio2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDuvida2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -304,29 +303,29 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkboxProd21" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                      <Component id="jLabel22" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="lblQta21" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                      <Component id="preco_produto2" min="-2" max="-2" attributes="0"/>
+                      <Component id="qta_prod21" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoProd1" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_producao1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel25" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField7" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoProd21" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_producao21" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoVenda1" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_venda1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel31" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField8" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoVenda21" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_venda21" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -337,9 +336,9 @@
                           <Component id="checkboxProd2" min="-2" max="-2" attributes="0"/>
                           <Component id="lblQta2" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="qta_prod2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel32" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="preco_produto4" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxProd22" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblQta22" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="qta_prod22" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -347,45 +346,45 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoProd2" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_producao2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel33" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField9" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoProd22" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_producao22" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoVenda2" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_venda2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel34" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField10" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoVenda22" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_venda22" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="checkboxProd3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblQta3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="qta_prod3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel35" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="preco_produto5" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkboxProd23" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblQta23" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="qta_prod23" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoProd3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_producao3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel36" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField11" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoProd23" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_producao23" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPrecoVenda3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="preco_venda3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel37" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jTextField12" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoVenda23" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="preco_venda23" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel8" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="gasto_propaganda" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel24" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="gasto_propaganda1" min="-2" max="-2" attributes="0"/>
+                  <Component id="gasto_propaganda2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
               <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
@@ -412,9 +411,6 @@
         <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod1FocusLost"/>
@@ -566,9 +562,6 @@
         <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod2FocusLost"/>
@@ -617,9 +610,6 @@
         <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod3FocusLost"/>
@@ -660,15 +650,17 @@
         <Property name="text" type="java.lang.String" value="Estruturas:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="preco_produto2">
+    <Component class="javax.swing.JTextField" name="qta_prod21">
       <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod21FocusLost"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel22">
+    <Component class="javax.swing.JLabel" name="lblQta21">
       <Properties>
         <Property name="text" type="java.lang.String" value="Qta."/>
       </Properties>
@@ -683,7 +675,7 @@
         <Property name="text" type="java.lang.String" value="Gasto com Propaganda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="gasto_propaganda1">
+    <Component class="javax.swing.JTextField" name="gasto_propaganda2">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
       </Properties>
@@ -696,7 +688,7 @@
         <Property name="text" type="java.lang.String" value="Jogador 2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="selectPredio1">
+    <Component class="javax.swing.JComboBox" name="selectPredio2">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -704,18 +696,18 @@
         <Property name="toolTipText" type="java.lang.String" value="Escolha qual o tipo de estrutura deseja come&#xe7;ar."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectPredio1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectPredio2ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnDuvida2">
       <Properties>
         <Property name="text" type="java.lang.String" value="?"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDuvida2ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel25">
+    <Component class="javax.swing.JLabel" name="lblPrecoProd21">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Produ&#xe7;&#xe3;o:"/>
       </Properties>
@@ -730,101 +722,105 @@
         <Property name="text" type="java.lang.String" value="50000.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel31">
+    <Component class="javax.swing.JLabel" name="lblPrecoVenda21">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Venda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField7">
+    <Component class="javax.swing.JTextField" name="preco_producao21">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField8">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="preco_venda21">
     </Component>
-    <Component class="javax.swing.JTextField" name="preco_produto4">
+    <Component class="javax.swing.JTextField" name="qta_prod22">
       <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod22FocusLost"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel32">
+    <Component class="javax.swing.JLabel" name="lblQta22">
       <Properties>
         <Property name="text" type="java.lang.String" value="Qta."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel33">
+    <Component class="javax.swing.JLabel" name="lblPrecoProd22">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Produ&#xe7;&#xe3;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel34">
+    <Component class="javax.swing.JLabel" name="lblPrecoVenda22">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Venda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField9">
+    <Component class="javax.swing.JTextField" name="preco_producao22">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField10">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="preco_venda22">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+    <Component class="javax.swing.JCheckBox" name="checkboxProd21">
       <Properties>
         <Property name="text" type="java.lang.String" value="Produto 1"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxProd21ActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox5">
+    <Component class="javax.swing.JCheckBox" name="checkboxProd22">
       <Properties>
         <Property name="text" type="java.lang.String" value="Produto 2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxProd22ActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="preco_produto5">
+    <Component class="javax.swing.JTextField" name="qta_prod23">
       <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="O formado do Input deve ser: 99.99"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="qta_prod23FocusLost"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel35">
+    <Component class="javax.swing.JLabel" name="lblQta23">
       <Properties>
         <Property name="text" type="java.lang.String" value="Qta."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel36">
+    <Component class="javax.swing.JLabel" name="lblPrecoProd23">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Produ&#xe7;&#xe3;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel37">
+    <Component class="javax.swing.JLabel" name="lblPrecoVenda23">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o de Venda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField11">
+    <Component class="javax.swing.JTextField" name="preco_producao23">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField12">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="preco_venda23">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox6">
+    <Component class="javax.swing.JCheckBox" name="checkboxProd23">
       <Properties>
         <Property name="text" type="java.lang.String" value="Produto 3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxProd23ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAtualizaValor">
       <Properties>

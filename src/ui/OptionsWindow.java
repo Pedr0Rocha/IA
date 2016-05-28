@@ -59,10 +59,10 @@ public class OptionsWindow extends javax.swing.JFrame {
         if (jogador == 1){
             String valorSelect = String.valueOf(selectPredio.getItemAt(selectPredio.getSelectedIndex()));
             nomeEstrutura = valorSelect.split(" \\|", 2)[0];
-        } //else {            
-           // String valorSelect = String.valueOf(selectPredio2.getItemAt(selectPredio2.getSelectedIndex()));
-           // nomeEstrutura = valorSelect.split(" \\|", 2)[0];
-       // }
+        } else {            
+            String valorSelect = String.valueOf(selectPredio2.getItemAt(selectPredio2.getSelectedIndex()));
+            nomeEstrutura = valorSelect.split(" \\|", 2)[0];
+        }
         return nomeEstrutura;
     }
     
@@ -88,6 +88,15 @@ public class OptionsWindow extends javax.swing.JFrame {
         preco_producao3.setText(negocio.produtos.get(2).precoProduzir + "");
     }
     
+    private void loadProdutos2(Negocio negocio){
+        checkboxProd21.setText(negocio.produtos.get(0).nome);
+        checkboxProd22.setText(negocio.produtos.get(1).nome);
+        checkboxProd23.setText(negocio.produtos.get(2).nome);
+        
+        preco_producao21.setText(negocio.produtos.get(0).precoProduzir + "");
+        preco_producao22.setText(negocio.produtos.get(1).precoProduzir + "");
+        preco_producao23.setText(negocio.produtos.get(2).precoProduzir + "");
+    }
     private void disableProdutos(int nivel){
         if (nivel == 0){
             checkboxProd1.setEnabled(true);
@@ -161,6 +170,82 @@ public class OptionsWindow extends javax.swing.JFrame {
             preco_venda1.setEnabled(true);
             preco_venda2.setEnabled(true);
             preco_venda3.setEnabled(true);
+        }
+    }
+    
+    private void disableProdutos2(int nivel){
+        if (nivel == 0){
+            checkboxProd21.setEnabled(true);
+            checkboxProd22.setEnabled(false);
+            checkboxProd23.setEnabled(false);
+            
+            lblPrecoProd21.setEnabled(true);
+            lblPrecoProd22.setEnabled(false);
+            lblPrecoProd23.setEnabled(false);
+            
+            lblPrecoVenda21.setEnabled(true);
+            lblPrecoVenda22.setEnabled(false);
+            lblPrecoVenda23.setEnabled(false);
+            
+            lblQta21.setEnabled(true);
+            lblQta22.setEnabled(false);
+            lblQta23.setEnabled(false);
+            
+            preco_producao21.setEnabled(true);
+            preco_producao22.setEnabled(false);
+            preco_producao23.setEnabled(false);
+            
+            preco_venda21.setEnabled(true);
+            preco_venda22.setEnabled(false);
+            preco_venda23.setEnabled(false);
+        } else if (nivel == 1){
+            checkboxProd21.setEnabled(true);
+            checkboxProd22.setEnabled(true);
+            checkboxProd23.setEnabled(false);
+            
+            lblPrecoProd21.setEnabled(true);
+            lblPrecoProd22.setEnabled(true);
+            lblPrecoProd23.setEnabled(false);
+            
+            lblPrecoVenda21.setEnabled(true);
+            lblPrecoVenda22.setEnabled(true);
+            lblPrecoVenda23.setEnabled(false);
+            
+            lblQta21.setEnabled(true);
+            lblQta22.setEnabled(true);
+            lblQta23.setEnabled(false);
+            
+            preco_producao21.setEnabled(true);
+            preco_producao22.setEnabled(true);
+            preco_producao23.setEnabled(false);
+            
+            preco_venda21.setEnabled(true);
+            preco_venda22.setEnabled(true);
+            preco_venda23.setEnabled(false);
+        } else if (nivel == 2){
+            checkboxProd21.setEnabled(true);
+            checkboxProd22.setEnabled(true);
+            checkboxProd23.setEnabled(true);
+            
+            lblPrecoProd21.setEnabled(true);
+            lblPrecoProd22.setEnabled(true);
+            lblPrecoProd23.setEnabled(true);
+            
+            lblPrecoVenda21.setEnabled(true);
+            lblPrecoVenda22.setEnabled(true);
+            lblPrecoVenda23.setEnabled(true);
+            
+            lblQta21.setEnabled(true);
+            lblQta22.setEnabled(true);
+            lblQta23.setEnabled(true);
+            
+            preco_producao21.setEnabled(true);
+            preco_producao22.setEnabled(true);
+            preco_producao23.setEnabled(true);
+            
+            preco_venda21.setEnabled(true);
+            preco_venda22.setEnabled(true);
+            preco_venda23.setEnabled(true);
         }
     }
     
@@ -245,35 +330,35 @@ public class OptionsWindow extends javax.swing.JFrame {
         preco_venda3 = new javax.swing.JTextField();
         checkboxProd3 = new javax.swing.JCheckBox();
         jLabel12 = new javax.swing.JLabel();
-        preco_produto2 = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
+        qta_prod21 = new javax.swing.JTextField();
+        lblQta21 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        gasto_propaganda1 = new javax.swing.JTextField();
+        gasto_propaganda2 = new javax.swing.JTextField();
         lblJogador2 = new javax.swing.JLabel();
-        selectPredio1 = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
+        selectPredio2 = new javax.swing.JComboBox();
+        btnDuvida2 = new javax.swing.JButton();
+        lblPrecoProd21 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        preco_produto4 = new javax.swing.JTextField();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        preco_produto5 = new javax.swing.JTextField();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jCheckBox6 = new javax.swing.JCheckBox();
+        lblPrecoVenda21 = new javax.swing.JLabel();
+        preco_producao21 = new javax.swing.JTextField();
+        preco_venda21 = new javax.swing.JTextField();
+        qta_prod22 = new javax.swing.JTextField();
+        lblQta22 = new javax.swing.JLabel();
+        lblPrecoProd22 = new javax.swing.JLabel();
+        lblPrecoVenda22 = new javax.swing.JLabel();
+        preco_producao22 = new javax.swing.JTextField();
+        preco_venda22 = new javax.swing.JTextField();
+        checkboxProd21 = new javax.swing.JCheckBox();
+        checkboxProd22 = new javax.swing.JCheckBox();
+        qta_prod23 = new javax.swing.JTextField();
+        lblQta23 = new javax.swing.JLabel();
+        lblPrecoProd23 = new javax.swing.JLabel();
+        lblPrecoVenda23 = new javax.swing.JLabel();
+        preco_producao23 = new javax.swing.JTextField();
+        preco_venda23 = new javax.swing.JTextField();
+        checkboxProd23 = new javax.swing.JCheckBox();
         btnAtualizaValor = new javax.swing.JButton();
         btnAtualizaValor2 = new javax.swing.JButton();
 
@@ -424,74 +509,104 @@ public class OptionsWindow extends javax.swing.JFrame {
 
         jLabel12.setText("Estruturas:");
 
-        preco_produto2.setToolTipText("O formado do Input deve ser: 99.99");
+        qta_prod21.setText("0");
+        qta_prod21.setToolTipText("O formado do Input deve ser: 99.99");
+        qta_prod21.setEnabled(false);
+        qta_prod21.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                qta_prod21FocusLost(evt);
+            }
+        });
 
-        jLabel22.setText("Qta.");
+        lblQta21.setText("Qta.");
 
         jLabel23.setText("Produtos:");
 
         jLabel24.setText("Gasto com Propaganda:");
 
-        gasto_propaganda1.setToolTipText("O formado do Input deve ser: 99.99");
+        gasto_propaganda2.setToolTipText("O formado do Input deve ser: 99.99");
 
         lblJogador2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblJogador2.setText("Jogador 2");
 
-        selectPredio1.setToolTipText("Escolha qual o tipo de estrutura deseja começar.");
-        selectPredio1.addActionListener(new java.awt.event.ActionListener() {
+        selectPredio2.setToolTipText("Escolha qual o tipo de estrutura deseja começar.");
+        selectPredio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectPredio1ActionPerformed(evt);
+                selectPredio2ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("?");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDuvida2.setText("?");
+        btnDuvida2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDuvida2ActionPerformed(evt);
             }
         });
 
-        jLabel25.setText("Preço de Produção:");
+        lblPrecoProd21.setText("Preço de Produção:");
 
         jLabel26.setText("Dinheiro Total:");
 
         jLabel30.setText("50000.00");
 
-        jLabel31.setText("Preço de Venda:");
+        lblPrecoVenda21.setText("Preço de Venda:");
 
-        jTextField7.setText("jTextField1");
+        preco_producao21.setEditable(false);
 
-        jTextField8.setText("jTextField2");
+        qta_prod22.setText("0");
+        qta_prod22.setToolTipText("O formado do Input deve ser: 99.99");
+        qta_prod22.setEnabled(false);
+        qta_prod22.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                qta_prod22FocusLost(evt);
+            }
+        });
 
-        preco_produto4.setToolTipText("O formado do Input deve ser: 99.99");
+        lblQta22.setText("Qta.");
 
-        jLabel32.setText("Qta.");
+        lblPrecoProd22.setText("Preço de Produção:");
 
-        jLabel33.setText("Preço de Produção:");
+        lblPrecoVenda22.setText("Preço de Venda:");
 
-        jLabel34.setText("Preço de Venda:");
+        preco_producao22.setEditable(false);
 
-        jTextField9.setText("jTextField1");
+        checkboxProd21.setText("Produto 1");
+        checkboxProd21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxProd21ActionPerformed(evt);
+            }
+        });
 
-        jTextField10.setText("jTextField2");
+        checkboxProd22.setText("Produto 2");
+        checkboxProd22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxProd22ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox4.setText("Produto 1");
+        qta_prod23.setText("0");
+        qta_prod23.setToolTipText("O formado do Input deve ser: 99.99");
+        qta_prod23.setEnabled(false);
+        qta_prod23.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                qta_prod23FocusLost(evt);
+            }
+        });
 
-        jCheckBox5.setText("Produto 2");
+        lblQta23.setText("Qta.");
 
-        preco_produto5.setToolTipText("O formado do Input deve ser: 99.99");
+        lblPrecoProd23.setText("Preço de Produção:");
 
-        jLabel35.setText("Qta.");
+        lblPrecoVenda23.setText("Preço de Venda:");
 
-        jLabel36.setText("Preço de Produção:");
+        preco_producao23.setEditable(false);
 
-        jLabel37.setText("Preço de Venda:");
-
-        jTextField11.setText("jTextField1");
-
-        jTextField12.setText("jTextField2");
-
-        jCheckBox6.setText("Produto 3");
+        checkboxProd23.setText("Produto 3");
+        checkboxProd23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxProd23ActionPerformed(evt);
+            }
+        });
 
         btnAtualizaValor.setText("!");
         btnAtualizaValor.setToolTipText("Atualizar valor");
@@ -544,29 +659,29 @@ public class OptionsWindow extends javax.swing.JFrame {
                         .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
-                            .addComponent(jCheckBox4))
+                            .addComponent(checkboxProd21))
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel22)
+                        .addComponent(lblQta21)
                         .addGap(8, 8, 8)
-                        .addComponent(preco_produto2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(qta_prod21, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoProd1)
                         .addGap(6, 6, 6)
                         .addComponent(preco_producao1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel25)
+                        .addComponent(lblPrecoProd21)
                         .addGap(6, 6, 6)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_producao21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoVenda1)
                         .addGap(21, 21, 21)
                         .addComponent(preco_venda1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel31)
+                        .addComponent(lblPrecoVenda21)
                         .addGap(21, 21, 21)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_venda21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(checkboxProd2)
@@ -577,29 +692,29 @@ public class OptionsWindow extends javax.swing.JFrame {
                         .addGap(60, 60, 60)
                         .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
-                        .addComponent(jCheckBox5)
+                        .addComponent(checkboxProd22)
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel32)
+                        .addComponent(lblQta22)
                         .addGap(8, 8, 8)
-                        .addComponent(preco_produto4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(qta_prod22, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoProd2)
                         .addGap(6, 6, 6)
                         .addComponent(preco_producao2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel33)
+                        .addComponent(lblPrecoProd22)
                         .addGap(6, 6, 6)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_producao22, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoVenda2)
                         .addGap(21, 21, 21)
                         .addComponent(preco_venda2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel34)
+                        .addComponent(lblPrecoVenda22)
                         .addGap(21, 21, 21)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_venda22, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(checkboxProd3)
@@ -608,29 +723,29 @@ public class OptionsWindow extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(qta_prod3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jCheckBox6)
+                        .addComponent(checkboxProd23)
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel35)
+                        .addComponent(lblQta23)
                         .addGap(8, 8, 8)
-                        .addComponent(preco_produto5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(qta_prod23, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoProd3)
                         .addGap(6, 6, 6)
                         .addComponent(preco_producao3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel36)
+                        .addComponent(lblPrecoProd23)
                         .addGap(6, 6, 6)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_producao23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblPrecoVenda3)
                         .addGap(21, 21, 21)
                         .addComponent(preco_venda3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(270, 270, 270)
-                        .addComponent(jLabel37)
+                        .addComponent(lblPrecoVenda23)
                         .addGap(21, 21, 21)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(preco_venda23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel8)
@@ -639,7 +754,7 @@ public class OptionsWindow extends javax.swing.JFrame {
                         .addGap(270, 270, 270)
                         .addComponent(jLabel24)
                         .addGap(5, 5, 5)
-                        .addComponent(gasto_propaganda1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(gasto_propaganda2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(540, 540, 540)
                         .addComponent(jLabel19))
@@ -672,10 +787,10 @@ public class OptionsWindow extends javax.swing.JFrame {
                                         .addComponent(jLabel26)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(selectPredio1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(selectPredio2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(btnDuvida2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                                     .addComponent(btnAtualizaValor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
@@ -716,8 +831,8 @@ public class OptionsWindow extends javax.swing.JFrame {
                     .addComponent(selectPredio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDuvida)
                     .addComponent(selectInvestimentoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selectPredio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(selectPredio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDuvida2))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -740,24 +855,24 @@ public class OptionsWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addGap(6, 6, 6)
-                        .addComponent(jCheckBox4))
+                        .addComponent(checkboxProd21))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblQta21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(preco_produto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(qta_prod21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoProd1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_producao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoProd21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_producao21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoVenda1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_venda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoVenda21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_venda21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,47 +882,47 @@ public class OptionsWindow extends javax.swing.JFrame {
                             .addComponent(checkboxProd2)
                             .addComponent(lblQta2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(qta_prod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(preco_produto4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(checkboxProd22)
+                            .addComponent(lblQta22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qta_prod22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoProd2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_producao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoProd22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_producao22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoVenda2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_venda2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoVenda22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_venda22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkboxProd3)
                     .addComponent(lblQta3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(qta_prod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(preco_produto5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkboxProd23)
+                    .addComponent(lblQta23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qta_prod23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoProd3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_producao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoProd23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_producao23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecoVenda3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(preco_venda3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoVenda23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(preco_venda23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gasto_propaganda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gasto_propaganda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gasto_propaganda2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(jLabel19))
         );
@@ -844,8 +959,8 @@ public class OptionsWindow extends javax.swing.JFrame {
                 System.out.println("Produto 1 sem preço");
             // TODO: popup, não começar o jogo
         } 
-        if (!preco_produto2.getText().equals("")){
-            settings.precoProduto2 = Double.valueOf(preco_produto2.getText());
+        if (!qta_prod21.getText().equals("")){
+            settings.precoProduto2 = Double.valueOf(qta_prod21.getText());
         } else{
             if (MenuWindow.debugMode)
                 System.out.println("Produto 2 sem preço");
@@ -883,12 +998,12 @@ public class OptionsWindow extends javax.swing.JFrame {
 
     private void ramo_negocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ramo_negocioActionPerformed
         selectPredio.removeAllItems();        
-        //selectPredio2.removeAllItems();
+        selectPredio2.removeAllItems();
 
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         for (Estrutura e: negocio.predios){
             selectPredio.addItem(e.nome);
-           // selectPredio2.addItem(e.nome + " | Preço: " + e.preco + " MIL R$ | Nível:" + e.nivel);
+            selectPredio2.addItem(e.nome);
         }
     }//GEN-LAST:event_ramo_negocioActionPerformed
 
@@ -906,13 +1021,19 @@ public class OptionsWindow extends javax.swing.JFrame {
         new InstruEstruturaWindow(estruturaSelecionada, negocio).setVisible(true);
     }//GEN-LAST:event_btnDuvidaActionPerformed
 
-    private void selectPredio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPredio1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selectPredio1ActionPerformed
+    private void selectPredio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPredio2ActionPerformed
+        Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
+        Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
+        
+        loadProdutos2(negocio);
+        disableProdutos2(estruturaSelecionada.nivel);
+    }//GEN-LAST:event_selectPredio2ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnDuvida2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuvida2ActionPerformed
+        Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
+        Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
+        new InstruEstruturaWindow(estruturaSelecionada, negocio).setVisible(true);
+    }//GEN-LAST:event_btnDuvida2ActionPerformed
 
     private void selectInvestimentoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectInvestimentoInicialActionPerformed
         investimento_inicial.setText(selectInvestimentoInicial.getItemAt(selectInvestimentoInicial.getSelectedIndex()) + "");
@@ -959,23 +1080,56 @@ public class OptionsWindow extends javax.swing.JFrame {
             qta_prod3.setText(estruturaSelecionada.producao[2] + "");
     }//GEN-LAST:event_qta_prod3FocusLost
 
+    private void checkboxProd21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProd21ActionPerformed
+        qta_prod21.setEnabled(checkboxProd21.isSelected());
+    }//GEN-LAST:event_checkboxProd21ActionPerformed
+
+    private void checkboxProd22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProd22ActionPerformed
+        qta_prod22.setEnabled(checkboxProd22.isSelected());
+    }//GEN-LAST:event_checkboxProd22ActionPerformed
+
+    private void checkboxProd23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProd23ActionPerformed
+        qta_prod23.setEnabled(checkboxProd23.isSelected());
+    }//GEN-LAST:event_checkboxProd23ActionPerformed
+
+    private void qta_prod21FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod21FocusLost
+        Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
+        Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
+        if (Integer.valueOf(qta_prod21.getText()) > estruturaSelecionada.producao[0])
+            qta_prod21.setText(estruturaSelecionada.producao[0] + "");
+    }//GEN-LAST:event_qta_prod21FocusLost
+
+    private void qta_prod22FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod22FocusLost
+        Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
+        Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
+        if (Integer.valueOf(qta_prod22.getText()) > estruturaSelecionada.producao[1])
+            qta_prod22.setText(estruturaSelecionada.producao[1] + "");
+    }//GEN-LAST:event_qta_prod22FocusLost
+
+    private void qta_prod23FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod23FocusLost
+        Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
+        Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
+        if (Integer.valueOf(qta_prod23.getText()) > estruturaSelecionada.producao[2])
+            qta_prod23.setText(estruturaSelecionada.producao[2] + "");
+    }//GEN-LAST:event_qta_prod23FocusLost
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizaValor;
     private javax.swing.JButton btnAtualizaValor2;
     private javax.swing.JButton btnDuvida;
+    private javax.swing.JButton btnDuvida2;
     private javax.swing.JButton btnStart;
     private javax.swing.JCheckBox checkboxProd1;
     private javax.swing.JCheckBox checkboxProd2;
+    private javax.swing.JCheckBox checkboxProd21;
+    private javax.swing.JCheckBox checkboxProd22;
+    private javax.swing.JCheckBox checkboxProd23;
     private javax.swing.JCheckBox checkboxProd3;
     private javax.swing.JTextField gasto_propaganda;
-    private javax.swing.JTextField gasto_propaganda1;
+    private javax.swing.JTextField gasto_propaganda2;
     private javax.swing.JLabel investimento_inicial;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -983,56 +1137,56 @@ public class OptionsWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lblJogador1;
     private javax.swing.JLabel lblJogador2;
     private javax.swing.JLabel lblPrecoProd1;
     private javax.swing.JLabel lblPrecoProd2;
+    private javax.swing.JLabel lblPrecoProd21;
+    private javax.swing.JLabel lblPrecoProd22;
+    private javax.swing.JLabel lblPrecoProd23;
     private javax.swing.JLabel lblPrecoProd3;
     private javax.swing.JLabel lblPrecoVenda1;
     private javax.swing.JLabel lblPrecoVenda2;
+    private javax.swing.JLabel lblPrecoVenda21;
+    private javax.swing.JLabel lblPrecoVenda22;
+    private javax.swing.JLabel lblPrecoVenda23;
     private javax.swing.JLabel lblPrecoVenda3;
     private javax.swing.JLabel lblQta1;
     private javax.swing.JLabel lblQta2;
+    private javax.swing.JLabel lblQta21;
+    private javax.swing.JLabel lblQta22;
+    private javax.swing.JLabel lblQta23;
     private javax.swing.JLabel lblQta3;
     private javax.swing.JTextField meses;
     private javax.swing.JTextField preco_producao1;
     private javax.swing.JTextField preco_producao2;
+    private javax.swing.JTextField preco_producao21;
+    private javax.swing.JTextField preco_producao22;
+    private javax.swing.JTextField preco_producao23;
     private javax.swing.JTextField preco_producao3;
-    private javax.swing.JTextField preco_produto2;
-    private javax.swing.JTextField preco_produto4;
-    private javax.swing.JTextField preco_produto5;
     private javax.swing.JTextField preco_venda1;
     private javax.swing.JTextField preco_venda2;
+    private javax.swing.JTextField preco_venda21;
+    private javax.swing.JTextField preco_venda22;
+    private javax.swing.JTextField preco_venda23;
     private javax.swing.JTextField preco_venda3;
     private javax.swing.JTextField qta_prod1;
     private javax.swing.JTextField qta_prod2;
+    private javax.swing.JTextField qta_prod21;
+    private javax.swing.JTextField qta_prod22;
+    private javax.swing.JTextField qta_prod23;
     private javax.swing.JTextField qta_prod3;
     private javax.swing.JComboBox ramo_negocio;
     private javax.swing.JComboBox selectInvestimentoInicial;
     private javax.swing.JComboBox selectPredio;
-    private javax.swing.JComboBox selectPredio1;
+    private javax.swing.JComboBox selectPredio2;
     // End of variables declaration//GEN-END:variables
 }
