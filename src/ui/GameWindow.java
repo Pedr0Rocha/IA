@@ -41,7 +41,6 @@ public class GameWindow extends javax.swing.JFrame {
             System.out.println("estrutura escolhida: " + settings.predio.nome);
             System.out.println("produto: " + settings.produto.nome);
             System.out.println("preço do produto: " + settings.precoProduto);
-            System.out.println("tempo fabricação: " + settings.tempoFabricacao);
             System.out.println("gasto propaganda: " + settings.gastoPropaganda);
             System.out.println("gastos fixos: " + settings.gastosFixos);
             
@@ -50,7 +49,6 @@ public class GameWindow extends javax.swing.JFrame {
             System.out.println("estrutura escolhida: " + settings.predio2.nome);
             System.out.println("produto: " + settings.produto2.nome);
             System.out.println("preço do produto: " + settings.precoProduto2);
-            System.out.println("tempo fabricação: " + settings.tempoFabricacao2);
             System.out.println("gasto propaganda: " + settings.gastoPropaganda2);
             System.out.println("gastos fixos: " + settings.gastosFixos2);
             
