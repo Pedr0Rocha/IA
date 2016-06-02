@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.UIManager;
 import trabalhoia.Negocio;
 import trabalhoia.Estrutura;
+import trabalhoia.Jogo;
 import trabalhoia.Produto;
 
 /**
@@ -185,7 +186,8 @@ public class MenuWindow extends javax.swing.JFrame {
 
     private void btnPvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPvPActionPerformed
         dispose();
-        new OptionsWindow(1).setVisible(true);
+        //new OptionsWindow(1).setVisible(true);
+        Jogo jogo = new Jogo(1);
     }//GEN-LAST:event_btnPvPActionPerformed
 
     private void btnCvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCvPActionPerformed
