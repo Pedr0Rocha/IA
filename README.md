@@ -29,35 +29,35 @@ Total de meses até o final do jogo. Um mês é concluído quando o turno do jog
 
 ### Configuração de cada jogador ###
 Escolher:
-	1. Prédio Inicial
-	2. Produtos a produzir
-	3. Quantidade a produzir
-	4. Preço de venda
-	5. Gasto com propaganda
-	6. Gasto em pesquisa de mercado
+- Prédio Inicial
+- Produtos a produzir
+- Quantidade a produzir
+- Preço de venda
+- Gasto com propaganda
+- Gasto em pesquisa de mercado
 
- 1. Prédios 
+1. Prédios 
 Prédios tem 3 níveis. Cada nível produz certos produtos e quantidade de produtos. O prédio pode ser melhorado posteriormente durante o jogo. Cada prédio tem um gasto fixo por mês (luz, água, etc.).
  
- 2. Produtos 
+2. Produtos 
 Produtos estarão disponíveis para produção de acordo com o prédio escolhido. Cada produto tem um valor fixo de custo para produzir e um valor escolhido pelo jogador para venda. 
 
- 3. Quantidade a Produzir 
+3. Quantidade a Produzir 
 A quantidade de produtos a se produzir por mês é limitada pelo prédio escolhido. Produtos não vendidos em um mês permanecem no estoque.
 
- 4. Preço de Venda 
+4. Preço de Venda 
 O preço escolhido pelo jogador para vender determinado produto. Os preços são baseados no custo de produção do produto. As opções são:
 1.25 x Preço de Produção
 1.50 x Preço de Produção
 2.00 x Preço de Produção
 
- 5. Gasto com Propaganda 
+5. Gasto com Propaganda 
 O gasto com propaganda influencia na chance de vender o estoque inteiro do jogador e seu preço é baseado no valor do estoque atual. É divido em:
 Baixo – 20% de chance, 5% do valor do estoque
 Medio – 55% de chance, 15% do valor do estoque
 Alto – 90% de chance, 25% do valor do estoque
 
- 6. Gasto em Pesquisa de Mercado 
+6. Gasto em Pesquisa de Mercado 
 A pesquisa de mercado influencia em quais produtos serão vendidos. É dividido em investimento baixo, médio e alto.
 
 ### Sistema ###
