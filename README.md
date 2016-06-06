@@ -47,15 +47,15 @@ A quantidade de produtos a se produzir por mês é limitada pelo prédio escolhi
 
 4. Preço de Venda 
 O preço escolhido pelo jogador para vender determinado produto. Os preços são baseados no custo de produção do produto. As opções são:
-1.25 x Preço de Produção
-1.50 x Preço de Produção
-2.00 x Preço de Produção
+. 1.25 x Preço de Produção
+. 1.50 x Preço de Produção
+. 2.00 x Preço de Produção
 
 5. Gasto com Propaganda 
 O gasto com propaganda influencia na chance de vender o estoque inteiro do jogador e seu preço é baseado no valor do estoque atual. É divido em:
-Baixo – 20% de chance, 5% do valor do estoque
-Medio – 55% de chance, 15% do valor do estoque
-Alto – 90% de chance, 25% do valor do estoque
+. Baixo – 20% de chance, 5% do valor do estoque
+. Medio – 55% de chance, 15% do valor do estoque
+. Alto – 90% de chance, 25% do valor do estoque
 
 6. Gasto em Pesquisa de Mercado 
 A pesquisa de mercado influencia em quais produtos serão vendidos. É dividido em investimento baixo, médio e alto.
