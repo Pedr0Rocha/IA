@@ -9,10 +9,18 @@ import java.util.Random;
 public class Sistema {
     
     Random random = new Random();
+    int pessoas = 500;
     
     public Sistema(){
         
     }
+    
+    /*
+        1 - dividir o numero de pessoas que querem ou não comprar algo (relacao de propaganda dos dois somados)
+        2 - ver quais pessoas querem comprar quais produtos. Pesos maiores para produtos de nivel mais baixo
+        3 - fazer um custo beneficio entre os produtos que serao comprados (relacao de preco de venda com propaganda e pesquisa)
+        4 - pessoas compram produtos.
+    */
     
     
     public void calculaVenda(Settings rodada){
@@ -31,7 +39,7 @@ public class Sistema {
             }
             
         } else {
-            
+            // só testar pra alguns
         }
         
         porcentagem = random.nextInt(100);
