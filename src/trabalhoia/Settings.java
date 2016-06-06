@@ -13,18 +13,25 @@ public class Settings {
     public Produto produto;
     public double precoProduto;
     public double gastoPropaganda;
+    public double gastoPesquisa;
     public double gastosFixos;
-    public double total;
+    public double dinheiroTotal;
     public ArrayList<Produto> estoque = new ArrayList<Produto>();
+    public double lucro;
+    public int mesesEmPrejuizo;
+    
     
     public double investimentoInicial2;
     public Estrutura predio2;
     public Produto produto2;
     public double precoProduto2;
     public double gastoPropaganda2;
+    public double gastoPesquisa2;
     public double gastosFixos2;
-    public double total2;
+    public double dinheiroTotal2;
     public ArrayList<Produto> estoque2 = new ArrayList<Produto>();
+    public double lucro2;
+    public int mesesEmPrejuizo2;
     
     public int meses;
     public int tipoGame;
