@@ -1,5 +1,7 @@
 package trabalhoia;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
@@ -13,6 +15,7 @@ public class Settings {
     public double gastoPropaganda;
     public double gastosFixos;
     public double total;
+    public ArrayList<Produto> estoque = new ArrayList<Produto>();
     
     public double investimentoInicial2;
     public Estrutura predio2;
@@ -21,6 +24,7 @@ public class Settings {
     public double gastoPropaganda2;
     public double gastosFixos2;
     public double total2;
+    public ArrayList<Produto> estoque2 = new ArrayList<Produto>();
     
     public int meses;
     public int tipoGame;

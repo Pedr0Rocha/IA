@@ -58,9 +58,9 @@ public class MenuWindow extends javax.swing.JFrame {
         negocios = new ArrayList<Negocio>();
         
         ArrayList<Estrutura> predios = new ArrayList<Estrutura>();
-        predios.add(new Estrutura("Garagem", 30000.00, 4, 0, 0, 0, 80.00));
-        predios.add(new Estrutura("Sala Comercial", 80000.00, 5, 3, 0, 1, 200.00));
-        predios.add(new Estrutura("Prédio", 350000.00, 10, 7, 1, 2, 400.00));
+        predios.add(new Estrutura("Garagem", 30000.00, 10, 0, 0, 0, 80.00));
+        predios.add(new Estrutura("Sala Comercial", 80000.00, 20, 7, 0, 1, 200.00));
+        predios.add(new Estrutura("Prédio", 350000.00, 35, 14, 5, 2, 400.00));
         
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         produtos.add(new Produto("Website", 0, 2000.00, 00.00));

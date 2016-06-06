@@ -15,6 +15,7 @@ public class Produto {
     public int nivelEstrutura;
     public double precoVenda;
     public double precoProduzir;
+    public int quantidadePorMes;
     
     public Produto(String nome, int nivelEstrutura, double precoProduzir, double precoVenda){
         this.nome = nome;
