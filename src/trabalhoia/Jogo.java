@@ -11,6 +11,7 @@ import ui.MenuWindow;
 public class Jogo {
     
     private final int MAX_MESES = 12;
+    private final int NUMERO_CONSUMIDORES = 150;
     
     private int tipoJogo;
     
@@ -31,7 +32,7 @@ public class Jogo {
         this.tipoJogo = tipoJogo;
         negocios = MenuWindow.getNegocios();
         scan = new Scanner(System.in);
-        sistema = new Sistema();
+        sistema = new Sistema(NUMERO_CONSUMIDORES);
         configuraDinheiroInicial();
         configuraGastoPropaganda();
         configuraGastoPesquisa();
@@ -135,8 +136,7 @@ public class Jogo {
     
     private void comecaJogo(){
         int mesesPassados = 1;
-        sistema.calculaVenda(gameLog.get(mesesPassados-1));
-        sistema.calculaLucro();
+        sistema.turnoSistema(gameLog.get(mesesPassados-1));
         while (mesesPassados != gameLog.get(0).meses){
             System.out.println("Rodada " + mesesPassados);
             mesesPassados++;
