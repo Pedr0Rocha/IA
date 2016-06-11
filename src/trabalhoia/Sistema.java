@@ -2,6 +2,7 @@ package trabalhoia;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import ui.MenuWindow;
 
 /**
@@ -11,6 +12,7 @@ import ui.MenuWindow;
 public class Sistema {
     
     Random random = new Random();
+    Scanner scan = new Scanner(System.in);
     int consumidores;
     int consumidoresInteressados = 0;
     
@@ -28,8 +30,15 @@ public class Sistema {
     */
     
     public void turnoSistema(Settings rodada){
+        clearConsole();
+        System.out.println("TURNO DO SISTEMA");
         calculaDemanda(rodada);
         calculaVenda(rodada);
+        calculaResultados(rodada);
+        
+        System.out.println("Digite qualquer tecla e aperte enter para continuar");
+        scan.next();   
+        clearConsole();
     }
     
     private void calculaDemanda(Settings rodada){
@@ -105,6 +114,27 @@ public class Sistema {
                 vendeProduto(2, prodJogador2, rodada, consumidoresProduto[2], false);
             }            
         }
+    }
+    
+    private void calculaResultados(Settings rodada){
+        rodada.dinheiroTotal += rodada.lucro;
+        rodada.dinheiroTotal2 += rodada.lucro2;
+        
+        System.out.println("");
+        System.out.println("DINHEIRO TOTAL APÓS RODADA");
+        System.out.println("    Jogador 1: " + rodada.dinheiroTotal);
+        System.out.println("    Jogador 2: " + rodada.dinheiroTotal2);
+        
+        if (rodada.dinheiroTotal < 0){
+            rodada.mesesEmPrejuizo++;
+            System.out.println("Jogador 1 está com saldo negativo. Meses seguidos em prejuízo: " + rodada.mesesEmPrejuizo);
+        }
+        if (rodada.dinheiroTotal2 < 0){
+            rodada.mesesEmPrejuizo2++;
+            System.out.println("Jogador 2 está com saldo negativo. Meses seguidos em prejuízo: " + rodada.mesesEmPrejuizo2);
+        }
+        
+        System.out.println("FIM DA RODADA " + rodada.rodada);
     }
     
     private void vendeProduto(int jogador, Produto produto, Settings rodada, int quantidadeVendida, boolean ambosTemProduto){
@@ -193,6 +223,11 @@ public class Sistema {
             if (p.nome.equals(produto))
                 return true;
         return false;
+    }
+    
+    private void clearConsole(){
+        for (int i = 0; i < 50; i++)
+            System.out.println("");
     }
     
 }
