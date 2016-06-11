@@ -39,7 +39,7 @@ public class Jogo {
         configuraPrecoProdutos();
         
         if (MenuWindow.debugMode)
-            System.out.println("Jogo criado - NI , modo: " + tipoJogo );
+            System.out.println("Jogo criado - NoInterface , modo: " + tipoJogo );
         
         switch(tipoJogo){
             case 1:
@@ -137,6 +137,11 @@ public class Jogo {
     private void comecaJogo(){
         int mesesPassados = 1;
         sistema.turnoSistema(gameLog.get(mesesPassados-1));
+        System.out.println("1");
+        imprimeEstoque(gameLog.get(mesesPassados-1).estoque);
+        System.out.println("");
+        System.out.println("2");
+        imprimeEstoque(gameLog.get(mesesPassados-1).estoque2);
         while (mesesPassados != gameLog.get(0).meses){
             System.out.println("Rodada " + mesesPassados);
             mesesPassados++;
@@ -201,7 +206,7 @@ public class Jogo {
         
         imprimeEstoque(confInicial.estoque);
         System.out.println("");
-        System.out.println("Valor Estoque: " + getValorEstoque(confInicial.estoque));
+        System.out.println("Valor Estoque: " + getValorProducaoEstoque(confInicial.estoque));
         System.out.println("");
         System.out.println("Dinheiro atual: " + calculaDinheiroTotal(true, 1, confInicial));
         
@@ -271,7 +276,7 @@ public class Jogo {
         
         imprimeEstoque(confInicial.estoque2);
         System.out.println("");
-        System.out.println("Valor Estoque: " + getValorEstoque(confInicial.estoque2));
+        System.out.println("Valor Estoque: " + getValorProducaoEstoque(confInicial.estoque2));
         System.out.println("");
         System.out.println("Dinheiro atual: " + calculaDinheiroTotal(true, 2, confInicial));
         
@@ -291,16 +296,18 @@ public class Jogo {
         if (jogador == 1){
             System.out.println("PREDIO: " + conf.predio.nome);
             imprimeEstoque(conf.estoque);
-            System.out.println("VALOR DO ESTOQUE: " + getValorEstoque(conf.estoque));
-            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorEstoque(conf.estoque)));
-            System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa * getValorEstoque(conf.estoque)));
+            System.out.println("VALOR DE PRODUCAO DO ESTOQUE: " + getValorProducaoEstoque(conf.estoque));
+            System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque));
+            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorProducaoEstoque(conf.estoque)));
+            System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa * getValorProducaoEstoque(conf.estoque)));
             System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal);
         } else {
             System.out.println("PREDIO: " + conf.predio2.nome);
             imprimeEstoque(conf.estoque2);
-            System.out.println("VALOR DO ESTOQUE: " + getValorEstoque(conf.estoque2));
-            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorEstoque(conf.estoque2)));
-            System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa2 * getValorEstoque(conf.estoque2)));
+            System.out.println("VALOR DO ESTOQUE: " + getValorProducaoEstoque(conf.estoque2));
+            System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque2));
+            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorProducaoEstoque(conf.estoque2)));
+            System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa2 * getValorProducaoEstoque(conf.estoque2)));
             System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal2);
         }
     }
@@ -308,20 +315,17 @@ public class Jogo {
     private void escolheGastoPesquisa(int player, Settings confInicial){
         int op = -1;        
         if (player == 1){
-            double valorEstoque = getValorEstoque(confInicial.estoque);
+            double valorEstoque = getValorProducaoEstoque(confInicial.estoque);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em pesquisa de mercado?");
                 System.out.println("[1] BAIXO");
-                System.out.println("    Chance de vender com preco alto: 20%");
                 System.out.println("    Preco: 5% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[0] * valorEstoque));
                 System.out.println("[2] MEDIO");
-                System.out.println("    Chance de vender com preco alto: 55%");
                 System.out.println("    Preco: 15% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[1] * valorEstoque));
                 System.out.println("[3] ALTO");
-                System.out.println("    Chance de vender com preco alto: 90%");
                 System.out.println("    Preco: 25% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[2] * valorEstoque));
                 op = scan.nextInt();
@@ -330,20 +334,17 @@ public class Jogo {
             if (MenuWindow.debugMode)
                 System.out.println("Gasto com Pesquisa: " + (confInicial.gastoPesquisa * valorEstoque));
         } else {
-            double valorEstoque = getValorEstoque(confInicial.estoque2);
+            double valorEstoque = getValorProducaoEstoque(confInicial.estoque2);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em pesquisa de mercado?");
                 System.out.println("[1] BAIXO");
-                System.out.println("    Chance de vender com preco alto: 20%");
                 System.out.println("    Preco: 5% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[0] * valorEstoque));
                 System.out.println("[2] MEDIO");
-                System.out.println("    Chance de vender com preco alto: 55%");
                 System.out.println("    Preco: 15% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[1] * valorEstoque));
                 System.out.println("[3] ALTO");
-                System.out.println("    Chance de vender com preco alto: 90%");
                 System.out.println("    Preco: 25% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPesquisa[2] * valorEstoque));
                 op = scan.nextInt();
@@ -357,20 +358,17 @@ public class Jogo {
     private void escolheGastoPropaganda(int player, Settings confInicial){
         int op = -1;        
         if (player == 1){
-            double valorEstoque = getValorEstoque(confInicial.estoque);
+            double valorEstoque = getValorProducaoEstoque(confInicial.estoque);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
                 System.out.println("[1] BAIXO");
-                System.out.println("    Chance de vender produtos do Estoque: 20%");
                 System.out.println("    Preco: 5% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[0] * valorEstoque));
                 System.out.println("[2] MEDIO");
-                System.out.println("    Chance de vender produtos do Estoque: 55%");
                 System.out.println("    Preco: 15% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[1] * valorEstoque));
                 System.out.println("[3] ALTO");
-                System.out.println("    Chance de vender produtos do Estoque: 90%");
                 System.out.println("    Preco: 25% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[2] * valorEstoque));
                 op = scan.nextInt();
@@ -379,20 +377,17 @@ public class Jogo {
             if (MenuWindow.debugMode)
                 System.out.println("Gasto com Propaganda: " + (confInicial.gastoPropaganda * valorEstoque));
         } else {
-            double valorEstoque = getValorEstoque(confInicial.estoque2);
+            double valorEstoque = getValorProducaoEstoque(confInicial.estoque2);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
                 System.out.println("[1] BAIXO");
-                System.out.println("    Chance de vender produtos do Estoque: 20%");
                 System.out.println("    Preco: 5% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[0] * valorEstoque));
                 System.out.println("[2] MEDIO");
-                System.out.println("    Chance de vender produtos do Estoque: 55%");
                 System.out.println("    Preco: 15% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[1] * valorEstoque));
                 System.out.println("[3] ALTO");
-                System.out.println("    Chance de vender produtos do Estoque: 90%");
                 System.out.println("    Preco: 25% do Valor Total do Estoque");
                 System.out.println("    Preco Atual: " + (gastoPropaganda[2] * valorEstoque));
                 op = scan.nextInt();
@@ -428,7 +423,7 @@ public class Jogo {
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
-                        Produto prod = confInicial.negocio.produtos.get(op-1);
+                        Produto prod = new Produto(confInicial.negocio.produtos.get(op-1));
                         prod.quantidadePorMes = op2;
 
                         op2 = -1;                        
@@ -441,7 +436,7 @@ public class Jogo {
                             op2 = scan.nextInt();
                         }
                         prod.precoVenda = (prod.precoProduzir * precoProd[op2-1]);
-                        confInicial.estoque.add(confInicial.negocio.produtos.get(op-1));
+                        confInicial.estoque.add(prod);
                         if (MenuWindow.debugMode)
                             System.out.println("Produto escolhido: " + confInicial.estoque.get(confInicial.estoque.size() - 1).nome);
                     }
@@ -470,7 +465,8 @@ public class Jogo {
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
-                        Produto prod = confInicial.negocio.produtos.get(op-1);
+                        Produto prod = new Produto(confInicial.negocio.produtos.get(op-1));
+                        System.out.println("AQUI" + prod.quantidadePorMes);
                         prod.quantidadePorMes = op2;
 
                         op2 = -1;                        
@@ -483,7 +479,7 @@ public class Jogo {
                             op2 = scan.nextInt();
                         }
                         prod.precoVenda = (prod.precoProduzir * precoProd[op2-1]);
-                        confInicial.estoque2.add(confInicial.negocio.produtos.get(op-1));
+                        confInicial.estoque2.add(prod);
                         if (MenuWindow.debugMode)
                             System.out.println("Produto escolhido: " + confInicial.estoque2.get(confInicial.estoque2.size() - 1).nome);
                     }
@@ -497,19 +493,19 @@ public class Jogo {
         if (inicial){
             if (player == 1)
                 gastoTotal = (conf.investimentoInicial - (conf.predio.preco + conf.predio.gastoFixo) - 
-                    (getValorEstoque(conf.estoque) * conf.gastoPropaganda) - 
-                    (getValorEstoque(conf.estoque) * conf.gastoPesquisa));
+                    (getValorProducaoEstoque(conf.estoque) * conf.gastoPropaganda) - 
+                    (getValorProducaoEstoque(conf.estoque) * conf.gastoPesquisa));
             else
                 gastoTotal = (conf.investimentoInicial - (conf.predio2.preco + conf.predio2.gastoFixo) - 
-                    (getValorEstoque(conf.estoque2) * conf.gastoPropaganda2) -
-                    (getValorEstoque(conf.estoque2) * conf.gastoPesquisa));
+                    (getValorProducaoEstoque(conf.estoque2) * conf.gastoPropaganda2) -
+                    (getValorProducaoEstoque(conf.estoque2) * conf.gastoPesquisa));
         } else {
             if (player == 1)
-                gastoTotal = (conf.predio.gastoFixo) - (getValorEstoque(conf.estoque) * conf.gastoPropaganda) -
-                        (getValorEstoque(conf.estoque) * conf.gastoPesquisa);
+                gastoTotal = (conf.predio.gastoFixo) - (getValorProducaoEstoque(conf.estoque) * conf.gastoPropaganda) -
+                        (getValorProducaoEstoque(conf.estoque) * conf.gastoPesquisa);
             else
-                gastoTotal = (conf.predio2.gastoFixo) - (getValorEstoque(conf.estoque2) * conf.gastoPropaganda2) -
-                        (getValorEstoque(conf.estoque2) * conf.gastoPesquisa);
+                gastoTotal = (conf.predio2.gastoFixo) - (getValorProducaoEstoque(conf.estoque2) * conf.gastoPropaganda2) -
+                        (getValorProducaoEstoque(conf.estoque2) * conf.gastoPesquisa);
         }
         return gastoTotal;
     }
@@ -519,16 +515,25 @@ public class Jogo {
         System.out.println("ESTOQUE");
         for (Produto p : estoque){
             System.out.println("Produto: " + p.nome);
-            System.out.println("    Preco Venda: " + p.precoProduzir);
+            System.out.println("    Preco Produzir: " + p.precoProduzir);
+            System.out.println("    Preco Venda: " + p.precoVenda);
             System.out.println("    Quantidade: " + p.quantidadePorMes);
             System.out.println("    Gasto: " + (p.precoProduzir * p.quantidadePorMes));
         }
     }
     
-    private double getValorEstoque(ArrayList<Produto> estoque){
+    private double getValorProducaoEstoque(ArrayList<Produto> estoque){
         double valorTotal = 0;
         for (Produto p: estoque){
             valorTotal += (p.precoProduzir * p.quantidadePorMes);
+        }
+        return valorTotal;
+    }
+    
+    private double getValorVendaEstoque(ArrayList<Produto> estoque){
+        double valorTotal = 0;
+        for (Produto p: estoque){
+            valorTotal += (p.precoVenda * p.quantidadePorMes);
         }
         return valorTotal;
     }

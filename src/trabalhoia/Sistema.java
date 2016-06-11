@@ -55,35 +55,116 @@ public class Sistema {
     }
     
     private void calculaVenda(Settings rodada){
-        if (consumidoresProduto[0] > 0 && (temNoEstoque(rodada.negocio.produtos.get(0).nome, rodada.estoque) 
-                                        ||(temNoEstoque(rodada.negocio.produtos.get(0).nome, rodada.estoque2)))){
-            
+        Produto produto0 = rodada.negocio.produtos.get(0);
+        Produto produto1 = rodada.negocio.produtos.get(1);
+        Produto produto2 = rodada.negocio.produtos.get(2);
+        calculaCustoBeneficio(rodada);
+        
+        if (consumidoresProduto[0] > 0 && (temNoEstoque(produto0.nome, rodada.estoque) ||(temNoEstoque(produto0.nome, rodada.estoque2)))){
+            Produto prodJogador1 = rodada.getProdutoByNome(produto0.nome, rodada.estoque);
+            Produto prodJogador2 = rodada.getProdutoByNome(produto0.nome, rodada.estoque2);
+            if ((temNoEstoque(produto0.nome, rodada.estoque) && (temNoEstoque(produto0.nome, rodada.estoque2)))){
+                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                    vendeProduto(1, prodJogador1, rodada, consumidoresProduto[0], true);
+                else
+                    vendeProduto(2, prodJogador2, rodada, consumidoresProduto[0], true);
+                
+            } else if (temNoEstoque(produto0.nome, rodada.estoque)){
+                vendeProduto(1, prodJogador1, rodada, consumidoresProduto[0], false);
+            } else if (temNoEstoque(produto0.nome, rodada.estoque2)){
+                vendeProduto(2, prodJogador2, rodada, consumidoresProduto[0], false);
+            }        
         }
-        if (consumidoresProduto[1] > 0 && (temNoEstoque(rodada.negocio.produtos.get(1).nome, rodada.estoque) 
-                                        ||(temNoEstoque(rodada.negocio.produtos.get(1).nome, rodada.estoque2)))){
-            
+        if (consumidoresProduto[1] > 0 && (temNoEstoque(produto1.nome, rodada.estoque) ||(temNoEstoque(produto1.nome, rodada.estoque2)))){
+            Produto prodJogador1 = rodada.getProdutoByNome(produto1.nome, rodada.estoque);
+            Produto prodJogador2 = rodada.getProdutoByNome(produto1.nome, rodada.estoque2);
+            if ((temNoEstoque(produto1.nome, rodada.estoque) && (temNoEstoque(produto1.nome, rodada.estoque2)))){
+                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                    vendeProduto(1, prodJogador1, rodada, consumidoresProduto[1], true);
+                else
+                    vendeProduto(2, prodJogador2, rodada, consumidoresProduto[1], true);
+                
+            } else if (temNoEstoque(produto1.nome, rodada.estoque)){
+                vendeProduto(1, prodJogador1, rodada, consumidoresProduto[1], false);
+            } else if (temNoEstoque(produto1.nome, rodada.estoque2)){
+                vendeProduto(2, prodJogador2, rodada, consumidoresProduto[1], false);
+            } 
         }
-        if (consumidoresProduto[2] > 0 && (temNoEstoque(rodada.negocio.produtos.get(2).nome, rodada.estoque) 
-                                        ||(temNoEstoque(rodada.negocio.produtos.get(2).nome, rodada.estoque2)))){
+        if (consumidoresProduto[2] > 0 && (temNoEstoque(produto2.nome, rodada.estoque) ||(temNoEstoque(produto2.nome, rodada.estoque2)))){
+            Produto prodJogador1 = rodada.getProdutoByNome(produto2.nome, rodada.estoque);
+            Produto prodJogador2 = rodada.getProdutoByNome(produto2.nome, rodada.estoque2);
+            if ((temNoEstoque(produto2.nome, rodada.estoque) && (temNoEstoque(produto2.nome, rodada.estoque2)))){
+                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                    vendeProduto(1, prodJogador1, rodada, consumidoresProduto[2], true);
+                else
+                    vendeProduto(2, prodJogador2, rodada, consumidoresProduto[2], true);
+                
+            } else if (temNoEstoque(produto2.nome, rodada.estoque)){
+                vendeProduto(1, prodJogador1, rodada, consumidoresProduto[2], false);
+            } else if (temNoEstoque(produto2.nome, rodada.estoque2)){
+                vendeProduto(2, prodJogador2, rodada, consumidoresProduto[2], false);
+            }            
+        }
+    }
+    
+    private void vendeProduto(int jogador, Produto produto, Settings rodada, int quantidadeVendida, boolean ambosTemProduto){
+        if (jogador == 1){
+            Produto produtoVender = rodada.getProdutoByNome(produto.nome, rodada.estoque);
+            int vendidos = quantidadeVendida;
+            if (quantidadeVendida > produtoVender.quantidadePorMes)
+                vendidos = produtoVender.quantidadePorMes;
             
+            if (quantidadeVendida > produtoVender.quantidadePorMes && ambosTemProduto)
+                vendeProduto(2, produto, rodada, (quantidadeVendida - produto.quantidadePorMes), false);
+            
+            produtoVender.quantidadePorMes -= vendidos;
+            if (produtoVender.quantidadePorMes <= 0)
+                rodada.estoque.remove(produtoVender);
+            
+            double ganho = produtoVender.precoVenda * vendidos;
+            System.out.println("");
+            System.out.println("Jogador 1: " + vendidos + " " + produtoVender.nome + "(s)" +" vendidos.");
+            System.out.println("Ganho com as vendas: " + ganho);
+            
+            rodada.lucro += ganho;
+            
+        } else {
+            Produto produtoVender = rodada.getProdutoByNome(produto.nome, rodada.estoque2);
+            int vendidos = quantidadeVendida;
+            if (quantidadeVendida > produtoVender.quantidadePorMes)
+                vendidos = produtoVender.quantidadePorMes;
+            
+            if (quantidadeVendida > produtoVender.quantidadePorMes && ambosTemProduto)
+                vendeProduto(1, produto, rodada, (quantidadeVendida - produto.quantidadePorMes), false);
+            
+            produtoVender.quantidadePorMes -= vendidos;
+            if (produtoVender.quantidadePorMes <= 0)
+                rodada.estoque2.remove(produtoVender);
+            
+            double ganho = produtoVender.precoVenda * vendidos;
+            System.out.println("");
+            System.out.println("Jogador 2: " + vendidos + " " + produtoVender.nome + "(s)" +" vendido(s).");
+            System.out.println("Ganho com as vendas: " + ganho);
+            
+            rodada.lucro2 += ganho;
         }
     }
     
     private void calculaCustoBeneficio(Settings rodada){
+        System.out.println("");
+        System.out.println("Calculando Custo Beneficio");
+        if (MenuWindow.debugMode)
+            System.out.println("Formula: (2/(PrecoVenda/PrecoProducao)) * 0.5 + GastoPropaganda * 0.2 + GastoPesquisa * 0.2");
         for (Produto p: rodada.estoque){
-            double custo = p.precoProduzir/p.precoVenda;
-            if (custo == 2){
-                
-            } else if (custo == 1.5){
-                
-            } else if (custo == 1.25){
-                
-            }
+            double custo = 2/(p.precoVenda/p.precoProduzir);
+            double equacao = (custo) * 0.5 + rodada.gastoPropaganda * 0.2 + rodada.gastoPesquisa * 0.2;
+            p.custoBeneficio = equacao;
         }
-    }
-    
-    private double calculaLucro(){
-        return 0;
+        for (Produto p: rodada.estoque2){
+            double custo = 2/(p.precoVenda/p.precoProduzir);
+            double equacao = (custo) * 0.5 + rodada.gastoPropaganda2 * 0.2 + rodada.gastoPesquisa2 * 0.2;
+            p.custoBeneficio = equacao;
+        }
     }
     
     private double[] getPorcentagemPropaganda(Settings rodada){
