@@ -10,7 +10,7 @@ import ui.MenuWindow;
  */
 public class Jogo {
     
-    private final int MAX_MESES = 12;
+    private final int MAX_MESES = 3;
     private final int NUMERO_CONSUMIDORES = 150;
     
     private int tipoJogo;
@@ -85,7 +85,7 @@ public class Jogo {
         int op = -1;
         while (op <= 0 || op > negocios.size()){
             System.out.println("");
-            System.out.println("Escolha o ramo do negócio");
+            System.out.println("Escolha o ramo do negocio");
             for (int i = 0; i < negocios.size(); i++)
                 System.out.println("[" + (i+1) + "] " + negocios.get(i).ramo);
 
@@ -94,18 +94,18 @@ public class Jogo {
         }
         confInicial.negocio = negocios.get(op-1);
         if (MenuWindow.debugMode)
-            System.out.println("Ramo do Negócio escolhido: " + confInicial.negocio.ramo);
+            System.out.println("Ramo do Negocio escolhido: " + confInicial.negocio.ramo);
         
         op = -1;
         while(op < MAX_MESES){
             System.out.println("");
-            System.out.println("Escolha a duração do jogo em meses (min:12)");
+            System.out.println("Escolha a duracaoo do jogo em meses (min:12)");
             System.out.print("> ");
             op = scan.nextInt();
         }
         confInicial.meses = op;
         if (MenuWindow.debugMode)
-            System.out.println("Duração do jogo: " + confInicial.meses + " meses");
+            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
         
         op = -1;
         while (op <= 0 || op > dinheiroInicial.size()){
@@ -137,7 +137,7 @@ public class Jogo {
     
     private void comecaJogo(){
         int mesesPassados = 1;
-        sistema.turnoSistema(gameLog.get(mesesPassados-1));
+        sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
         while (mesesPassados != gameLog.get(0).meses){
             Settings rodada = new Settings();
             rodada.rodada = mesesPassados;
@@ -145,10 +145,19 @@ public class Jogo {
             
             System.out.println("RODADA " + (mesesPassados+1));
             turnoJogador1(rodada);
+            
+            clearConsole();
+            System.out.println("RODADA " + (mesesPassados+1));
             turnoJogador2(rodada);
-            //sistema.turnoSistema(rodada);
+            
+            sistema.turnoSistema(rodada, confInicial);
             mesesPassados++;
         }
+        if (gameLog.get(gameLog.size()-1).dinheiroTotal > gameLog.get(gameLog.size()-1).dinheiroTotal2)
+            System.out.println("O jogador 1 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal + " total de dinheiro.");
+        else
+            System.out.println("O jogador 2 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal2 + " total de dinheiro.");
+        
     }
     
     private void turnoJogador1(Settings rodada){
@@ -203,16 +212,86 @@ public class Jogo {
 
                 if (op == 1){
                     escolheProdutos(1, rodada);
+                    op = -1;
                 }
             
         }
+        imprimeEstoque(rodada.estoque);
         System.out.println("");
+        System.out.println("Valor Estoque: " + getValorProducaoEstoque(rodada.estoque));
+        System.out.println("");
+        System.out.println("Dinheiro atual: " + calculaDinheiroTotal(false, 1, rodada));
+        
+        escolheGastoPropaganda(1, rodada);
+        escolheGastoPesquisa(1, rodada);
+        
+        System.out.println("");
+        System.out.println("CONFIGURACAO DA RODADA " + rodada.rodada + " DO JOGADOR 1");
+        imprimeConfiguracaoJogador(1, rodada);
+        
+        System.out.println("Digite qualquer tecla e aperte enter para continuar");
+        scan.next();  
     }
     
     private void turnoJogador2(Settings rodada){
         System.out.println("JOGADOR 2");
         System.out.println("Dinheiro Atual: " + gameLog.get(rodada.rodada-1).dinheiroTotal2);
         System.out.println("Lucro da Rodada Passada: " + gameLog.get(rodada.rodada-1).lucro2);
+        
+        int op = -1;
+        if (podeUpgradePredio(2, rodada)){
+            System.out.println("");
+            System.out.println("Dinheiro suficiente para upgrade de estrutura");
+            while (op <= 0 || op > 2){
+                System.out.println("Deseja fazer upgrade?");
+                System.out.println("[1] - SIM");
+                System.out.println("[2] - NAO");
+                System.out.print("> ");
+                op = scan.nextInt();
+
+                if (op == 1){
+                    upgradePredio(2, rodada);
+                }
+            }
+        } else {
+            System.out.println("");
+            if (rodada.predio2.nivel == 2)
+                System.out.println("Sua estrutura esta no nivel maximo");
+            else
+                System.out.println("Dinheiro insuficiente para upgrade de estrutura");
+        }
+        
+        imprimeEstoque(rodada.estoque2);
+        op = -1;
+        while (op <= 0 || op > 2){
+            System.out.println("");
+            System.out.println("Deseja produzir mais produtos?");
+                System.out.println("[1] - SIM");
+                System.out.println("[2] - NAO");
+                System.out.print("> ");
+                op = scan.nextInt();
+
+                if (op == 1){
+                    escolheProdutos(2, rodada);
+                    op = -1;
+                }
+            
+        }
+        imprimeEstoque(rodada.estoque2);
+        System.out.println("");
+        System.out.println("Valor Estoque: " + getValorProducaoEstoque(rodada.estoque2));
+        System.out.println("");
+        System.out.println("Dinheiro atual: " + calculaDinheiroTotal(false, 2, rodada));
+        
+        escolheGastoPropaganda(2, rodada);
+        escolheGastoPesquisa(2, rodada);
+        
+        System.out.println("");
+        System.out.println("CONFIGURACAO DA RODADA " + rodada.rodada + " DO JOGADOR 2");
+        imprimeConfiguracaoJogador(2, rodada);
+        
+        System.out.println("Digite qualquer tecla e aperte enter para continuar");
+        scan.next();  
     }
     
     private void pedeConfiguracao2(){
@@ -367,7 +446,8 @@ public class Jogo {
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque));
             System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorProducaoEstoque(conf.estoque)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa * getValorProducaoEstoque(conf.estoque)));
-            System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal);
+            if (conf.meses != 12)
+                System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal);
         } else {
             System.out.println("ESTRUTURA: " + conf.predio2.nome);
             imprimeEstoque(conf.estoque2);
@@ -375,14 +455,15 @@ public class Jogo {
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque2));
             System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorProducaoEstoque(conf.estoque2)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa2 * getValorProducaoEstoque(conf.estoque2)));
-            System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal2);
+            if (conf.meses != 12)
+                System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal2);
         }
     }
     
-    private void escolheGastoPesquisa(int player, Settings confInicial){
+    private void escolheGastoPesquisa(int player, Settings rodada){
         int op = -1;        
         if (player == 1){
-            double valorEstoque = getValorProducaoEstoque(confInicial.estoque);
+            double valorEstoque = getValorProducaoEstoque(rodada.estoque);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em pesquisa de mercado?");
@@ -397,11 +478,11 @@ public class Jogo {
                 System.out.println("    Preco Atual: " + (gastoPesquisa[2] * valorEstoque));
                 op = scan.nextInt();
             }
-            confInicial.gastoPesquisa = gastoPesquisa[op-1];
+            rodada.gastoPesquisa = gastoPesquisa[op-1];
             if (MenuWindow.debugMode)
-                System.out.println("Gasto com Pesquisa: " + (confInicial.gastoPesquisa * valorEstoque));
+                System.out.println("Gasto com Pesquisa: " + (rodada.gastoPesquisa * valorEstoque));
         } else {
-            double valorEstoque = getValorProducaoEstoque(confInicial.estoque2);
+            double valorEstoque = getValorProducaoEstoque(rodada.estoque2);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em pesquisa de mercado?");
@@ -416,16 +497,16 @@ public class Jogo {
                 System.out.println("    Preco Atual: " + (gastoPesquisa[2] * valorEstoque));
                 op = scan.nextInt();
             }
-            confInicial.gastoPesquisa2 = gastoPesquisa[op-1];
+            rodada.gastoPesquisa2 = gastoPesquisa[op-1];
             if (MenuWindow.debugMode)
-                System.out.println("Gasto com Pesquisa: " + (confInicial.gastoPesquisa2 * valorEstoque));            
+                System.out.println("Gasto com Pesquisa: " + (rodada.gastoPesquisa2 * valorEstoque));            
         }
     }
     
-    private void escolheGastoPropaganda(int player, Settings confInicial){
+    private void escolheGastoPropaganda(int player, Settings rodada){
         int op = -1;        
         if (player == 1){
-            double valorEstoque = getValorProducaoEstoque(confInicial.estoque);
+            double valorEstoque = getValorProducaoEstoque(rodada.estoque);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
@@ -440,11 +521,11 @@ public class Jogo {
                 System.out.println("    Preco Atual: " + (gastoPropaganda[2] * valorEstoque));
                 op = scan.nextInt();
             }
-            confInicial.gastoPropaganda = gastoPropaganda[op-1];
+            rodada.gastoPropaganda = gastoPropaganda[op-1];
             if (MenuWindow.debugMode)
-                System.out.println("Gasto com Propaganda: " + (confInicial.gastoPropaganda * valorEstoque));
+                System.out.println("Gasto com Propaganda: " + (rodada.gastoPropaganda * valorEstoque));
         } else {
-            double valorEstoque = getValorProducaoEstoque(confInicial.estoque2);
+            double valorEstoque = getValorProducaoEstoque(rodada.estoque2);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
@@ -459,38 +540,39 @@ public class Jogo {
                 System.out.println("    Preco Atual: " + (gastoPropaganda[2] * valorEstoque));
                 op = scan.nextInt();
             }
-            confInicial.gastoPropaganda2 = gastoPropaganda[op-1];
+            rodada.gastoPropaganda2 = gastoPropaganda[op-1];
             if (MenuWindow.debugMode)
-                System.out.println("Gasto com Propaganda: " + (confInicial.gastoPropaganda2 * valorEstoque));            
+                System.out.println("Gasto com Propaganda: " + (rodada.gastoPropaganda2 * valorEstoque));            
         }
     }
     
     private void escolheProdutos(int jogador, Settings rodada){
         int op = -1;
         if (jogador == 1){
-            while (op <= 0 || op > rodada.negocio.produtos.size()){
+            while (op <= 0 || op > confInicial.negocio.produtos.size()){
                 System.out.println("");
                 System.out.println("Escolha qual produto ira produzir:");
-                for (int i = 0; i < rodada.negocio.produtos.size(); i ++){
-                    System.out.println("[" + (i+1) + "] " + rodada.negocio.produtos.get(i).nome + " - Custo: " + rodada.negocio.produtos.get(i).precoProduzir);
+                for (int i = 0; i < confInicial.negocio.produtos.size(); i ++){
+                    System.out.println("[" + (i+1) + "] " + confInicial.negocio.produtos.get(i).nome + " - Custo: " + confInicial.negocio.produtos.get(i).precoProduzir);
                 }
                 System.out.print("> ");
                 op = scan.nextInt();
-                if (rodada.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio.nivel){
+                if (confInicial.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio.nivel){
                     System.out.println("");
                     System.out.println("Este produto nao pode ser produzido pela estrutura atual.");
                     op = -1;                
                 } else {
-                    if (temNoEstoque(rodada.negocio.produtos.get(op-1).nome, rodada.estoque)){
-                        System.out.println("Voce ja produzira esse produto.");
+                    if (temNoEstoque(confInicial.negocio.produtos.get(op-1).nome, rodada.estoque) && rodada.getProdutoByNome(confInicial.negocio.produtos.get(op-1).nome, rodada.estoque).adicionadoNaRodada){
+                        System.out.println("Voce ja produzira esse produto esse mes.");
                     } else {
                         int op2 = -1;
-                        while (op2 <= 0 || op2 > rodada.predio.producao[op-1]){
-                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio.producao[op-1]);
+                        Produto prod = new Produto(confInicial.negocio.produtos.get(op-1));
+                        while (op2 <= 0 || op2 > rodada.predio.producao[prod.nivelEstrutura]){
+                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio.producao[prod.nivelEstrutura]);
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
-                        Produto prod = new Produto(rodada.negocio.produtos.get(op-1));
+                        prod.adicionadoNaRodada = true;
                         prod.quantidadePorMes = op2;
 
                         op2 = -1;                        
@@ -503,37 +585,43 @@ public class Jogo {
                             op2 = scan.nextInt();
                         }
                         prod.precoVenda = (prod.precoProduzir * precoProd[op2-1]);
-                        rodada.estoque.add(prod);
+                        if (temNoEstoque(prod.nome, rodada.estoque)){
+                            if (MenuWindow.debugMode)
+                                System.out.println(prod.nome + " ja existia no estoque. Foi adicionado com preço e quantidade atualizados");
+                            stackNoEstoque(prod, rodada.estoque);
+                        } else {
+                            rodada.estoque.add(prod);
+                        }
                         if (MenuWindow.debugMode)
                             System.out.println("Produto escolhido: " + rodada.estoque.get(rodada.estoque.size() - 1).nome);
                     }
                 }
             }
         } else {
-            while (op <= 0 || op > rodada.negocio.produtos.size()){
+            while (op <= 0 || op > confInicial.negocio.produtos.size()){
                 System.out.println("");
                 System.out.println("Escolha qual produto ira produzir:");
-                for (int i = 0; i < rodada.negocio.produtos.size(); i ++){
-                    System.out.println("[" + (i+1) + "] " + rodada.negocio.produtos.get(i).nome + " - Custo: " + rodada.negocio.produtos.get(i).precoProduzir);
+                for (int i = 0; i < confInicial.negocio.produtos.size(); i ++){
+                    System.out.println("[" + (i+1) + "] " + confInicial.negocio.produtos.get(i).nome + " - Custo: " + confInicial.negocio.produtos.get(i).precoProduzir);
                 }
                 System.out.print("> ");
                 op = scan.nextInt();
-                if (rodada.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio2.nivel){
+                if (confInicial.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio2.nivel){
                     System.out.println("");
                     System.out.println("Este produto nao pode ser produzido pela estrutura atual.");
                     op = -1;                
                 } else {
-                    if (temNoEstoque(rodada.negocio.produtos.get(op-1).nome, rodada.estoque2)){
-                        System.out.println("Voce ja produzira esse produto.");
+                    if (temNoEstoque(confInicial.negocio.produtos.get(op-1).nome, rodada.estoque2) && rodada.getProdutoByNome(confInicial.negocio.produtos.get(op-1).nome, rodada.estoque2).adicionadoNaRodada){
+                        System.out.println("Voce ja produzira esse produto esse mes.");
                     } else {
                         int op2 = -1;
-                        while (op2 <= 0 || op2 > rodada.predio2.producao[op-1]){
-                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio2.producao[op-1]);
+                        Produto prod = new Produto(confInicial.negocio.produtos.get(op-1)); 
+                        while (op2 <= 0 || op2 > rodada.predio2.producao[prod.nivelEstrutura]){
+                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio2.producao[prod.nivelEstrutura]);
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
-                        Produto prod = new Produto(rodada.negocio.produtos.get(op-1));
-                        System.out.println("AQUI" + prod.quantidadePorMes);
+                        prod.adicionadoNaRodada = true;
                         prod.quantidadePorMes = op2;
 
                         op2 = -1;                        
@@ -546,11 +634,27 @@ public class Jogo {
                             op2 = scan.nextInt();
                         }
                         prod.precoVenda = (prod.precoProduzir * precoProd[op2-1]);
-                        rodada.estoque2.add(prod);
+                        if (temNoEstoque(prod.nome, rodada.estoque2)){
+                            if (MenuWindow.debugMode)
+                                System.out.println(prod.nome + " ja existia no estoque. Foi adicionado com preço e quantidade atualizados");
+                            stackNoEstoque(prod, rodada.estoque2);
+                        } else {
+                            rodada.estoque2.add(prod);
+                        }
                         if (MenuWindow.debugMode)
                             System.out.println("Produto escolhido: " + rodada.estoque2.get(rodada.estoque2.size() - 1).nome);
                     }
                 }
+            }
+        }
+    }
+    
+    private void stackNoEstoque(Produto prod, ArrayList<Produto> estoque){
+        for (Produto p : estoque){
+            if (p.nome.equals(prod.nome)){
+                p.precoVenda = prod.precoVenda;
+                p.quantidadePorMes += prod.quantidadePorMes;
+                p.adicionadoNaRodada = true;
             }
         }
     }
@@ -617,18 +721,53 @@ public class Jogo {
             rodada.predio = upgrades.get(op-1);
             if (MenuWindow.debugMode)
                 System.out.println("Estrutura Nova: " + rodada.predio.nome);
+        } else {
+            int op = -1;
+            ArrayList<Estrutura> upgrades = new ArrayList<Estrutura>();
+            for (int i = 0; i < confInicial.negocio.predios.size(); i++){
+                if (confInicial.negocio.predios.get(i).preco <= rodada.dinheiroTotal2 && !confInicial.negocio.predios.get(i).nome.equals(rodada.predio2.nome)
+                && rodada.predio2.nivel < confInicial.negocio.predios.get(i).nivel){
+                    upgrades.add(confInicial.negocio.predios.get(i));
+                }
+            }
+            while (op <= 0 || op > upgrades.size()){
+                System.out.println("");
+                System.out.println("Qual a nova estrutura desejada?");
+                for (int i = 0; i < upgrades.size(); i++){                       
+                        System.out.println("[" + (i+1) + "] " + upgrades.get(i).nome + " - Nível: " + upgrades.get(i).nivel);
+                        System.out.println("    Preço: " + upgrades.get(i).preco);
+                        System.out.println("    Gasto Fixo: " + upgrades.get(i).gastoFixo);
+                        System.out.println("    Producao:");
+                        for (int j = 0; j < confInicial.negocio.produtos.size(); j++){
+                            if (confInicial.negocio.produtos.get(j).nivelEstrutura <= upgrades.get(i).nivel)
+                                System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + upgrades.get(i).producao[j] + "/mês");
+                        }
+                        System.out.println("");
+                }
+
+                System.out.print("> ");
+                op = scan.nextInt();
+            }
+            rodada.predio2 = upgrades.get(op-1);
+            if (MenuWindow.debugMode)
+                System.out.println("Estrutura Nova: " + rodada.predio2.nome);            
         }
     }
     
     private void atualizaRodada(Settings rodadaPassada, Settings rodadaAtual){
         rodadaAtual.dinheiroTotal = rodadaPassada.dinheiroTotal;
+        rodadaAtual.dinheiroTotal2 = rodadaPassada.dinheiroTotal2;
         clonaEstoque(rodadaPassada.estoque, rodadaAtual.estoque);
+        clonaEstoque(rodadaPassada.estoque2, rodadaAtual.estoque2);
         rodadaAtual.predio = rodadaPassada.predio;
+        rodadaAtual.predio2 = rodadaPassada.predio2;
     }
     
     private ArrayList<Produto> clonaEstoque(ArrayList<Produto> antigo, ArrayList<Produto> atual){
-        for (Produto e: antigo)
+        for (Produto e: antigo){
+            e.adicionadoNaRodada = false;
             atual.add(e);
+        }
         return atual;
     }
     

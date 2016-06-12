@@ -17,6 +17,7 @@ public class Produto {
     public double precoProduzir;
     public int quantidadePorMes;
     public double custoBeneficio;
+    public boolean adicionadoNaRodada;
     
     public Produto(String nome, int nivelEstrutura, double precoProduzir, double precoVenda){
         this.nome = nome;

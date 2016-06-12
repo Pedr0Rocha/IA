@@ -29,11 +29,11 @@ public class Sistema {
         4 - pessoas compram produtos.
     */
     
-    public void turnoSistema(Settings rodada){
+    public void turnoSistema(Settings rodada, Settings inicial){
         clearConsole();
         System.out.println("TURNO DO SISTEMA");
-        calculaDemanda(rodada);
-        calculaVenda(rodada);
+        calculaDemanda(rodada, inicial);
+        calculaVenda(rodada, inicial);
         calculaResultados(rodada);
         
         System.out.println("Digite qualquer tecla e aperte enter para continuar");
@@ -41,7 +41,7 @@ public class Sistema {
         clearConsole();
     }
     
-    private void calculaDemanda(Settings rodada){
+    private void calculaDemanda(Settings rodada, Settings inicial){
         double gastoPropaganda = getPorcentagemPropaganda(rodada)[0];
         double gastoPropaganda2 = getPorcentagemPropaganda(rodada)[1];
         System.out.println("");
@@ -50,30 +50,35 @@ public class Sistema {
         if (MenuWindow.debugMode)
             System.out.println("Consumidores Interessados = Consumidores * (Gasto em Propaganda/100) * (Gasto em Propaganda2/100)");
         System.out.println("De " + consumidores + " consumidores, " + consumidoresInteressados 
-                            + " estao interessados em comprar produtos na area de " + rodada.negocio.ramo);
+                            + " estao interessados em comprar produtos na area de " + inicial.negocio.ramo);
         
         consumidoresProduto[0] = (int)Math.round(consumidoresInteressados * 0.5);
         consumidoresProduto[1] = (int)Math.round(consumidoresInteressados * 0.40);
         consumidoresProduto[2] = (int)Math.round(consumidoresInteressados * 0.10);
         
         System.out.println("");
-        for (int i = 0; i < rodada.negocio.produtos.size(); i++){
-            System.out.println("Interessados em " + (rodada.negocio.produtos.get(i).nome).toUpperCase());
+        for (int i = 0; i < inicial.negocio.produtos.size(); i++){
+            System.out.println("Interessados em " + (inicial.negocio.produtos.get(i).nome).toUpperCase());
             System.out.println("    " + consumidoresProduto[i]);
         }
     }
     
-    private void calculaVenda(Settings rodada){
-        Produto produto0 = rodada.negocio.produtos.get(0);
-        Produto produto1 = rodada.negocio.produtos.get(1);
-        Produto produto2 = rodada.negocio.produtos.get(2);
+    private void calculaVenda(Settings rodada, Settings inicial){
+        Produto produto0 = inicial.negocio.produtos.get(0);
+        Produto produto1 = inicial.negocio.produtos.get(1);
+        Produto produto2 = inicial.negocio.produtos.get(2);
         calculaCustoBeneficio(rodada);
         
         if (consumidoresProduto[0] > 0 && (temNoEstoque(produto0.nome, rodada.estoque) ||(temNoEstoque(produto0.nome, rodada.estoque2)))){
             Produto prodJogador1 = rodada.getProdutoByNome(produto0.nome, rodada.estoque);
             Produto prodJogador2 = rodada.getProdutoByNome(produto0.nome, rodada.estoque2);
             if ((temNoEstoque(produto0.nome, rodada.estoque) && (temNoEstoque(produto0.nome, rodada.estoque2)))){
-                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                if (prodJogador1.custoBeneficio == prodJogador2.custoBeneficio){
+                    if (random.nextInt(100) > 50)
+                        vendeProduto(1, prodJogador1, rodada, consumidoresProduto[0], true);
+                    else
+                        vendeProduto(2, prodJogador2, rodada, consumidoresProduto[0], true);
+                } else if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
                     vendeProduto(1, prodJogador1, rodada, consumidoresProduto[0], true);
                 else
                     vendeProduto(2, prodJogador2, rodada, consumidoresProduto[0], true);
@@ -88,7 +93,12 @@ public class Sistema {
             Produto prodJogador1 = rodada.getProdutoByNome(produto1.nome, rodada.estoque);
             Produto prodJogador2 = rodada.getProdutoByNome(produto1.nome, rodada.estoque2);
             if ((temNoEstoque(produto1.nome, rodada.estoque) && (temNoEstoque(produto1.nome, rodada.estoque2)))){
-                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                if (prodJogador1.custoBeneficio == prodJogador2.custoBeneficio){
+                    if (random.nextInt(100) > 50)
+                        vendeProduto(1, prodJogador1, rodada, consumidoresProduto[1], true);
+                    else
+                        vendeProduto(2, prodJogador2, rodada, consumidoresProduto[1], true);
+                } else if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
                     vendeProduto(1, prodJogador1, rodada, consumidoresProduto[1], true);
                 else
                     vendeProduto(2, prodJogador2, rodada, consumidoresProduto[1], true);
@@ -103,7 +113,12 @@ public class Sistema {
             Produto prodJogador1 = rodada.getProdutoByNome(produto2.nome, rodada.estoque);
             Produto prodJogador2 = rodada.getProdutoByNome(produto2.nome, rodada.estoque2);
             if ((temNoEstoque(produto2.nome, rodada.estoque) && (temNoEstoque(produto2.nome, rodada.estoque2)))){
-                if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
+                if (prodJogador1.custoBeneficio == prodJogador2.custoBeneficio){
+                    if (random.nextInt(100) > 50)
+                        vendeProduto(1, prodJogador1, rodada, consumidoresProduto[2], true);
+                    else
+                        vendeProduto(2, prodJogador2, rodada, consumidoresProduto[2], true);
+                } else if (prodJogador1.custoBeneficio > prodJogador2.custoBeneficio)
                     vendeProduto(1, prodJogador1, rodada, consumidoresProduto[2], true);
                 else
                     vendeProduto(2, prodJogador2, rodada, consumidoresProduto[2], true);
@@ -128,10 +143,26 @@ public class Sistema {
         if (rodada.dinheiroTotal < 0){
             rodada.mesesEmPrejuizo++;
             System.out.println("Jogador 1 está com saldo negativo. Meses seguidos em prejuízo: " + rodada.mesesEmPrejuizo);
+            if (rodada.mesesEmPrejuizo == 2){
+                System.out.println("O jogador 1 esta prestes a falir, mude sua estrategia se deseja continuar no jogo");
+            } else if (rodada.mesesEmPrejuizo == 3){
+                System.out.println("O jogador 1 faliu e perdeu o jogo. O jogador 2 é o vencedor.");
+                System.exit(0);
+            }
+        } else {
+            rodada.mesesEmPrejuizo = 0;
         }
         if (rodada.dinheiroTotal2 < 0){
             rodada.mesesEmPrejuizo2++;
             System.out.println("Jogador 2 está com saldo negativo. Meses seguidos em prejuízo: " + rodada.mesesEmPrejuizo2);
+            if (rodada.mesesEmPrejuizo2 == 2){
+                System.out.println("O jogador 2 esta prestes a falir, mude sua estrategia se deseja continuar no jogo");
+            } else if (rodada.mesesEmPrejuizo2 == 3){
+                System.out.println("O jogador 2 faliu e perdeu o jogo. O jogador 1 é o vencedor.");
+                System.exit(0);
+            }
+        } else {
+            rodada.mesesEmPrejuizo2 = 0;
         }
         
         System.out.println("FIM DA RODADA " + rodada.rodada);
