@@ -37,4 +37,10 @@ public class Settings {
     public int tipoGame;
     public Negocio negocio;
     public int rodada;
+    
+    public Produto getProdutoByNome(String nome, ArrayList<Produto> estoque){
+        for (Produto p: estoque)
+            if (p.nome.equals(nome)) return p;
+        return null;
+    }
 }
