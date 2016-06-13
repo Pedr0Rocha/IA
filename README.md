@@ -1,6 +1,6 @@
 # Trabalho Inteligencia Artificial I #
 
-### Documentação do Trabalho - Simulador de Competição entre Empresas no Mercado ###
+### Documentação - Simulador de Competição entre Empresas no Mercado ###
 
 * Apresentação
 * Descrição e Modelagem
@@ -90,7 +90,7 @@ O computador usado foi um Windows 10, processador i7, 4gb de RAM e GeForce 630M.
 
 O simulador foi desenvolvido na linguagem Java.
 
-### Ténica de IA
+### Técnica de IA
 A técnica implementada foi uma busca gulosa. O algoritmo procura a melhor configuração de jogada possível usando o máximo de dinheiro disponível. 
 
 Possibilidades são montadas de acordo com cada etapa de escolhas.
