@@ -218,12 +218,12 @@ public class Sistema {
             System.out.println("Formula: (2/(PrecoVenda/PrecoProducao)) * 0.5 + GastoPropaganda * 0.2 + GastoPesquisa * 0.2");
         for (Produto p: rodada.estoque){
             double custo = 2/(p.precoVenda/p.precoProduzir);
-            double equacao = (custo) * 0.5 + rodada.gastoPropaganda * 0.2 + rodada.gastoPesquisa * 0.2;
+            double equacao = (custo) * 0.5 + rodada.gastoPropaganda * 0.35 + rodada.gastoPesquisa * 0.15;
             p.custoBeneficio = equacao;
         }
         for (Produto p: rodada.estoque2){
             double custo = 2/(p.precoVenda/p.precoProduzir);
-            double equacao = (custo) * 0.5 + rodada.gastoPropaganda2 * 0.2 + rodada.gastoPesquisa2 * 0.2;
+            double equacao = (custo) * 0.5 + rodada.gastoPropaganda2 * 0.35 + rodada.gastoPesquisa2 * 0.15;
             p.custoBeneficio = equacao;
         }
     }

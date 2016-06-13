@@ -47,7 +47,6 @@ public class MenuWindow extends javax.swing.JFrame {
             System.out.println("Menu Principal Aberto");
         }
         
-        lblTitulo.setText("Company Wars");
         btnPvP.setText("Player vs Player");
         btnCvP.setText("Player vs Comp.");
         btnCvC.setText("Comp. vs Comp.");
@@ -98,11 +97,10 @@ public class MenuWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu - Company Wars");
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        lblTitulo.setText("Company Wars");
+        lblTitulo.setText("Simulador de Empresas");
 
         btnPvP.setText("Player vs Player");
         btnPvP.addActionListener(new java.awt.event.ActionListener() {
@@ -144,26 +142,25 @@ public class MenuWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(lblTitulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(325, 325, 325)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnPvP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCvP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCvC, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnInstrucoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addGap(325, 325, 325)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPvP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCvP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCvC, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInstrucoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitulo)
+                .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(58, 58, 58)
                 .addComponent(lblTitulo)
-                .addGap(86, 86, 86)
+                .addGap(90, 90, 90)
                 .addComponent(btnPvP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCvP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,12 +189,14 @@ public class MenuWindow extends javax.swing.JFrame {
 
     private void btnCvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCvPActionPerformed
         dispose();
-        new OptionsWindow(2).setVisible(true);
+        //new OptionsWindow(3).setVisible(true);
+        Jogo jogo = new Jogo(3);
     }//GEN-LAST:event_btnCvPActionPerformed
 
     private void btnCvCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCvCActionPerformed
         dispose();
-        new OptionsWindow(3).setVisible(true);
+        //new OptionsWindow(3).setVisible(true);
+        Jogo jogo = new Jogo(2);
     }//GEN-LAST:event_btnCvCActionPerformed
 
     private void btnInstrucoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstrucoesActionPerformed

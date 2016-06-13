@@ -10,8 +10,6 @@ public class Settings {
     
     public double investimentoInicial;
     public Estrutura predio;
-    public Produto produto;
-    public double precoProduto;
     public double gastoPropaganda;
     public double gastoPesquisa;
     public double gastosFixos;
@@ -23,8 +21,6 @@ public class Settings {
     
     public double investimentoInicial2;
     public Estrutura predio2;
-    public Produto produto2;
-    public double precoProduto2;
     public double gastoPropaganda2;
     public double gastoPesquisa2;
     public double gastosFixos2;

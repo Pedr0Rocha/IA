@@ -18,7 +18,7 @@ public class Jogo {
     private Scanner scan;
     private ArrayList<Negocio> negocios;
     private ArrayList<Double> dinheiroInicial = new ArrayList<Double>();
-    public Settings confInicial = new Settings();
+    public static Settings confInicial = new Settings();
     
     private ArrayList<Settings> gameLog = new ArrayList<Settings>();
     
@@ -48,10 +48,17 @@ public class Jogo {
             case 2:
                 pedeConfiguracao2();
                 break;
+            case 3:
+                pedeConfiguracao3();
+                break;
             default:
                 System.out.println("Erro, recomece o jogo.");
                 System.exit(1);
         }
+    }
+    
+    public static Settings getConfiInicial(){
+        return confInicial;
     }
     
     private void configuraDinheiroInicial(){
@@ -145,11 +152,62 @@ public class Jogo {
             
             System.out.println("RODADA " + (mesesPassados+1));
             turnoJogador1(rodada);
-            
+
             clearConsole();
             System.out.println("RODADA " + (mesesPassados+1));
             turnoJogador2(rodada);
             
+            sistema.turnoSistema(rodada, confInicial);
+            mesesPassados++;
+        }
+        if (gameLog.get(gameLog.size()-1).dinheiroTotal > gameLog.get(gameLog.size()-1).dinheiroTotal2)
+            System.out.println("O jogador 1 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal + " total de dinheiro.");
+        else
+            System.out.println("O jogador 2 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal2 + " total de dinheiro.");
+        
+    }   
+    private void comecaJogo(IA ia){
+        int mesesPassados = 1;
+        sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
+        while (mesesPassados != gameLog.get(0).meses){
+            Settings rodada = new Settings();
+            rodada.rodada = mesesPassados;
+            
+            atualizaRodada(gameLog.get(rodada.rodada-1), rodada);
+            
+            gameLog.add(rodada);
+            
+            rodada = ia.montaPossibilidade(rodada);
+            
+            mostraRodada(rodada);
+            System.out.println("Digite qualquer tecla e aperte enter para continuar");
+            scan.next();   
+            sistema.turnoSistema(rodada, confInicial);
+            mesesPassados++;
+        }
+        if (gameLog.get(gameLog.size()-1).dinheiroTotal > gameLog.get(gameLog.size()-1).dinheiroTotal2)
+            System.out.println("O jogador 1 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal + " total de dinheiro.");
+        else
+            System.out.println("O jogador 2 eh o ganhador com " + gameLog.get(gameLog.size()-1).dinheiroTotal2 + " total de dinheiro.");
+        
+    }
+    private void comecaJogo2(IA ia){
+        int mesesPassados = 1;
+        sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
+        while (mesesPassados != gameLog.get(0).meses){
+            Settings rodada = new Settings();
+            rodada.rodada = mesesPassados;
+            
+            atualizaRodada(gameLog.get(rodada.rodada-1), rodada);
+            
+            gameLog.add(rodada);
+            
+            turnoJogador1(rodada);
+            rodada = ia.montaPossibilidade(rodada);
+            
+            mostraRodada(rodada);
+            System.out.println("Digite qualquer tecla e aperte enter para continuar");
+            scan.next();   
             sistema.turnoSistema(rodada, confInicial);
             mesesPassados++;
         }
@@ -295,12 +353,126 @@ public class Jogo {
     }
     
     private void pedeConfiguracao2(){
+        confInicial.tipoGame = 2;
+        confInicial.rodada = 0;
         
+        int op = -1;
+        while (op <= 0 || op > negocios.size()){
+            System.out.println("");
+            System.out.println("Escolha o ramo do negocio");
+            for (int i = 0; i < negocios.size(); i++)
+                System.out.println("[" + (i+1) + "] " + negocios.get(i).ramo);
+
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.negocio = negocios.get(op-1);
+        if (MenuWindow.debugMode)
+            System.out.println("Ramo do Negocio escolhido: " + confInicial.negocio.ramo);
+        
+        op = -1;
+        while(op < MAX_MESES){
+            System.out.println("");
+            System.out.println("Escolha a duracaoo do jogo em meses (min:12)");
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.meses = op;
+        if (MenuWindow.debugMode)
+            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
+        
+        op = -1;
+        while (op <= 0 || op > dinheiroInicial.size()){
+            System.out.println("");
+            System.out.println("Escolha o investimento inicial das empresas");
+            for (int i = 0; i < dinheiroInicial.size(); i++)
+                System.out.println("[" + (i+1) + "] " + dinheiroInicial.get(i));
+            
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.investimentoInicial = dinheiroInicial.get(op-1);
+        if (MenuWindow.debugMode)
+            System.out.println("Investimento Inicial dos jogadores: " + confInicial.investimentoInicial);
+        
+        
+        IA ia = new IA(confInicial, confInicial);
+        
+        confInicial = ia.montaPossibilidade(confInicial);
+        
+        confInicial.dinheiroTotal = calculaDinheiroTotal(true, 1, confInicial);
+        confInicial.dinheiroTotal2 = calculaDinheiroTotal(true, 2, confInicial);
+        
+        mostraRodada(confInicial);
+        gameLog.add(confInicial);
+        System.out.println("");
+        System.out.println("Digite qualquer tecla e aperte enter para continuar");
+        scan.next();   
+        comecaJogo(ia);
+    }
+    private void pedeConfiguracao3(){
+        confInicial.tipoGame = 3;
+        confInicial.rodada = 0;
+        
+        int op = -1;
+        while (op <= 0 || op > negocios.size()){
+            System.out.println("");
+            System.out.println("Escolha o ramo do negocio");
+            for (int i = 0; i < negocios.size(); i++)
+                System.out.println("[" + (i+1) + "] " + negocios.get(i).ramo);
+
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.negocio = negocios.get(op-1);
+        if (MenuWindow.debugMode)
+            System.out.println("Ramo do Negocio escolhido: " + confInicial.negocio.ramo);
+        
+        op = -1;
+        while(op < MAX_MESES){
+            System.out.println("");
+            System.out.println("Escolha a duracaoo do jogo em meses (min:12)");
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.meses = op;
+        if (MenuWindow.debugMode)
+            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
+        
+        op = -1;
+        while (op <= 0 || op > dinheiroInicial.size()){
+            System.out.println("");
+            System.out.println("Escolha o investimento inicial das empresas");
+            for (int i = 0; i < dinheiroInicial.size(); i++)
+                System.out.println("[" + (i+1) + "] " + dinheiroInicial.get(i));
+            
+            System.out.print("> ");
+            op = scan.nextInt();
+        }
+        confInicial.investimentoInicial = dinheiroInicial.get(op-1);
+        if (MenuWindow.debugMode)
+            System.out.println("Investimento Inicial dos jogadores: " + confInicial.investimentoInicial);
+        
+        
+        confInicialPlayer1(confInicial);
+        IA ia = new IA(confInicial, confInicial);
+        
+        confInicial = ia.montaPossibilidadeJogador(confInicial);
+        
+        confInicial.dinheiroTotal = calculaDinheiroTotal(true, 1, confInicial);
+        confInicial.dinheiroTotal2 = calculaDinheiroTotal(true, 2, confInicial);
+        
+        mostraRodada(confInicial);
+        gameLog.add(confInicial);
+        System.out.println("");
+        System.out.println("Digite qualquer tecla e aperte enter para continuar");
+        scan.next();   
+        comecaJogo2(ia);
     }
     
     private void confInicialPlayer1(Settings confInicial){
         System.out.println("");
-        System.out.println("== Player 1 ==");
+        System.out.println("JOGADOR 1");
 
         int op = -1;
         while (op <= 0 || op > confInicial.negocio.predios.size()){
@@ -370,7 +542,7 @@ public class Jogo {
     
     private void confInicialPlayer2(Settings confInicial){
         System.out.println("");
-        System.out.println("== Player 2 ==");
+        System.out.println("JOGADOR 2");
 
         int op = -1;
         while (op <= 0 || op > confInicial.negocio.predios.size()){
@@ -444,7 +616,7 @@ public class Jogo {
             imprimeEstoque(conf.estoque);
             System.out.println("VALOR DE PRODUCAO DO ESTOQUE: " + getValorProducaoEstoque(conf.estoque));
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque));
-            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorProducaoEstoque(conf.estoque)));
+            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorVendaEstoque(conf.estoque)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa * getValorProducaoEstoque(conf.estoque)));
             if (conf.meses != 12)
                 System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal);
@@ -453,7 +625,7 @@ public class Jogo {
             imprimeEstoque(conf.estoque2);
             System.out.println("VALOR DO ESTOQUE: " + getValorProducaoEstoque(conf.estoque2));
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque2));
-            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorProducaoEstoque(conf.estoque2)));
+            System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorVendaEstoque(conf.estoque2)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa2 * getValorProducaoEstoque(conf.estoque2)));
             if (conf.meses != 12)
                 System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal2);
@@ -506,7 +678,7 @@ public class Jogo {
     private void escolheGastoPropaganda(int player, Settings rodada){
         int op = -1;        
         if (player == 1){
-            double valorEstoque = getValorProducaoEstoque(rodada.estoque);
+            double valorEstoque = getValorVendaEstoque(rodada.estoque);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
@@ -525,7 +697,7 @@ public class Jogo {
             if (MenuWindow.debugMode)
                 System.out.println("Gasto com Propaganda: " + (rodada.gastoPropaganda * valorEstoque));
         } else {
-            double valorEstoque = getValorProducaoEstoque(rodada.estoque2);
+            double valorEstoque = getValorVendaEstoque(rodada.estoque2);
             while (op <= -1 || op > 3){
                 System.out.println("");
                 System.out.println("Qual sera o investimento em propaganda?");
@@ -761,6 +933,8 @@ public class Jogo {
         clonaEstoque(rodadaPassada.estoque2, rodadaAtual.estoque2);
         rodadaAtual.predio = rodadaPassada.predio;
         rodadaAtual.predio2 = rodadaPassada.predio2;
+        rodadaAtual.mesesEmPrejuizo = rodadaPassada.mesesEmPrejuizo;
+        rodadaAtual.mesesEmPrejuizo2 = rodadaPassada.mesesEmPrejuizo2;
     }
     
     private ArrayList<Produto> clonaEstoque(ArrayList<Produto> antigo, ArrayList<Produto> atual){

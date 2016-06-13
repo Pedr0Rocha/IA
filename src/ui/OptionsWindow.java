@@ -953,14 +953,14 @@ public class OptionsWindow extends javax.swing.JFrame {
         //settings.produto2 = getProduto(settings.negocio.produtos, texto);
         
         if (!qta_prod1.getText().equals("")){
-            settings.precoProduto = Double.valueOf(qta_prod1.getText());
+            //settings.precoProduto = Double.valueOf(qta_prod1.getText());
         } else {
             if (MenuWindow.debugMode)
                 System.out.println("Produto 1 sem preço");
             // TODO: popup, não começar o jogo
         } 
         if (!qta_prod21.getText().equals("")){
-            settings.precoProduto2 = Double.valueOf(qta_prod21.getText());
+            //settings.precoProduto2 = Double.valueOf(qta_prod21.getText());
         } else{
             if (MenuWindow.debugMode)
                 System.out.println("Produto 2 sem preço");
