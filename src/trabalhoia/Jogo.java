@@ -485,8 +485,8 @@ public class Jogo {
                     System.out.println("    Gasto Fixo: " + confInicial.negocio.predios.get(i).gastoFixo);
                     System.out.println("    Producao:");
                     for (int j = 0; j < confInicial.negocio.produtos.size(); j++){
-                        if (confInicial.negocio.produtos.get(j).nivelEstrutura <= i)
-                            System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + confInicial.negocio.predios.get(i).producao[j] + "/mês");
+                        if (confInicial.negocio.produtos.get(j).nivelEstruturaNecessario <= i)
+                            System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + confInicial.negocio.predios.get(i).producaoMensalPorNivel[j] + "/mês");
                     }
                     System.out.println("");
                 }
@@ -555,8 +555,8 @@ public class Jogo {
                     System.out.println("    Gasto Fixo: " + confInicial.negocio.predios.get(i).gastoFixo);
                     System.out.println("    Producao:");
                     for (int j = 0; j < confInicial.negocio.produtos.size(); j++){
-                        if (confInicial.negocio.produtos.get(j).nivelEstrutura <= i)
-                            System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + confInicial.negocio.predios.get(i).producao[j] + "/mês");
+                        if (confInicial.negocio.produtos.get(j).nivelEstruturaNecessario <= i)
+                            System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + confInicial.negocio.predios.get(i).producaoMensalPorNivel[j] + "/mês");
                     }
                     System.out.println("");
                 }
@@ -729,7 +729,7 @@ public class Jogo {
                 }
                 System.out.print("> ");
                 op = scan.nextInt();
-                if (confInicial.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio.nivel){
+                if (confInicial.negocio.produtos.get(op-1).nivelEstruturaNecessario > rodada.predio.nivel){
                     System.out.println("");
                     System.out.println("Este produto nao pode ser produzido pela estrutura atual.");
                     op = -1;                
@@ -739,13 +739,13 @@ public class Jogo {
                     } else {
                         int op2 = -1;
                         Produto prod = new Produto(confInicial.negocio.produtos.get(op-1));
-                        while (op2 <= 0 || op2 > rodada.predio.producao[prod.nivelEstrutura]){
-                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio.producao[prod.nivelEstrutura]);
+                        while (op2 <= 0 || op2 > rodada.predio.producaoMensalPorNivel[prod.nivelEstruturaNecessario]){
+                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio.producaoMensalPorNivel[prod.nivelEstruturaNecessario]);
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
                         prod.adicionadoNaRodada = true;
-                        prod.quantidadePorMes = op2;
+                        prod.quantidadeNoEstoque = op2;
 
                         op2 = -1;                        
                         while (op2 <= 0 || op2 >= 4){
@@ -778,7 +778,7 @@ public class Jogo {
                 }
                 System.out.print("> ");
                 op = scan.nextInt();
-                if (confInicial.negocio.produtos.get(op-1).nivelEstrutura > rodada.predio2.nivel){
+                if (confInicial.negocio.produtos.get(op-1).nivelEstruturaNecessario > rodada.predio2.nivel){
                     System.out.println("");
                     System.out.println("Este produto nao pode ser produzido pela estrutura atual.");
                     op = -1;                
@@ -788,13 +788,13 @@ public class Jogo {
                     } else {
                         int op2 = -1;
                         Produto prod = new Produto(confInicial.negocio.produtos.get(op-1)); 
-                        while (op2 <= 0 || op2 > rodada.predio2.producao[prod.nivelEstrutura]){
-                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio2.producao[prod.nivelEstrutura]);
+                        while (op2 <= 0 || op2 > rodada.predio2.producaoMensalPorNivel[prod.nivelEstruturaNecessario]){
+                            System.out.println("Quantas unidades deseja produzir deste produto? Maximo por mes = " + rodada.predio2.producaoMensalPorNivel[prod.nivelEstruturaNecessario]);
                             System.out.print("> ");
                             op2 = scan.nextInt();
                         }
                         prod.adicionadoNaRodada = true;
-                        prod.quantidadePorMes = op2;
+                        prod.quantidadeNoEstoque = op2;
 
                         op2 = -1;                        
                         while (op2 <= 0 || op2 >= 4){
@@ -825,7 +825,7 @@ public class Jogo {
         for (Produto p : estoque){
             if (p.nome.equals(prod.nome)){
                 p.precoVenda = prod.precoVenda;
-                p.quantidadePorMes += prod.quantidadePorMes;
+                p.quantidadeNoEstoque += prod.quantidadeNoEstoque;
                 p.adicionadoNaRodada = true;
             }
         }
@@ -881,8 +881,8 @@ public class Jogo {
                         System.out.println("    Gasto Fixo: " + upgrades.get(i).gastoFixo);
                         System.out.println("    Producao:");
                         for (int j = 0; j < confInicial.negocio.produtos.size(); j++){
-                            if (confInicial.negocio.produtos.get(j).nivelEstrutura <= upgrades.get(i).nivel)
-                                System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + upgrades.get(i).producao[j] + "/mês");
+                            if (confInicial.negocio.produtos.get(j).nivelEstruturaNecessario <= upgrades.get(i).nivel)
+                                System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + upgrades.get(i).producaoMensalPorNivel[j] + "/mês");
                         }
                         System.out.println("");
                 }
@@ -911,8 +911,8 @@ public class Jogo {
                         System.out.println("    Gasto Fixo: " + upgrades.get(i).gastoFixo);
                         System.out.println("    Producao:");
                         for (int j = 0; j < confInicial.negocio.produtos.size(); j++){
-                            if (confInicial.negocio.produtos.get(j).nivelEstrutura <= upgrades.get(i).nivel)
-                                System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + upgrades.get(i).producao[j] + "/mês");
+                            if (confInicial.negocio.produtos.get(j).nivelEstruturaNecessario <= upgrades.get(i).nivel)
+                                System.out.println("        " + confInicial.negocio.produtos.get(j).nome + "   |   qta.: " + upgrades.get(i).producaoMensalPorNivel[j] + "/mês");
                         }
                         System.out.println("");
                 }
@@ -978,8 +978,8 @@ public class Jogo {
             System.out.println("Produto: " + p.nome);
             System.out.println("    Preco Produzir: " + p.precoProduzir);
             System.out.println("    Preco Venda: " + p.precoVenda);
-            System.out.println("    Quantidade: " + p.quantidadePorMes);
-            System.out.println("    Gasto: " + (p.precoProduzir * p.quantidadePorMes));
+            System.out.println("    Quantidade: " + p.quantidadeNoEstoque);
+            System.out.println("    Gasto: " + (p.precoProduzir * p.quantidadeNoEstoque));
         }
     }
     
@@ -992,7 +992,7 @@ public class Jogo {
     private double getValorProducaoEstoque(ArrayList<Produto> estoque){
         double valorTotal = 0;
         for (Produto p: estoque){
-            valorTotal += (p.precoProduzir * p.quantidadePorMes);
+            valorTotal += (p.precoProduzir * p.quantidadeNoEstoque);
         }
         return valorTotal;
     }
@@ -1000,7 +1000,7 @@ public class Jogo {
     private double getValorVendaEstoque(ArrayList<Produto> estoque){
         double valorTotal = 0;
         for (Produto p: estoque){
-            valorTotal += (p.precoVenda * p.quantidadePorMes);
+            valorTotal += (p.precoVenda * p.quantidadeNoEstoque);
         }
         return valorTotal;
     }

@@ -110,11 +110,11 @@ public class IA {
         if (jogador == 1){
             for (int i = 0; i < confInicial.negocio.produtos.size(); i++){
                 if (!temNoEstoque(confInicial.negocio.produtos.get(i).nome, p.estoque)){
-                    int quantidadePossivel = p.predio.producao[i];
+                    int quantidadePossivel = p.predio.producaoMensalPorNivel[i];
                     int quantidade = 0;
                     while (quantidadePossivel != 0 || quantidade != 0){
                         if (dinheiro > confInicial.negocio.produtos.get(i).precoProduzir * quantidadePossivel){
-                            quantidade = p.predio.producao[i];
+                            quantidade = p.predio.producaoMensalPorNivel[i];
                             break;
                         } else {
                             quantidadePossivel--;
@@ -123,21 +123,21 @@ public class IA {
                     if (quantidadePossivel != 0){
                         Produto prod = new Produto(confInicial.negocio.produtos.get(i));
                         prod.precoVenda = 2 * prod.precoProduzir;
-                        prod.quantidadePorMes = quantidade;
+                        prod.quantidadeNoEstoque = quantidade;
                         p.estoque.add(prod);    
                     }       
                 }
             }
             for (Produto produto: p.estoque)
-                p.dinheiroTotal -= produto.precoProduzir * produto.quantidadePorMes;
+                p.dinheiroTotal -= produto.precoProduzir * produto.quantidadeNoEstoque;
         } else {
             for (int i = 0; i < confInicial.negocio.produtos.size(); i++){
                 if (!temNoEstoque(confInicial.negocio.produtos.get(i).nome, p.estoque2)){
-                    int quantidadePossivel = p.predio2.producao[i];
+                    int quantidadePossivel = p.predio2.producaoMensalPorNivel[i];
                     int quantidade = 0;
                     while (quantidadePossivel != 0){
                         if (dinheiro > confInicial.negocio.produtos.get(i).precoProduzir * quantidadePossivel){
-                            quantidade = p.predio2.producao[i];
+                            quantidade = p.predio2.producaoMensalPorNivel[i];
                             break;
                         } else {
                             quantidadePossivel--;
@@ -146,13 +146,13 @@ public class IA {
                     if (quantidadePossivel != 0){
                         Produto prod = new Produto(confInicial.negocio.produtos.get(i));
                         prod.precoVenda = 2 * prod.precoProduzir;
-                        prod.quantidadePorMes = quantidade;
+                        prod.quantidadeNoEstoque = quantidade;
                         p.estoque2.add(prod);                    
                     }
                 }
             }
             for (Produto produto: p.estoque2)
-                p.dinheiroTotal2 -= produto.precoProduzir * produto.quantidadePorMes;
+                p.dinheiroTotal2 -= produto.precoProduzir * produto.quantidadeNoEstoque;
             
         }
     }
@@ -241,7 +241,7 @@ public class IA {
     private double getValorProducaoEstoque(ArrayList<Produto> estoque){
         double valorTotal = 0;
         for (Produto p: estoque){
-            valorTotal += (p.precoProduzir * p.quantidadePorMes);
+            valorTotal += (p.precoProduzir * p.quantidadeNoEstoque);
         }
         return valorTotal;
     }
@@ -249,7 +249,7 @@ public class IA {
     private double getValorVendaEstoque(ArrayList<Produto> estoque){
         double valorTotal = 0;
         for (Produto p: estoque){
-            valorTotal += (p.precoVenda * p.quantidadePorMes);
+            valorTotal += (p.precoVenda * p.quantidadeNoEstoque);
         }
         return valorTotal;
     }

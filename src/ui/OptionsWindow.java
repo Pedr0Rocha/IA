@@ -1042,8 +1042,8 @@ public class OptionsWindow extends javax.swing.JFrame {
     private void qta_prod1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod1FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(1));
-        if (Integer.valueOf(qta_prod1.getText()) > estruturaSelecionada.producao[0])
-            qta_prod1.setText(estruturaSelecionada.producao[0] + "");
+        if (Integer.valueOf(qta_prod1.getText()) > estruturaSelecionada.producaoMensalPorNivel[0])
+            qta_prod1.setText(estruturaSelecionada.producaoMensalPorNivel[0] + "");
     }//GEN-LAST:event_qta_prod1FocusLost
 
     private void checkboxProd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProd2ActionPerformed
@@ -1069,15 +1069,15 @@ public class OptionsWindow extends javax.swing.JFrame {
     private void qta_prod2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod2FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(1));
-        if (Integer.valueOf(qta_prod2.getText()) > estruturaSelecionada.producao[1])
-            qta_prod2.setText(estruturaSelecionada.producao[1] + "");
+        if (Integer.valueOf(qta_prod2.getText()) > estruturaSelecionada.producaoMensalPorNivel[1])
+            qta_prod2.setText(estruturaSelecionada.producaoMensalPorNivel[1] + "");
     }//GEN-LAST:event_qta_prod2FocusLost
 
     private void qta_prod3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod3FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(1));
-        if (Integer.valueOf(qta_prod3.getText()) > estruturaSelecionada.producao[2])
-            qta_prod3.setText(estruturaSelecionada.producao[2] + "");
+        if (Integer.valueOf(qta_prod3.getText()) > estruturaSelecionada.producaoMensalPorNivel[2])
+            qta_prod3.setText(estruturaSelecionada.producaoMensalPorNivel[2] + "");
     }//GEN-LAST:event_qta_prod3FocusLost
 
     private void checkboxProd21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProd21ActionPerformed
@@ -1095,22 +1095,22 @@ public class OptionsWindow extends javax.swing.JFrame {
     private void qta_prod21FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod21FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
-        if (Integer.valueOf(qta_prod21.getText()) > estruturaSelecionada.producao[0])
-            qta_prod21.setText(estruturaSelecionada.producao[0] + "");
+        if (Integer.valueOf(qta_prod21.getText()) > estruturaSelecionada.producaoMensalPorNivel[0])
+            qta_prod21.setText(estruturaSelecionada.producaoMensalPorNivel[0] + "");
     }//GEN-LAST:event_qta_prod21FocusLost
 
     private void qta_prod22FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod22FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
-        if (Integer.valueOf(qta_prod22.getText()) > estruturaSelecionada.producao[1])
-            qta_prod22.setText(estruturaSelecionada.producao[1] + "");
+        if (Integer.valueOf(qta_prod22.getText()) > estruturaSelecionada.producaoMensalPorNivel[1])
+            qta_prod22.setText(estruturaSelecionada.producaoMensalPorNivel[1] + "");
     }//GEN-LAST:event_qta_prod22FocusLost
 
     private void qta_prod23FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qta_prod23FocusLost
         Negocio negocio = MenuWindow.getNegocio(String.valueOf(ramo_negocio.getSelectedItem()));
         Estrutura estruturaSelecionada = getEstrutura(negocio.predios, getNomeEstruturaSelecionada(2));
-        if (Integer.valueOf(qta_prod23.getText()) > estruturaSelecionada.producao[2])
-            qta_prod23.setText(estruturaSelecionada.producao[2] + "");
+        if (Integer.valueOf(qta_prod23.getText()) > estruturaSelecionada.producaoMensalPorNivel[2])
+            qta_prod23.setText(estruturaSelecionada.producaoMensalPorNivel[2] + "");
     }//GEN-LAST:event_qta_prod23FocusLost
 
     

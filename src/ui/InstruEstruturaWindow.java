@@ -34,25 +34,25 @@ public class InstruEstruturaWindow extends javax.swing.JFrame {
         lblPreco.setText(estrutura.preco + " R$");
         if (estrutura.nivel == 0){
             lblProd1.setText(negocio.produtos.get(0).nome);
-            lblQta1.setText(estrutura.producao[0] + "");
+            lblQta1.setText(estrutura.producaoMensalPorNivel[0] + "");
             lblProd2.setText(" -- ");
             lblQta2.setText(" -- ");
             lblProd3.setText(" -- ");
             lblQta3.setText(" -- ");
         } else if (estrutura.nivel == 1){
             lblProd1.setText(negocio.produtos.get(0).nome);
-            lblQta1.setText(estrutura.producao[0] + "");
+            lblQta1.setText(estrutura.producaoMensalPorNivel[0] + "");
             lblProd2.setText(negocio.produtos.get(1).nome);
-            lblQta2.setText(estrutura.producao[1] + "");
+            lblQta2.setText(estrutura.producaoMensalPorNivel[1] + "");
             lblProd3.setText(" -- ");
             lblQta3.setText(" -- ");
         } else if (estrutura.nivel == 2){
             lblProd1.setText(negocio.produtos.get(0).nome);
-            lblQta1.setText(estrutura.producao[0] + "");
+            lblQta1.setText(estrutura.producaoMensalPorNivel[0] + "");
             lblProd2.setText(negocio.produtos.get(1).nome);
-            lblQta2.setText(estrutura.producao[1] + "");
+            lblQta2.setText(estrutura.producaoMensalPorNivel[1] + "");
             lblProd3.setText(negocio.produtos.get(2).nome);
-            lblQta3.setText(estrutura.producao[2] + "");
+            lblQta3.setText(estrutura.producaoMensalPorNivel[2] + "");
         }
     }
     /**

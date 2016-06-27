@@ -172,14 +172,14 @@ public class Sistema {
         if (jogador == 1){
             Produto produtoVender = rodada.getProdutoByNome(produto.nome, rodada.estoque);
             int vendidos = quantidadeVendida;
-            if (quantidadeVendida > produtoVender.quantidadePorMes)
-                vendidos = produtoVender.quantidadePorMes;
+            if (quantidadeVendida > produtoVender.quantidadeNoEstoque)
+                vendidos = produtoVender.quantidadeNoEstoque;
             
-            if (quantidadeVendida > produtoVender.quantidadePorMes && ambosTemProduto)
-                vendeProduto(2, produto, rodada, (quantidadeVendida - produto.quantidadePorMes), false);
+            if (quantidadeVendida > produtoVender.quantidadeNoEstoque && ambosTemProduto)
+                vendeProduto(2, produto, rodada, (quantidadeVendida - produto.quantidadeNoEstoque), false);
             
-            produtoVender.quantidadePorMes -= vendidos;
-            if (produtoVender.quantidadePorMes <= 0)
+            produtoVender.quantidadeNoEstoque -= vendidos;
+            if (produtoVender.quantidadeNoEstoque <= 0)
                 rodada.estoque.remove(produtoVender);
             
             double ganho = produtoVender.precoVenda * vendidos;
@@ -192,14 +192,14 @@ public class Sistema {
         } else {
             Produto produtoVender = rodada.getProdutoByNome(produto.nome, rodada.estoque2);
             int vendidos = quantidadeVendida;
-            if (quantidadeVendida > produtoVender.quantidadePorMes)
-                vendidos = produtoVender.quantidadePorMes;
+            if (quantidadeVendida > produtoVender.quantidadeNoEstoque)
+                vendidos = produtoVender.quantidadeNoEstoque;
             
-            if (quantidadeVendida > produtoVender.quantidadePorMes && ambosTemProduto)
-                vendeProduto(1, produto, rodada, (quantidadeVendida - produto.quantidadePorMes), false);
+            if (quantidadeVendida > produtoVender.quantidadeNoEstoque && ambosTemProduto)
+                vendeProduto(1, produto, rodada, (quantidadeVendida - produto.quantidadeNoEstoque), false);
             
-            produtoVender.quantidadePorMes -= vendidos;
-            if (produtoVender.quantidadePorMes <= 0)
+            produtoVender.quantidadeNoEstoque -= vendidos;
+            if (produtoVender.quantidadeNoEstoque <= 0)
                 rodada.estoque2.remove(produtoVender);
             
             double ganho = produtoVender.precoVenda * vendidos;
