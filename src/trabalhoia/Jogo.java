@@ -106,7 +106,7 @@ public class Jogo {
         op = -1;
         while(op < MAX_MESES){
             System.out.println("");
-            System.out.println("Escolha a duracaoo do jogo em meses (min:12)");
+            System.out.println("Escolha a duracao do jogo em meses (min: " + MAX_MESES + ")");
             System.out.print("> ");
             op = scan.nextInt();
         }

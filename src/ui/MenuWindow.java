@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.UIManager;
+import trabalhoia.BancoDeDados;
 import trabalhoia.Negocio;
 import trabalhoia.Estrutura;
 import trabalhoia.Jogo;
@@ -24,14 +20,11 @@ public class MenuWindow extends javax.swing.JFrame {
     
     public static boolean debugMode = true;
     
+    private BancoDeDados BD;
+    
     private static ArrayList<Negocio> negocios;
     
     public MenuWindow() {    
-        try { 
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
-        } catch(Exception e){
-            System.out.println("Erro alterando Look and Feel");
-        }
         initComponents();
         myInits();
     }
@@ -40,7 +33,8 @@ public class MenuWindow extends javax.swing.JFrame {
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setResizable(false); 
         setLocationRelativeTo(null);
-        createNegocios();
+        BD = new BancoDeDados();
+        negocios = BD.getNegocios();
         
         if (debugMode){
             System.out.println("Debug Log Iniciado");
@@ -51,37 +45,6 @@ public class MenuWindow extends javax.swing.JFrame {
         btnCvP.setText("Player vs Comp.");
         btnCvC.setText("Comp. vs Comp.");
         btnExit.setText("Sair");   
-    }
-    
-    private void createNegocios(){
-        negocios = new ArrayList<Negocio>();
-        
-        ArrayList<Estrutura> predios = new ArrayList<Estrutura>();
-        int[] producaoMensalNivel0 = new int[3];
-        producaoMensalNivel0[0] = 10;
-        producaoMensalNivel0[1] = 0;
-        producaoMensalNivel0[2] = 0;
-        predios.add(new Estrutura("Garagem", 30000.00, producaoMensalNivel0, 0, 80.00));
-                
-        int[] producaoMensalNivel1 = new int[3];
-        producaoMensalNivel1[0] = 20;
-        producaoMensalNivel1[1] = 7;
-        producaoMensalNivel1[2] = 0;
-        predios.add(new Estrutura("Sala Comercial", 80000.00, producaoMensalNivel1, 1, 200.00));
-        
-        int[] producaoMensalNivel2 = new int[3];
-        producaoMensalNivel2[0] = 35;
-        producaoMensalNivel2[1] = 14;
-        producaoMensalNivel2[2] = 5;
-        predios.add(new Estrutura("Prédio", 350000.00, producaoMensalNivel2, 2, 400.00));
-        
-        ArrayList<Produto> produtos = new ArrayList<Produto>();
-        produtos.add(new Produto("Website", 0, 2000.00, 00.00));
-        produtos.add(new Produto("Aplicativo", 1, 4000.00, 00.00));
-        produtos.add(new Produto("Sistema", 2, 10000.00, 00.00));
-        
-        Negocio tecnologia = new Negocio("Tecnologia", predios, produtos);
-        negocios.add(tecnologia);
     }
     
     public static ArrayList getNegocios(){

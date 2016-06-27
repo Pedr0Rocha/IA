@@ -1,6 +1,7 @@
 package trabalhoia;
 
 import java.util.ArrayList;
+import utils.TuplaDouble;
 
 /**
  *
@@ -82,5 +83,35 @@ public class Estoque {
         for (Produto p: estoque)
             if (p.nome.equals(nome)) return p;
         return null;
+    }
+    
+    public TuplaDouble[] getPossiveisCustosPropaganda(){
+        TuplaDouble[] custosPropaganda = new TuplaDouble[3];
+        
+        custosPropaganda[0].chave = 0.05;
+        custosPropaganda[0].valor = getValorVendaEstoque() * custosPropaganda[0].chave;
+        
+        custosPropaganda[0].chave = 0.15;
+        custosPropaganda[1].valor = getValorVendaEstoque() * custosPropaganda[1].chave;
+        
+        custosPropaganda[0].chave = 0.25;
+        custosPropaganda[2].valor = getValorVendaEstoque() * custosPropaganda[2].chave;
+        
+        return custosPropaganda;
+    }
+    
+    public TuplaDouble[] getPossiveisCustosPesquisa(){
+        TuplaDouble[] custosPesquisa = new TuplaDouble[3];
+        
+        custosPesquisa[0].chave = 0.05;
+        custosPesquisa[0].valor = getValorProducaoEstoque() * custosPesquisa[0].chave;
+        
+        custosPesquisa[0].chave = 0.15;
+        custosPesquisa[1].valor = getValorProducaoEstoque() * custosPesquisa[1].chave;
+        
+        custosPesquisa[0].chave = 0.25;
+        custosPesquisa[2].valor = getValorProducaoEstoque() * custosPesquisa[2].chave;
+        
+        return custosPesquisa;
     }
 }
