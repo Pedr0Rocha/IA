@@ -29,6 +29,9 @@ public class Settings {
     public double lucro2;
     public int mesesEmPrejuizo2;
     
+    public Jogador jogador1;
+    public Jogador jogador2;
+    
     public int meses;
     public int tipoGame;
     public Negocio negocio;

@@ -20,11 +20,17 @@ public class MenuWindow extends javax.swing.JFrame {
     
     public static boolean debugMode = true;
     
-    private BancoDeDados BD;
+    private static BancoDeDados BD;
     
     private static ArrayList<Negocio> negocios;
     
     public MenuWindow() {    
+        try {
+            // setar look and feel do preview
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
+        } catch(Exception e){
+            System.out.println("Erro alterando Look and Feel");
+        }  
         initComponents();
         myInits();
     }
@@ -161,7 +167,8 @@ public class MenuWindow extends javax.swing.JFrame {
     private void btnPvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPvPActionPerformed
         dispose();
         //new OptionsWindow(1).setVisible(true);
-        Jogo jogo = new Jogo(1);
+        new OpcoesGerais(1).setVisible(true);
+        //Jogo jogo = new Jogo(1);
     }//GEN-LAST:event_btnPvPActionPerformed
 
     private void btnCvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCvPActionPerformed
