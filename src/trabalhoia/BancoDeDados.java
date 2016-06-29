@@ -58,4 +58,10 @@ public class BancoDeDados {
         return this.negocios;
     }
     
+    public Negocio getNegocioByNome(String nomeRamo){
+        for (Negocio n : negocios)
+            if (n.ramo.equals(nomeRamo)) return n;
+        return null;
+    }
+    
 }

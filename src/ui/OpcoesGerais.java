@@ -1,5 +1,9 @@
 package ui;
 
+import java.awt.GraphicsEnvironment;
+import trabalhoia.Jogador;
+import trabalhoia.Settings;
+
 /**
  *
  * @author pedronote
@@ -7,16 +11,29 @@ package ui;
 public class OpcoesGerais extends javax.swing.JFrame {
 
     private int tipoGame;
+    private Settings configuracaoInicial;
     
     public OpcoesGerais(int tipoGame) {
         this.tipoGame = tipoGame;
-        myInits();
         initComponents();
+        myInits();
     }
 
     private void myInits(){
         setResizable(false);
         setLocationRelativeTo(null);
+        setSize(330, 180);
+       
+        configuracaoInicial = new Settings(tipoGame);
+    }
+    
+    private void criaJogadores(){
+        configuracaoInicial.jogador1 = new Jogador();
+        configuracaoInicial.jogador1.dinheiroTotal = configuracaoInicial.investimentoInicial;
+        configuracaoInicial.jogador1.id = 1;
+        configuracaoInicial.jogador2 = new Jogador();
+        configuracaoInicial.jogador2.dinheiroTotal = configuracaoInicial.investimentoInicial;
+        configuracaoInicial.jogador2.id = 2;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,10 +48,10 @@ public class OpcoesGerais extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        inputMeses = new javax.swing.JSpinner();
+        inputInvestimentoInicial = new javax.swing.JComboBox<>();
+        inputRamo = new javax.swing.JComboBox<>();
+        btnComecar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Configurações Gerais");
@@ -42,70 +59,102 @@ public class OpcoesGerais extends javax.swing.JFrame {
 
         jLabel1.setText("Meses:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 15);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 16, 5, 16);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Investimento Inicial:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(8, 15, 8, 15);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         getContentPane().add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Ramo do Negócio:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(8, 15, 8, 15);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.insets = new java.awt.Insets(8, 16, 8, 16);
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(12, 12, 36, 1));
-        jSpinner1.setToolTipText("Meses até final do jogo");
+        inputMeses.setModel(new javax.swing.SpinnerNumberModel(12, 12, 36, 1));
+        inputMeses.setToolTipText("Meses até final do jogo");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 15);
-        getContentPane().add(jSpinner1, gridBagConstraints);
+        gridBagConstraints.ipadx = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 16, 5, 16);
+        getContentPane().add(inputMeses, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50000", "100000", "500000" }));
-        jComboBox2.setToolTipText("Dinheiro inicial para cada empresa");
+        inputInvestimentoInicial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50000", "100000", "500000" }));
+        inputInvestimentoInicial.setToolTipText("Dinheiro inicial para cada empresa");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        getContentPane().add(jComboBox2, gridBagConstraints);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 1, 3, 1);
+        getContentPane().add(inputInvestimentoInicial, gridBagConstraints);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnologia" }));
-        jComboBox3.setToolTipText("Ramo compartilhado pelas empresas");
+        inputRamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnologia" }));
+        inputRamo.setToolTipText("Ramo compartilhado pelas empresas");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        getContentPane().add(jComboBox3, gridBagConstraints);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 1, 3, 1);
+        getContentPane().add(inputRamo, gridBagConstraints);
 
-        jButton1.setText("Começar");
+        btnComecar.setText("Começar");
+        btnComecar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComecarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 2, 0);
-        getContentPane().add(jButton1, gridBagConstraints);
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.insets = new java.awt.Insets(10, 1, 2, 1);
+        getContentPane().add(btnComecar, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnComecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComecarActionPerformed
+        int mesesMaximo = (Integer) inputMeses.getValue();
+        configuracaoInicial.maximoMeses = mesesMaximo;
+        
+        int investimentoSelecionado = inputInvestimentoInicial.getSelectedIndex();
+        double investimentoInicial = Double.valueOf(inputInvestimentoInicial.getItemAt(investimentoSelecionado));
+        configuracaoInicial.investimentoInicial = investimentoInicial;
+        
+        int ramoSelecionado = inputRamo.getSelectedIndex();
+        String ramoNegocio = inputRamo.getItemAt(ramoSelecionado);
+        configuracaoInicial.negocio = MenuWindow.getBancoDeDados().getNegocioByNome(ramoNegocio);
+        
+        criaJogadores(); 
+        dispose();
+        new JanelaJogo(configuracaoInicial).setVisible(true);
+    }//GEN-LAST:event_btnComecarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton btnComecar;
+    private javax.swing.JComboBox<String> inputInvestimentoInicial;
+    private javax.swing.JSpinner inputMeses;
+    private javax.swing.JComboBox<String> inputRamo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 }

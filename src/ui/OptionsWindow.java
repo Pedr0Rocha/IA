@@ -983,11 +983,11 @@ public class OptionsWindow extends javax.swing.JFrame {
          //   settings.tempoFabricacao2 = Integer.valueOf(tempo_fabricacao2.getText());
         
         if (!meses.getText().equals("")){
-            settings.meses = Integer.valueOf(meses.getText());
+            settings.maximoMeses = Integer.valueOf(meses.getText());
         } else {
             System.out.println("Tempo de Jogo não especificado");
             System.out.println("Padrão: 12 meses");
-            settings.meses = 12;
+            settings.maximoMeses = 12;
         }
         
         settings.rodada = 0;

@@ -52,7 +52,7 @@ public class GameWindow extends javax.swing.JFrame {
             System.out.println("gasto propaganda: " + settings.gastoPropaganda2);
             System.out.println("gastos fixos: " + settings.gastosFixos2);
             
-            System.out.println("meses:" + settings.meses);
+            System.out.println("meses:" + settings.maximoMeses);
         }
         
         btnVoltar.setText("Voltar para Menu");

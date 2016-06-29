@@ -26,8 +26,7 @@ public class MenuWindow extends javax.swing.JFrame {
     
     public MenuWindow() {    
         try {
-            // setar look and feel do preview
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); 
         } catch(Exception e){
             System.out.println("Erro alterando Look and Feel");
         }  
@@ -53,14 +52,8 @@ public class MenuWindow extends javax.swing.JFrame {
         btnExit.setText("Sair");   
     }
     
-    public static ArrayList getNegocios(){
-        return negocios;
-    }
-    
-    public static Negocio getNegocio(String ramo){
-        for (Negocio n: negocios)
-            if (n.ramo.equals(ramo)) return n;
-        return negocios.get(0);
+    public static BancoDeDados getBancoDeDados(){
+        return BD;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -166,9 +159,7 @@ public class MenuWindow extends javax.swing.JFrame {
 
     private void btnPvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPvPActionPerformed
         dispose();
-        //new OptionsWindow(1).setVisible(true);
         new OpcoesGerais(1).setVisible(true);
-        //Jogo jogo = new Jogo(1);
     }//GEN-LAST:event_btnPvPActionPerformed
 
     private void btnCvPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCvPActionPerformed

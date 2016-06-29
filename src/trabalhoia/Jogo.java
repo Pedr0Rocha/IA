@@ -110,9 +110,9 @@ public class Jogo {
             System.out.print("> ");
             op = scan.nextInt();
         }
-        confInicial.meses = op;
+        confInicial.maximoMeses = op;
         if (MenuWindow.debugMode)
-            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
+            System.out.println("Duracaoo do jogo: " + confInicial.maximoMeses + " meses");
         
         op = -1;
         while (op <= 0 || op > dinheiroInicial.size()){
@@ -145,7 +145,7 @@ public class Jogo {
     private void comecaJogo(){
         int mesesPassados = 1;
         sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
-        while (mesesPassados != gameLog.get(0).meses){
+        while (mesesPassados != gameLog.get(0).maximoMeses){
             Settings rodada = new Settings();
             rodada.rodada = mesesPassados;
             gameLog.add(rodada);
@@ -169,7 +169,7 @@ public class Jogo {
     private void comecaJogo(IA ia){
         int mesesPassados = 1;
         sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
-        while (mesesPassados != gameLog.get(0).meses){
+        while (mesesPassados != gameLog.get(0).maximoMeses){
             Settings rodada = new Settings();
             rodada.rodada = mesesPassados;
             
@@ -194,7 +194,7 @@ public class Jogo {
     private void comecaJogo2(IA ia){
         int mesesPassados = 1;
         sistema.turnoSistema(gameLog.get(mesesPassados-1), confInicial);
-        while (mesesPassados != gameLog.get(0).meses){
+        while (mesesPassados != gameLog.get(0).maximoMeses){
             Settings rodada = new Settings();
             rodada.rodada = mesesPassados;
             
@@ -377,9 +377,9 @@ public class Jogo {
             System.out.print("> ");
             op = scan.nextInt();
         }
-        confInicial.meses = op;
+        confInicial.maximoMeses = op;
         if (MenuWindow.debugMode)
-            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
+            System.out.println("Duracaoo do jogo: " + confInicial.maximoMeses + " meses");
         
         op = -1;
         while (op <= 0 || op > dinheiroInicial.size()){
@@ -435,9 +435,9 @@ public class Jogo {
             System.out.print("> ");
             op = scan.nextInt();
         }
-        confInicial.meses = op;
+        confInicial.maximoMeses = op;
         if (MenuWindow.debugMode)
-            System.out.println("Duracaoo do jogo: " + confInicial.meses + " meses");
+            System.out.println("Duracaoo do jogo: " + confInicial.maximoMeses + " meses");
         
         op = -1;
         while (op <= 0 || op > dinheiroInicial.size()){
@@ -618,7 +618,7 @@ public class Jogo {
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque));
             System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda * getValorVendaEstoque(conf.estoque)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa * getValorProducaoEstoque(conf.estoque)));
-            if (conf.meses != 12)
+            if (conf.maximoMeses != 12)
                 System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal);
         } else {
             System.out.println("ESTRUTURA: " + conf.predio2.nome);
@@ -627,7 +627,7 @@ public class Jogo {
             System.out.println("VALOR DE VENDA DO ESTOQUE: " + getValorVendaEstoque(conf.estoque2));
             System.out.println("GASTO COM PROPAGANDA: " + (conf.gastoPropaganda2 * getValorVendaEstoque(conf.estoque2)));
             System.out.println("GASTO COM PESQUISA: " + (conf.gastoPesquisa2 * getValorProducaoEstoque(conf.estoque2)));
-            if (conf.meses != 12)
+            if (conf.maximoMeses != 12)
                 System.out.println("DINHEIRO ATUAL: " + conf.dinheiroTotal2);
         }
     }

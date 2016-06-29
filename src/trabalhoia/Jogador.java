@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 public class Jogador {
     
+    public int id;
+    
     public Estrutura predio;
     public Estoque estoque;
     
