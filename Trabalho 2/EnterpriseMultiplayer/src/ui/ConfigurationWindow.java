@@ -2,7 +2,9 @@ package ui;
 
 import java.util.ArrayList;
 import javax.swing.InputVerifier;
+import structures.GameDatabase;
 import structures.Player;
+import utils.DatabaseLoader;
 
 /**
  *
@@ -11,6 +13,9 @@ import structures.Player;
 public class ConfigurationWindow extends javax.swing.JFrame {
 
     ArrayList<Player> players;
+    DatabaseLoader dbLoader;
+    
+    GameDatabase db = GameDatabase.getInstance();
     
     public ConfigurationWindow(ArrayList<Player> players) {
         initComponents();
@@ -18,10 +23,11 @@ public class ConfigurationWindow extends javax.swing.JFrame {
     }
     
     private void myInits(ArrayList<Player> playersList) {
+        setTitle("Enterprise Configurations");
         setSize(600, 400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);  
-        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);  
+        dbLoader =  new DatabaseLoader();
         initComboBoxes();
         
         this.players = playersList;        
@@ -29,7 +35,8 @@ public class ConfigurationWindow extends javax.swing.JFrame {
     
     private void initComboBoxes() {
         comboBusinessType.removeAllItems();
-        comboBusinessType.addItem("Technology");
+        for (int i = 0; i < db.getBusinesses().size(); i++)
+            comboBusinessType.addItem(db.getBusinesses().get(i).getName());
         
         comboStartingMoney.removeAllItems();
         comboStartingMoney.addItem("50000");
@@ -48,13 +55,14 @@ public class ConfigurationWindow extends javax.swing.JFrame {
         comboStartingMoney = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         comboBusinessType = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnStartGame = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        btnOpenDatabase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-        layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
-        layout.rowHeights = new int[] {0, 15, 0, 15, 0, 15, 0, 15, 0};
+        layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        layout.rowHeights = new int[] {0, 15, 0, 15, 0, 15, 0, 15, 0, 15, 0};
         getContentPane().setLayout(layout);
 
         jLabel1.setText("Months");
@@ -98,30 +106,59 @@ public class ConfigurationWindow extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(comboBusinessType, gridBagConstraints);
 
-        jButton1.setText("Start Game");
+        btnStartGame.setText("Start Game");
+        btnStartGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartGameActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnStartGame, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Main Configurations");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 11;
         getContentPane().add(jLabel4, gridBagConstraints);
+
+        btnOpenDatabase.setText("Database");
+        btnOpenDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenDatabaseActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 10;
+        getContentPane().add(btnOpenDatabase, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOpenDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenDatabaseActionPerformed
+        new DatabaseWindow().setVisible(true);
+    }//GEN-LAST:event_btnOpenDatabaseActionPerformed
+
+    private void btnStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGameActionPerformed
+        int months = Integer.valueOf(comboMonths.getValue().toString());
+        String business = comboBusinessType.getItemAt(comboBusinessType.getSelectedIndex());
+        double startingMoney = Double.valueOf(comboStartingMoney.getItemAt(comboStartingMoney.getSelectedIndex()));
+        
+        // info to send to every client - months, business, startingMoney
+    }//GEN-LAST:event_btnStartGameActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOpenDatabase;
+    private javax.swing.JButton btnStartGame;
     private javax.swing.JComboBox<String> comboBusinessType;
     private javax.swing.JSpinner comboMonths;
     private javax.swing.JComboBox<String> comboStartingMoney;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

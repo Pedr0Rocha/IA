@@ -11,13 +11,15 @@ public class Building {
     private int[] monthlyProductionByLevel = new int[3];
     private int level;
     private double monthlyCost;
+    private int businessType;
     
-    public Building(String name, double price, int monthlyProductionByLevel[], int level, double monthlyCost){
+    public Building(String name, double price, int monthlyProductionByLevel[], int level, double monthlyCost, int businessType){
         this.name = name;
         this.price = price;
         this.monthlyProductionByLevel = monthlyProductionByLevel;
         this.level = level;
         this.monthlyCost = monthlyCost;
+        this.businessType = businessType;
     }
 
     public String getName() {
@@ -43,4 +45,9 @@ public class Building {
     public double getMonthlyCost() {
         return monthlyCost;
     }   
+
+    public int getBusinessType() {
+        return businessType;
+    }
+    
 }

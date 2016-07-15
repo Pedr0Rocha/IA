@@ -13,12 +13,14 @@ public class Product {
     private double costBenefit;
     private boolean addedThisRound;
     private double[] possibleSellPrices = new double[3];
+    private int businessType;
     
-    public Product(String name, int level, double craftingCost, double sellingPrice){
+    public Product(String name, int level, double craftingCost, double sellingPrice, int businessType){
         this.name = name;
         this.level = level;
         this.craftingCost = craftingCost;
         this.sellPrice = sellingPrice;
+        this.businessType = businessType;
         
         this.possibleSellPrices[0] = craftingCost * 1.25;
         this.possibleSellPrices[1] = craftingCost * 1.50;
@@ -71,5 +73,9 @@ public class Product {
     public double[] getPossibleSellPrices() {
         return possibleSellPrices;
     }   
+    
+    public int getBusinessType() {
+        return businessType;
+    }
     
 }

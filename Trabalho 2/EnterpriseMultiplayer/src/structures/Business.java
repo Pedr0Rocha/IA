@@ -11,11 +11,13 @@ public class Business {
     private String name;
     private ArrayList<Building> buildings;
     private ArrayList<Product> products;
+    private int bussinessType;
     
-    public Business(String name, ArrayList<Building> buildings, ArrayList<Product> products){
+    public Business(String name, ArrayList<Building> buildings, ArrayList<Product> products, int bussinessType){
         this.name = name;
         this.buildings = buildings;
         this.products = products;
+        this.bussinessType = bussinessType;
     }
 
     public String getName() {
@@ -40,5 +42,9 @@ public class Business {
 
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
+    }
+    
+    public int getBussinessType() {
+        return this.bussinessType;
     }
 }

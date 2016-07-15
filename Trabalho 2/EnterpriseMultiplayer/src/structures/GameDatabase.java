@@ -22,7 +22,7 @@ public class GameDatabase {
         return INSTANCE;
     }
     
-    public void addToDataBase(Object item) {
+    public void addItemToDatabase(Object item) {
         if (item instanceof Building)
             buildings.add((Building) item);
         if (item instanceof Product)
@@ -31,6 +31,16 @@ public class GameDatabase {
             businesses.add((Business) item);
         else
             System.out.println("Cant add item to any table at database.");
+    }
+    
+    public ArrayList<Building> getBuildings() {
+        return this.buildings;
+    }
+    public ArrayList<Product> getProducts() {
+        return this.products;
+    }
+    public ArrayList<Business> getBusinesses() {
+        return this.businesses;
     }
     
 }

@@ -157,13 +157,13 @@ public class ServerWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fakeStartGame() {
-        Player player = new Player("P1");
+        Player player = new Player("P1", false);
         players.add(player);
-        setConnectedText(p1lbl, 1, player.name);
+        setConnectedText(p1lbl, 1, player.getName());
         
-        Player player2 = new Player("P2");
+        Player player2 = new Player("P2", false);
         players.add(player2);
-        setConnectedText(p2lbl, 2, player2.name);
+        setConnectedText(p2lbl, 2, player.getName());
     }
     
     private void btnStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGameActionPerformed
