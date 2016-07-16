@@ -1,6 +1,9 @@
 package ui;
 
 import javax.swing.UIManager;
+import structures.Player;
+import utils.CONSTANTS;
+import utils.DatabaseLoader;
 
 /**
  *
@@ -8,9 +11,8 @@ import javax.swing.UIManager;
  */
 public class ClientConnectWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ClientGameWindow
-     */
+    DatabaseLoader dbLoader;
+    
     public ClientConnectWindow() {
         initComponents();
         myInits();
@@ -20,7 +22,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         setTitle("Enterprise Multiplayer Client");
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);             
+        setDefaultCloseOperation(EXIT_ON_CLOSE);    
+        dbLoader = new DatabaseLoader();
         
         inputPlayerType.removeAllItems();
         inputPlayerType.addItem("Player");
@@ -135,10 +138,13 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         }
         
         if (!serverHost.isEmpty() && port != 0 && !playerName.isEmpty()) {
+            // receive info from server, player must be created
             System.out.println("Connecting to host: " + serverHost + " at port:" + port);
             System.out.println("Connecting as " + playerName + " and type " + playerType);
             this.setVisible(false);
-            new ClientGameWindow().setVisible(true);
+            Player player = new Player("Pedro", false);
+            player.setBusinessType(CONSTANTS.TECHBUSSINESS);
+            new ClientGameWindow(player).setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_btnConnectActionPerformed

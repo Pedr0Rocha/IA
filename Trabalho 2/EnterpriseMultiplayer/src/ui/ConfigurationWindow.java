@@ -2,7 +2,9 @@ package ui;
 
 import java.util.ArrayList;
 import javax.swing.InputVerifier;
+import structures.Business;
 import structures.GameDatabase;
+import structures.GameSettings;
 import structures.Player;
 import utils.DatabaseLoader;
 
@@ -39,9 +41,9 @@ public class ConfigurationWindow extends javax.swing.JFrame {
             comboBusinessType.addItem(db.getBusinesses().get(i).getName());
         
         comboStartingMoney.removeAllItems();
-        comboStartingMoney.addItem("50000");
+        comboStartingMoney.addItem("20000");
         comboStartingMoney.addItem("100000");
-        comboStartingMoney.addItem("500000");
+        comboStartingMoney.addItem("400000");
     }
 
     @SuppressWarnings("unchecked")
@@ -147,10 +149,13 @@ public class ConfigurationWindow extends javax.swing.JFrame {
 
     private void btnStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGameActionPerformed
         int months = Integer.valueOf(comboMonths.getValue().toString());
-        String business = comboBusinessType.getItemAt(comboBusinessType.getSelectedIndex());
+        String businessName = comboBusinessType.getItemAt(comboBusinessType.getSelectedIndex());
         double startingMoney = Double.valueOf(comboStartingMoney.getItemAt(comboStartingMoney.getSelectedIndex()));
         
+        Business business = db.getBusinessByName(businessName);
         // info to send to every client - months, business, startingMoney
+        // set every player business type to the chosen business
+        GameSettings gm = new GameSettings(months, startingMoney, business);
     }//GEN-LAST:event_btnStartGameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

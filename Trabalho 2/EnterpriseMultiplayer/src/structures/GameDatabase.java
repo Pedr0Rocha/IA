@@ -25,9 +25,9 @@ public class GameDatabase {
     public void addItemToDatabase(Object item) {
         if (item instanceof Building)
             buildings.add((Building) item);
-        if (item instanceof Product)
+        else if (item instanceof Product)
             products.add((Product) item);
-        if (item instanceof Business)
+        else if (item instanceof Business)
             businesses.add((Business) item);
         else
             System.out.println("Cant add item to any table at database.");
@@ -41,6 +41,20 @@ public class GameDatabase {
     }
     public ArrayList<Business> getBusinesses() {
         return this.businesses;
+    }
+    
+    public Business getBusinessByName(String name) {
+        for (Business b : this.businesses)
+            if (b.getName().equals(name)) return b;
+        return null;
+    }
+    
+    public ArrayList<Product> getProductsByBusinessType(int businessType) {
+        ArrayList<Product> availableProds = new ArrayList<Product>();
+        for (Product p : this.products)
+            if (p.getBusinessType() == businessType)
+                availableProds.add(p);
+        return availableProds;
     }
     
 }

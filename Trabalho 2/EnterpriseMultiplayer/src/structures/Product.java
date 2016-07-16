@@ -14,6 +14,7 @@ public class Product {
     private boolean addedThisRound;
     private double[] possibleSellPrices = new double[3];
     private int businessType;
+    private int quantityInStock;
     
     public Product(String name, int level, double craftingCost, double sellingPrice, int businessType){
         this.name = name;
@@ -76,6 +77,14 @@ public class Product {
     
     public int getBusinessType() {
         return businessType;
+    }
+
+    public int getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
     }
     
 }
