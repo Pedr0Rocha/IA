@@ -16,11 +16,13 @@ public class Player {
     private Building building;
     private Warehouse warehouse;
     private int businessType;
+    private double marketingInvestment;
+    private double researchInvestment;
     
     public Player(String name, boolean IA) {
         this.name = name;
         this.IA = IA;
-        this.building = db.getBuildings().get(2);
+        this.building = db.getBuildings().get(0);
         this.warehouse = new Warehouse();
     }
 
@@ -62,6 +64,22 @@ public class Player {
 
     public void setBusinessType(int businessType) {
         this.businessType = businessType;
+    }
+
+    public double getMarketingInvestment() {
+        return marketingInvestment;
+    }
+
+    public void setMarketingInvestment(double marketingInvestment) {
+        this.marketingInvestment = marketingInvestment;
+    }
+
+    public double getResearchInvestment() {
+        return researchInvestment;
+    }
+
+    public void setResearchInvestment(double researchInvestment) {
+        this.researchInvestment = researchInvestment;
     }
     
     

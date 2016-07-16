@@ -44,9 +44,9 @@ public class WarehouseWindow extends javax.swing.JFrame {
         lblQuantityProd1.setText("0");
         lblQuantityProd2.setText("0");
         
-        lblSellingPriceProd0.setText("Not Set");
-        lblSellingPriceProd1.setText("Not Set");
-        lblSellingPriceProd2.setText("Not Set");
+        lblSellingPriceProd0.setText("0");
+        lblSellingPriceProd1.setText("0");
+        lblSellingPriceProd2.setText("0");
         
         lblCraftCost.setText(warehouse.getTotalCraftCost()  +"");
         lblSellWorth.setText(warehouse.getTotalSellCost()  +"");
@@ -55,22 +55,19 @@ public class WarehouseWindow extends javax.swing.JFrame {
         if (prod0 != null) {
             lblQuantityProd0.setText(prod0.getQuantityInStock() + "");
             lblSellingPriceProd0.setText(prod0.getSellPrice() + "");
-        } else 
-            System.out.println("No Product Level 0");
+        }
         
         Product prod1 = warehouse.getProductOnStock(db.getProductsByBusinessType(player.getBusinessType()).get(1));
         if (prod1 != null) {
             lblQuantityProd1.setText(prod1.getQuantityInStock() + "");
             lblSellingPriceProd1.setText(prod1.getSellPrice() + "");
-        } else 
-            System.out.println("No Product Level 1");
+        }
         
         Product prod2 = warehouse.getProductOnStock(db.getProductsByBusinessType(player.getBusinessType()).get(2));
         if (prod2 != null) {
             lblQuantityProd2.setText(prod2.getQuantityInStock() + "");
             lblSellingPriceProd2.setText(prod2.getSellPrice() + "");
-        } else 
-            System.out.println("No Product Level 2");
+        }
     }
 
     @SuppressWarnings("unchecked")

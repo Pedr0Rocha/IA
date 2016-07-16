@@ -6,6 +6,8 @@ package structures;
  */
 public class Building {  
     
+    GameDatabase db = GameDatabase.getInstance();
+    
     private String name;
     private double price;
     private int[] monthlyProductionByLevel = new int[3];
@@ -48,6 +50,26 @@ public class Building {
 
     public int getBusinessType() {
         return businessType;
+    }
+    
+    public boolean canUpdate(Player player) {
+       if (player.getBuilding().getLevel() < 2) {
+            int currentBuildingLevel = player.getBuilding().getLevel();
+            double nextBuildingPrice = db.getBuildings().get(currentBuildingLevel+1).getPrice();
+            if (player.getCurrentMoney() > nextBuildingPrice)
+                return true;
+        }
+        return false;
+    }
+    
+    public Building getNextBuilding(Player player) {
+       if (player.getBuilding().getLevel() < 2) {
+            int currentBuildingLevel = player.getBuilding().getLevel();
+            Building nextBuilding = db.getBuildings().get(currentBuildingLevel+1);
+            if (player.getCurrentMoney() > nextBuilding.getPrice())
+                return nextBuilding;
+        }
+        return null;
     }
     
 }

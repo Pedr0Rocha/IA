@@ -149,6 +149,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
             System.out.println("Connecting as " + playerName + " and type " + playerType);
             this.setVisible(false);
             Player player = new Player("Pedro", false);
+            player.setCurrentMoney(700000);
             player.setBusinessType(CONSTANTS.TECHBUSSINESS);
             new ClientGameWindow(player).setVisible(true);
             dispose();

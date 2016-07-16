@@ -9,6 +9,7 @@ import structures.GameDatabase;
 import structures.GameSettings;
 import structures.Player;
 import structures.Product;
+import utils.CONSTANTS;
 import utils.Popup;
 
 /**
@@ -47,8 +48,8 @@ public class ClientGameWindow extends javax.swing.JFrame {
     }
     
     private void updateMainConfigsValue(GameSettings gm) {
+        updateMoneyValue();
         lblBusinessName.setText(gm.getBusiness().getName());
-        lblTotalMoney.setText(String.valueOf(gm.getInitialMoney()));
         lblMonths.setMaximum(gm.getMaxMonths());
         lblMonths.setValue(gm.getCurrentMonth());
         lblMonths.setString(gm.getCurrentMonth() + "/" + lblMonths.getMaximum());
@@ -61,10 +62,19 @@ public class ClientGameWindow extends javax.swing.JFrame {
         playState = 0;
     }
     
+    private void updateMoneyValue() {
+        lblTotalMoney.setText(String.valueOf(player.getCurrentMoney()));
+    }
+    
     private void updateBuildingValue() {
-        Building b = player.getBuilding();
-        lblBuildingName.setText(b.getName());
-        lblBuildingLevel.setText(String.valueOf(b.getLevel()));
+        Building currentBuilding = player.getBuilding();
+        lblBuildingName.setText(currentBuilding.getName());
+        lblBuildingLevel.setText(String.valueOf(currentBuilding.getLevel()));
+        
+        if (currentBuilding.canUpdate(player))
+            btnUpgradeBuilding.setEnabled(true);
+        else
+            btnUpgradeBuilding.setEnabled(false);
     }
     
     private void updateProductsValue() {
@@ -98,6 +108,25 @@ public class ClientGameWindow extends javax.swing.JFrame {
         comboQuantity2.setModel(spModel2);
     }
     
+    private void setInvestments() {
+        String marketingInvestment = comboMarketingValues.getItemAt(comboMarketingValues.getSelectedIndex());
+        String researchInvestment = comboResearchValues.getItemAt(comboResearchValues.getSelectedIndex());
+
+        if (marketingInvestment.equals("Low"))
+            player.setMarketingInvestment(CONSTANTS.LOW_INVESTMENT);
+        else if (marketingInvestment.equals("Medium")) 
+            player.setMarketingInvestment(CONSTANTS.MED_INVESTMENT);
+        else                
+            player.setMarketingInvestment(CONSTANTS.HIGH_INVESTMENT);
+
+        if (researchInvestment.equals("Low"))
+            player.setResearchInvestment(CONSTANTS.LOW_INVESTMENT);
+        else if (researchInvestment.equals("Medium")) 
+            player.setResearchInvestment(CONSTANTS.MED_INVESTMENT);
+        else                
+            player.setResearchInvestment(CONSTANTS.HIGH_INVESTMENT);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,7 +141,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
         lblMonths = new javax.swing.JProgressBar();
         jLabel7 = new javax.swing.JLabel();
         lblBuildingName = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnUpgradeBuilding = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -210,12 +239,17 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         getContentPane().add(lblBuildingName, gridBagConstraints);
 
-        jButton1.setText("Upgrade");
+        btnUpgradeBuilding.setText("Upgrade");
+        btnUpgradeBuilding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpgradeBuildingActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnUpgradeBuilding, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel9.setText("Products");
@@ -283,7 +317,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 32;
         getContentPane().add(jLabel15, gridBagConstraints);
 
-        btnOpenWarehouse.setText("Ope nWarehouse");
+        btnOpenWarehouse.setText("Open Warehouse");
         btnOpenWarehouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenWarehouseActionPerformed(evt);
@@ -518,6 +552,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
 
     private void btnConfirmPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPlayActionPerformed
         if (playState == 1) {
+            setInvestments();
             // send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
         } else {
@@ -530,10 +565,24 @@ public class ClientGameWindow extends javax.swing.JFrame {
         new WarehouseWindow(player).setVisible(true);
     }//GEN-LAST:event_btnOpenWarehouseActionPerformed
 
+    private void btnUpgradeBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpgradeBuildingActionPerformed
+        Building currentBuilding = player.getBuilding();
+        Building nextBuilding = currentBuilding.getNextBuilding(player);
+        
+        player.setBuilding(nextBuilding);
+        double newMoney = player.getCurrentMoney() - nextBuilding.getPrice();
+        player.setCurrentMoney(newMoney);
+        
+        updateBuildingValue();
+        updateMoneyValue();
+        updateProductsValue();
+    }//GEN-LAST:event_btnUpgradeBuildingActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmPlay;
     private javax.swing.JButton btnOpenWarehouse;
     private javax.swing.JButton btnSaveWarehouse;
+    private javax.swing.JButton btnUpgradeBuilding;
     private javax.swing.JComboBox<String> comboMarketingValues;
     private javax.swing.JSpinner comboQuantity0;
     private javax.swing.JSpinner comboQuantity1;
@@ -542,7 +591,6 @@ public class ClientGameWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboSellingPrice0;
     private javax.swing.JComboBox<String> comboSellingPrice1;
     private javax.swing.JComboBox<String> comboSellingPrice2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

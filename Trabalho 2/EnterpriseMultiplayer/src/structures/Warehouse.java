@@ -69,7 +69,6 @@ public class Warehouse {
         int indexOnStock = getIndexOnStock(product.getName());
         if (indexOnStock >= 0)
             return stock.get(indexOnStock);
-        System.out.println("No product on stock found with name " + product.getName());
         return null;
     }
 }
