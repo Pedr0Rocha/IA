@@ -31,8 +31,9 @@ public class Product {
     public Product(Product clone){
         this.name = clone.name;
         this.level = clone.level;
-        this.sellPrice = 0;
         this.craftingCost = clone.craftingCost;
+        this.businessType = clone.businessType;
+        this.sellPrice = 0;
     }
 
     public String getName() {

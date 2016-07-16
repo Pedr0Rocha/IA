@@ -30,7 +30,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         inputPlayerType.addItem("AI1 - Greedy");
         inputPlayerType.addItem("AI2 - ???");
     }
-    
+      
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -66,6 +66,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         getContentPane().add(jLabel2, gridBagConstraints);
+
+        inputServer.setText("localhost");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -77,6 +79,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         getContentPane().add(jLabel3, gridBagConstraints);
+
+        inputPort.setText("199999");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -107,6 +111,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         getContentPane().add(jLabel5, gridBagConstraints);
+
+        inputPlayerName.setText("Pedro");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;

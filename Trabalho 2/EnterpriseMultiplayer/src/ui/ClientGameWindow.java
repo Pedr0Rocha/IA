@@ -9,6 +9,7 @@ import structures.GameDatabase;
 import structures.GameSettings;
 import structures.Player;
 import structures.Product;
+import utils.Popup;
 
 /**
  *
@@ -19,6 +20,8 @@ public class ClientGameWindow extends javax.swing.JFrame {
     GameDatabase db = GameDatabase.getInstance();
     Player player;
     ArrayList<Product> availableProducts;
+    
+    public int playState; // 0 - mainConfigs change, 1 - saved warehouse, 2 - confirm play
     
     public ClientGameWindow(Player createdPlayer) {
         initComponents();
@@ -50,6 +53,12 @@ public class ClientGameWindow extends javax.swing.JFrame {
         lblMonths.setValue(gm.getCurrentMonth());
         lblMonths.setString(gm.getCurrentMonth() + "/" + lblMonths.getMaximum());
         lblMonths.setIndeterminate(false);
+        
+        comboMarketingValues.setEnabled(false);
+        comboResearchValues.setEnabled(false);
+        btnSaveWarehouse.setEnabled(true);
+        
+        playState = 0;
     }
     
     private void updateBuildingValue() {
@@ -113,11 +122,11 @@ public class ClientGameWindow extends javax.swing.JFrame {
         comboQuantity0 = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnOpenWarehouse = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        btnConfirmPlay = new javax.swing.JButton();
+        comboMarketingValues = new javax.swing.JComboBox<>();
+        comboResearchValues = new javax.swing.JComboBox<>();
         lblProductName1 = new javax.swing.JLabel();
         lblProductName2 = new javax.swing.JLabel();
         comboSellingPrice1 = new javax.swing.JComboBox<>();
@@ -135,7 +144,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
         lblBuildingLevel = new javax.swing.JLabel();
         lblSpend1 = new javax.swing.JLabel();
         lblSpend2 = new javax.swing.JLabel();
-        btnConfirmWarehouse = new javax.swing.JButton();
+        btnSaveWarehouse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -274,13 +283,18 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 32;
         getContentPane().add(jLabel15, gridBagConstraints);
 
-        jButton2.setText("Check Warehouse");
+        btnOpenWarehouse.setText("Ope nWarehouse");
+        btnOpenWarehouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenWarehouseActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 26;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jButton2, gridBagConstraints);
+        getContentPane().add(btnOpenWarehouse, gridBagConstraints);
 
         jLabel17.setText("Research:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -288,28 +302,33 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 34;
         getContentPane().add(jLabel17, gridBagConstraints);
 
-        jButton5.setText("Confirm Play");
+        btnConfirmPlay.setText("Confirm Play");
+        btnConfirmPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmPlayActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 32;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        getContentPane().add(jButton5, gridBagConstraints);
+        getContentPane().add(btnConfirmPlay, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboMarketingValues.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "High" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 32;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jComboBox1, gridBagConstraints);
+        getContentPane().add(comboMarketingValues, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboResearchValues.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "High" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 34;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jComboBox2, gridBagConstraints);
+        getContentPane().add(comboResearchValues, gridBagConstraints);
 
         lblProductName1.setText("jLabel3");
         lblProductName1.setMaximumSize(new java.awt.Dimension(57, 17));
@@ -436,10 +455,10 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(lblSpend2, gridBagConstraints);
 
-        btnConfirmWarehouse.setText("Confirm Warehouse Changes");
-        btnConfirmWarehouse.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveWarehouse.setText("Save Warehouse Changes");
+        btnSaveWarehouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmWarehouseActionPerformed(evt);
+                btnSaveWarehouseActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -447,43 +466,83 @@ public class ClientGameWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 26;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(btnConfirmWarehouse, gridBagConstraints);
+        getContentPane().add(btnSaveWarehouse, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboQuantity0StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comboQuantity0StateChanged
-        double selectedSellingValue = Double.valueOf(comboSellingPrice0.getItemAt(comboSellingPrice0.getSelectedIndex()));
-        lblSpend0.setText((selectedSellingValue * (Integer)comboQuantity0.getValue()) + "");
+        double craftingCost = availableProducts.get(0).getCraftingCost();
+        lblSpend0.setText((craftingCost * (Integer)comboQuantity0.getValue()) + "");
     }//GEN-LAST:event_comboQuantity0StateChanged
 
     private void comboQuantity1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comboQuantity1StateChanged
-        double selectedSellingValue = Double.valueOf(comboSellingPrice1.getItemAt(comboSellingPrice1.getSelectedIndex()));
-        lblSpend1.setText((selectedSellingValue * (Integer)comboQuantity1.getValue()) + "");
+        double craftingCost = availableProducts.get(1).getCraftingCost();
+        lblSpend1.setText((craftingCost * (Integer)comboQuantity1.getValue()) + "");
     }//GEN-LAST:event_comboQuantity1StateChanged
 
     private void comboQuantity2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comboQuantity2StateChanged
-        double selectedSellingValue = Double.valueOf(comboSellingPrice2.getItemAt(comboSellingPrice2.getSelectedIndex()));
-        lblSpend2.setText((selectedSellingValue * (Integer)comboQuantity2.getValue()) + "");
+        double craftingCost = availableProducts.get(2).getCraftingCost();
+        lblSpend2.setText((craftingCost * (Integer)comboQuantity2.getValue()) + "");
     }//GEN-LAST:event_comboQuantity2StateChanged
 
-    private void btnConfirmWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmWarehouseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmWarehouseActionPerformed
+    private void btnSaveWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveWarehouseActionPerformed
+        
+        if ((Integer)comboQuantity0.getValue() != 0) {
+            Product prod0 = new Product(availableProducts.get(0));
+            prod0.setQuantityInStock((Integer)comboQuantity0.getValue());
+            double sellingPrice = Double.valueOf(comboSellingPrice0.getItemAt(comboSellingPrice0.getSelectedIndex())); 
+            prod0.setSellPrice(sellingPrice);
+            player.getWarehouse().addToStock(prod0);
+        }
+        if ((Integer)comboQuantity1.getValue() != 0) {
+            Product prod1 = new Product(availableProducts.get(1));
+            prod1.setQuantityInStock((Integer)comboQuantity1.getValue());
+            double sellingPrice = Double.valueOf(comboSellingPrice1.getItemAt(comboSellingPrice1.getSelectedIndex())); 
+            prod1.setSellPrice(sellingPrice);
+            player.getWarehouse().addToStock(prod1);
+        }
+        if ((Integer)comboQuantity2.getValue() != 0) {
+            Product prod2 = new Product(availableProducts.get(2));
+            prod2.setQuantityInStock((Integer)comboQuantity2.getValue());
+            double sellingPrice = Double.valueOf(comboSellingPrice2.getItemAt(comboSellingPrice2.getSelectedIndex())); 
+            prod2.setSellPrice(sellingPrice);
+            player.getWarehouse().addToStock(prod2);
+        }
+        
+        playState = 1;
+        btnSaveWarehouse.setEnabled(false);        
+        comboMarketingValues.setEnabled(true);
+        comboResearchValues.setEnabled(true);
+    }//GEN-LAST:event_btnSaveWarehouseActionPerformed
+
+    private void btnConfirmPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPlayActionPerformed
+        if (playState == 1) {
+            // send all info to the servers and wait for other players
+            System.out.println("Confirmed play from " + player.getName());
+        } else {
+            System.out.println("Missing info, can't confirm play");
+            new Popup("Save your warehouse changes before continuing").setVisible(true);
+        }
+    }//GEN-LAST:event_btnConfirmPlayActionPerformed
+
+    private void btnOpenWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenWarehouseActionPerformed
+        new WarehouseWindow(player).setVisible(true);
+    }//GEN-LAST:event_btnOpenWarehouseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfirmWarehouse;
+    private javax.swing.JButton btnConfirmPlay;
+    private javax.swing.JButton btnOpenWarehouse;
+    private javax.swing.JButton btnSaveWarehouse;
+    private javax.swing.JComboBox<String> comboMarketingValues;
     private javax.swing.JSpinner comboQuantity0;
     private javax.swing.JSpinner comboQuantity1;
     private javax.swing.JSpinner comboQuantity2;
+    private javax.swing.JComboBox<String> comboResearchValues;
     private javax.swing.JComboBox<String> comboSellingPrice0;
     private javax.swing.JComboBox<String> comboSellingPrice1;
     private javax.swing.JComboBox<String> comboSellingPrice2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

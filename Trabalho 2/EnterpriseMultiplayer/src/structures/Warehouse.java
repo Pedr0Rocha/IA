@@ -18,10 +18,13 @@ public class Warehouse {
     
     public void addToStock(Product product) {
         int indexOnStock = getIndexOnStock(product.getName());
-        if (stock.get(indexOnStock).getQuantityInStock() > 0)
+        if (indexOnStock >= 0)
             updateInStock(product, indexOnStock);
         else
             stock.add(product);
+        
+        craftingCost = getTotalCraftCost();
+        sellingCost = getTotalSellCost();
     }
     
     private void updateInStock(Product product, int index) {
@@ -57,4 +60,16 @@ public class Warehouse {
             totalValue += (p.getSellPrice() * p.getQuantityInStock());
         return totalValue;
     }  
+    
+    public ArrayList<Product> getStock() {
+        return this.stock;
+    }
+    
+    public Product getProductOnStock(Product product) {
+        int indexOnStock = getIndexOnStock(product.getName());
+        if (indexOnStock >= 0)
+            return stock.get(indexOnStock);
+        System.out.println("No product on stock found with name " + product.getName());
+        return null;
+    }
 }
