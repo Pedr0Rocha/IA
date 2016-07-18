@@ -11,7 +11,6 @@ public class Product {
     private double sellPrice;
     private double craftingCost;
     private double costBenefit;
-    private boolean addedThisRound;
     private double[] possibleSellPrices = new double[3];
     private int businessType;
     private int quantityInStock;
@@ -59,17 +58,11 @@ public class Product {
     public double getCostBenefit() {
         return costBenefit;
     }
-
-    public void setCostBenefit(double costBenefit) {
+    
+    public void setCostBenefit(double marketingInvestment, double researchInvestment) {
+        double costRelation = 2 / (this.sellPrice/this.craftingCost);
+        double costBenefit = costRelation * 0.5 + marketingInvestment * 0.35 + researchInvestment * 0.15;
         this.costBenefit = costBenefit;
-    }
-
-    public boolean isAddedThisRound() {
-        return addedThisRound;
-    }
-
-    public void setAddedThisRound(boolean addedThisRound) {
-        this.addedThisRound = addedThisRound;
     }
 
     public double[] getPossibleSellPrices() {
@@ -87,5 +80,5 @@ public class Product {
     public void setQuantityInStock(int quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
-    
+     
 }

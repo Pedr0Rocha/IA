@@ -40,9 +40,9 @@ public class ClientGameWindow extends javax.swing.JFrame {
         // receive info from server to update all variables
         GameDatabase db = GameDatabase.getInstance(); // not necessary after client/server sync
         Business business = db.getBusinessByName("Technology"); // not necessary after client/server sync
-        GameSettings gm = new GameSettings(12, 20000.00, business);
-        gm.setCurrentMonth(3);
-        updateMainConfigsValue(gm);
+        GameSettings gs = new GameSettings(12, 20000.00, business);
+        gs.setCurrentMonth(10);
+        updateMainConfigsValue(gs);
         updateBuildingValue();
         updateProductsValue();
     }
@@ -555,6 +555,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
             setInvestments();
             // send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
+            new Popup("Waiting for server response").setVisible(true);
         } else {
             System.out.println("Missing info, can't confirm play");
             new Popup("Save your warehouse changes before continuing").setVisible(true);
