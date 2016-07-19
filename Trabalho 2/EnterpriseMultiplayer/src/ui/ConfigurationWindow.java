@@ -15,7 +15,6 @@ import utils.DatabaseLoader;
 public class ConfigurationWindow extends javax.swing.JFrame {
 
     ArrayList<Player> players;
-    DatabaseLoader dbLoader;
     
     GameDatabase db = GameDatabase.getInstance();
     
@@ -29,7 +28,6 @@ public class ConfigurationWindow extends javax.swing.JFrame {
         setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);  
-        dbLoader =  new DatabaseLoader();
         initComboBoxes();
         
         this.players = playersList;        

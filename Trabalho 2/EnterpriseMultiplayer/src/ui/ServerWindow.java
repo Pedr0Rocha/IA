@@ -3,7 +3,9 @@ package ui;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+import structures.GameDatabase;
 import structures.Player;
+import utils.DatabaseLoader;
 import utils.Popup;
 
 /**
@@ -12,6 +14,8 @@ import utils.Popup;
  */
 public class ServerWindow extends javax.swing.JFrame {
 
+    GameDatabase db = GameDatabase.getInstance();
+    DatabaseLoader gl = new DatabaseLoader();
     private ArrayList<Player> players;
     
     public ServerWindow() {
@@ -25,7 +29,7 @@ public class ServerWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setInitialText();
-        
+
         players = new ArrayList<>();
         
         // test purposes
