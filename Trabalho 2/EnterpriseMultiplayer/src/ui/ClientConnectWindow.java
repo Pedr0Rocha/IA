@@ -1,5 +1,9 @@
 package ui;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import structures.Player;
 import utils.CONSTANTS;
@@ -144,11 +148,16 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         }
         
         if (!serverHost.isEmpty() && port != 0 && !playerName.isEmpty()) {
-            // receive info from server, player must be created
             System.out.println("Connecting to host: " + serverHost + " at port:" + port);
             System.out.println("Connecting as " + playerName + " and type " + playerType);
+            // TCP - 3-wayhandshake
+            try {
+                Socket socket = new Socket(serverHost, port);
+            } catch (IOException ex) {
+                Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.setVisible(false);
-            Player player = new Player("Pedro", false);
+            Player player = new Player("Pedro", CONSTANTS.TYPE_PLAYER);
             player.setCurrentMoney(700000);
             player.setBusinessType(CONSTANTS.TECHBUSSINESS);
             new ClientGameWindow(player).setVisible(true);

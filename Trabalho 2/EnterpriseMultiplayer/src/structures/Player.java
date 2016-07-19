@@ -11,7 +11,7 @@ public class Player {
     GameDatabase db = GameDatabase.getInstance();
     
     private String name;
-    private boolean IA;
+    private int IA;
     private double currentMoney;
     private Building building;
     private Warehouse warehouse;
@@ -19,7 +19,7 @@ public class Player {
     private double marketingInvestment;
     private double researchInvestment;
     
-    public Player(String name, boolean IA) {
+    public Player(String name, int IA) {
         this.name = name;
         this.IA = IA;
         this.building = db.getBuildings().get(0);
@@ -29,10 +29,14 @@ public class Player {
     public String getName() {
         return name;
     }
-    
-    public boolean isIA() {
+
+    public int getIA() {
         return IA;
-    }    
+    }
+
+    public void setIA(int IA) {
+        this.IA = IA;
+    }
 
     public double getCurrentMoney() {
         return currentMoney;

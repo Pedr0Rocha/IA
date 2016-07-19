@@ -37,7 +37,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
         this.player = createdPlayer;
         availableProducts = db.getProductsByBusinessType(player.getBusinessType());
         
-        // receive info from server to update all variables
+        // TCP - receive info from server to update all variables
         GameDatabase db = GameDatabase.getInstance(); // not necessary after client/server sync
         Business business = db.getBusinessByName("Technology"); // not necessary after client/server sync
         GameSettings gs = new GameSettings(12, 20000.00, business);
@@ -553,7 +553,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
     private void btnConfirmPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPlayActionPerformed
         if (playState == 1) {
             setInvestments();
-            // send all info to the servers and wait for other players
+            // TCP - send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
             new Popup("Waiting for server response").setVisible(true);
         } else {

@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import structures.GameDatabase;
 import structures.Player;
+import utils.CONSTANTS;
 import utils.DatabaseLoader;
 import utils.Popup;
 
@@ -32,6 +33,8 @@ public class ServerWindow extends javax.swing.JFrame {
 
         players = new ArrayList<>();
         
+        // TPC - set number of players and wait for them to connect
+        // 3-wayhandshake
         // test purposes
         fakeStartGame();
     }
@@ -161,11 +164,11 @@ public class ServerWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fakeStartGame() {
-        Player player = new Player("P1", false);
+        Player player = new Player("P1", CONSTANTS.TYPE_PLAYER);
         players.add(player);
         setConnectedText(p1lbl, 1, player.getName());
         
-        Player player2 = new Player("P2", false);
+        Player player2 = new Player("P2", CONSTANTS.TYPE_PLAYER);
         players.add(player2);
         setConnectedText(p2lbl, 2, player.getName());
     }
