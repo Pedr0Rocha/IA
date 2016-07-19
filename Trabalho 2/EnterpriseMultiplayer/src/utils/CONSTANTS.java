@@ -20,4 +20,8 @@ public class CONSTANTS {
     public static double LEVEL0_INTEREST = 0.5;
     public static double LEVEL1_INTEREST = 0.4;
     public static double LEVEL2_INTEREST = 0.1;
+    
+    public static int PLAYSTATUS_START = 0;
+    public static int PLAYSTATUS_WAREHOUSECHANGES = 1;
+    public static int PLAYSTATUS_CONFIRMPLAY = 2;
 }

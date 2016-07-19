@@ -59,7 +59,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
         comboResearchValues.setEnabled(false);
         btnSaveWarehouse.setEnabled(true);
         
-        playState = 0;
+        playState = CONSTANTS.PLAYSTATUS_START;
     }
     
     private void updateMoneyValue() {
@@ -544,18 +544,20 @@ public class ClientGameWindow extends javax.swing.JFrame {
             player.getWarehouse().addToStock(prod2);
         }
         
-        playState = 1;
+        playState = CONSTANTS.PLAYSTATUS_WAREHOUSECHANGES;
         btnSaveWarehouse.setEnabled(false);        
         comboMarketingValues.setEnabled(true);
         comboResearchValues.setEnabled(true);
     }//GEN-LAST:event_btnSaveWarehouseActionPerformed
 
     private void btnConfirmPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPlayActionPerformed
-        if (playState == 1) {
+        if (playState == CONSTANTS.PLAYSTATUS_WAREHOUSECHANGES) {
+            playState = CONSTANTS.PLAYSTATUS_CONFIRMPLAY;
             setInvestments();
             // TCP - send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
             new Popup("Waiting for server response").setVisible(true);
+            // TCP - receive turn statistics from server
         } else {
             System.out.println("Missing info, can't confirm play");
             new Popup("Save your warehouse changes before continuing").setVisible(true);

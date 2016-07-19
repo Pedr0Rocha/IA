@@ -84,7 +84,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        inputPort.setText("199999");
+        inputPort.setText("7777");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
