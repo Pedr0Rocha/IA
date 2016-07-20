@@ -1,6 +1,13 @@
 package ui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +40,10 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         inputPlayerType.addItem("Player");
         inputPlayerType.addItem("AI1 - Greedy");
         inputPlayerType.addItem("AI2 - ???");
+    }
+    
+    private void splitConfigs() {
+        
     }
       
     @SuppressWarnings("unchecked")
@@ -71,7 +82,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        inputServer.setText("localhost");
+        inputServer.setText("192.168.0.212");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -117,6 +128,11 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         getContentPane().add(jLabel5, gridBagConstraints);
 
         inputPlayerName.setText("Pedro");
+        inputPlayerName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputPlayerNameFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -138,32 +154,68 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         int port = 0;
         String playerName = "";
         String playerType = "";
+        int pType = 0;
         try {
             serverHost = inputServer.getText();
             port = Integer.valueOf(inputPort.getText());
             playerName = inputPlayerName.getText();
             playerType = inputPlayerType.getItemAt(inputPlayerType.getSelectedIndex());
+            
+            switch(playerType) {
+                case "Player":
+                    pType = CONSTANTS.TYPE_PLAYER;
+                    break;
+                case "AI1 - Greedy":
+                    pType = CONSTANTS.TYPE_IA1;
+                    break;
+                case "AI2 - ???":
+                    pType = CONSTANTS.TYPE_IA2;
+                    break;
+            }
         } catch (NumberFormatException e) {
             System.err.println(e);
         }
         
         if (!serverHost.isEmpty() && port != 0 && !playerName.isEmpty()) {
-            System.out.println("Connecting to host: " + serverHost + " at port:" + port);
-            System.out.println("Connecting as " + playerName + " and type " + playerType);
-            // TCP - 3-wayhandshake
+            if (playerType != "Player") {
+                System.out.println("Start the AI client");
+                return;
+            }
             try {
                 Socket socket = new Socket(serverHost, port);
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                
+                String infoToSend = playerName + "|" + pType;
+                
+                output.write(infoToSend, 0, infoToSend.length());
+                output.newLine();
+                output.flush();
+                
+                String sameString = input.readLine();
+                System.out.println("Msg from server: " + sameString);
+                // recieve max months, starting money and business type;
+                /*
+                //String mainConfigs = input.readLine();
+                Player player = new Player(playerName, pType);
+                player.setCurrentMoney(700000);
+                player.setBusinessType(CONSTANTS.TECHBUSSINESS);
+                
+                this.setVisible(false);
+                dispose();
+                new ClientGameWindow(player).setVisible(true);
+                */
             } catch (IOException ex) {
                 Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.setVisible(false);
-            Player player = new Player("Pedro", CONSTANTS.TYPE_PLAYER);
-            player.setCurrentMoney(700000);
-            player.setBusinessType(CONSTANTS.TECHBUSSINESS);
-            new ClientGameWindow(player).setVisible(true);
-            dispose();
         }
     }//GEN-LAST:event_btnConnectActionPerformed
+
+    private void inputPlayerNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputPlayerNameFocusLost
+        String input = inputPlayerName.getText();
+        if (input.length() > 16) 
+            inputPlayerName.setText(input.substring(0, 16));
+    }//GEN-LAST:event_inputPlayerNameFocusLost
 
     public static void main(String args[]) {
         /* Setting the GTK look and feel */

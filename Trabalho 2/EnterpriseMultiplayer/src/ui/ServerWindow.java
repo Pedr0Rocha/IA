@@ -45,7 +45,7 @@ public class ServerWindow extends javax.swing.JFrame {
         p3lbl.setText("Waiting for player 3 to connect...");
         p4lbl.setText("Waiting for player 4 to connect...");
     }
-    
+
     private void setConnectedText(JLabel label, int playerIndex, String playerName) {
         label.setText("Player " + playerIndex + " connected as " + playerName + "!");
     }
