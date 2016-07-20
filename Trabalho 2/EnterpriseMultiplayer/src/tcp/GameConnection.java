@@ -34,8 +34,6 @@ public class GameConnection extends Thread
             output.flush();
             
             System.out.println("Output: " + buffer);
-            
-            
         }
         catch (IOException e)
         {
