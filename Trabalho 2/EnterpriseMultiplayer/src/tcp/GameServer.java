@@ -6,31 +6,39 @@ import java.io.*;
 
 public class GameServer 
 {
-    private boolean enabled;
+    static int MaxPlayers = 4;
     private ServerSocket socket;
+    private ArrayList<GameConnection> clients;
 
     public GameServer(int port)
     {
         try
         {
-            this.enabled = true;
+            // Inicializar socket TCP
             this.socket = new ServerSocket(port);
             System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
 
-            while(true)
+            // Esperar todos os players se conectarem
+            while(this.clients.size() < this.MaxPlayers)
             {
                 Socket client = this.socket.accept();
-                new GameConnection(this, client);
+                this.clients.add(new GameConnection(this, client));
             }
+
+            // Iniciar o jogo
+            // (?)
         }
 
-        catch(KeyboardInterrupt e) { /* Fazer nada */ }
-        
+        catch(KeyboardInterrupt e) { /* Apenas finalizar o servidor */ }
+
         catch(Exception e)
+        {
             System.out.println("[GameServer] Erro:" + e.getMessage());
+        }
 
         finally
         {
+            // Finalizar socket
             if(this.socket) this.socket.close();
             System.out.println("[GameServer] Servidor finalizado.");
         }
@@ -38,6 +46,7 @@ public class GameServer
 
     public static void main(String[] args)
     {
-        new GameServer(7777);    
+        int serverPort = (args.length == 1) ? Integer.parseInt(args[0]) : 7777;
+        new GameServer(serverPort);
     }     
 }
