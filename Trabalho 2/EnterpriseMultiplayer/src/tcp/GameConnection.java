@@ -3,17 +3,20 @@ package tcp;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.CyclicBarrier;
 
 public class GameConnection extends Thread
 {
     private static final int MAGICNUMBER = 0x1AD42823;
+    CyclicBarrier barrier;
     Socket socket;
     String clientName;
     int clientType;
 
-    public GameConnection(Socket clientSocket) throws IOException
+    public GameConnection(Socket clientSocket, CyclicBarrier barrier) throws IOException
     {
         this.socket = clientSocket;
+        this.barrier = barrier;
         System.out.println("[GameConnection] Cliente conectado - " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort() + ".");
         this.start();
     }
@@ -44,9 +47,9 @@ public class GameConnection extends Thread
             System.out.println("[GameConnection] Cliente identificado - " + this.clientName + " => " + socket.getInetAddress().getHostAddress());
 
             // Dorme a thread até que todos os players se conectem
-            wait();
+            this.barrier.await();
 
-            // Neste momento o jogo já terá iniciado
+            // Neste momento o jogo será iniciado
             // (?)
         }
 
