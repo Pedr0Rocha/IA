@@ -6,18 +6,16 @@ import java.net.*;
 
 public class GameConnection extends Thread
 {
-    BufferedReader input;
-    BufferedWriter output;
+    Socket serverSocket;
     Socket clientSocket;
     String clientName;
     int clientType;
 
-    public GameConnection (Socket aClientSocket) throws IOException
+    public GameConnection(Socket serverSocket, Socket clientSocket) throws IOException
     {
-        clientSocket = aClientSocket;
-        input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        output = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-        System.out.println("Conexão iniciada em " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort() + ".");
+        this.clientSocket = clientSocket;
+        this.serverSocket = serverSocket;
+        System.out.println("[GameConnection] Cliente conectado - " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort() + ".");
         this.start();
     }
 
@@ -26,18 +24,28 @@ public class GameConnection extends Thread
     {
         try 
         {
-            String buffer = input.readLine();
-            System.out.println("Input: " + buffer);
-            
-            output.write(buffer, 0, buffer.length());
-            output.newLine();
-            output.flush();
-            
-            System.out.println("Output: " + buffer);
+            // Inicializa o fluxo de dados
+            InputStream input = clientSocket.getInputStream();
+            OutputStream output = clientSocket.getOutputStream();
+
+            // Obtém os dados do jogador
+            // (?)
+
+            // Dorme a thread até que todos os players se conectem
+            wait();
+
+            // Neste momento o jogo já terá iniciado
         }
-        catch (IOException e)
+
+        catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("[GameConnection] Erro:" + e.getMessage());
+        }
+
+        finally
+        {
+            System.out.println("[GameConnection] Cliente conectado - " + this.clientSocket.getInetAddress().getHostAddress() + ":" + this.clientSocket.getPort() + ".");
+            this.clientSocket.close();
         }
     }
 }
