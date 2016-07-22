@@ -19,12 +19,15 @@ public class GameServer
             System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
 
             // Esperar todos os players se conectarem
-            while(this.clients.size() < this.MaxPlayers)
+            while(this.clients.size() < GameServer.MaxPlayers)
             {
                 Socket client = this.socket.accept();
                 this.clients.add(new GameConnection(this, client));
             }
 
+            // Acorda as threads
+            notifyAll();
+            
             // Iniciar o jogo
             // (?)
         }
