@@ -189,9 +189,14 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 ObjectInputStream obin = new ObjectInputStream(input);
                 ObjectOutputStream obout = new ObjectOutputStream(output);
                 
+                // sending magic number to confirm application
+                obout.writeInt(0x1AD42823);
+                
+                // sending player info to server
                 obout.writeObject(playerName);
                 obout.writeInt(pType);
                 
+                // receiving game settings to start game
                 Player player = new Player(playerName, pType);
                 GameSettings gs = (GameSettings) obin.readObject();
                 
@@ -202,7 +207,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 dispose();
                 new ClientGameWindow(player).setVisible(true);
             } catch (IOException ex) {
-                Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Server not found!");
+                ex.printStackTrace();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
             }

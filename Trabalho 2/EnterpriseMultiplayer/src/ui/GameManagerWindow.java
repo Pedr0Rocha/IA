@@ -1,13 +1,23 @@
 package ui;
 
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import structures.GameManager;
+import structures.Player;
+import utils.CONSTANTS;
+
 /**
  *
  * @author pedro
  */
 public class GameManagerWindow extends javax.swing.JFrame {
 
-    // should have an arraylist of updated players
-    public GameManagerWindow() {
+    GameManager gm;
+    private ArrayList<JLabel> playerLabels;
+    // should have an arraylist of updated players every turn
+    public GameManagerWindow(ArrayList<Player> players) {
+        gm = new GameManager(players);
+        playerLabels = new ArrayList<JLabel>();
         initComponents();
         myInits();
     }
@@ -17,7 +27,21 @@ public class GameManagerWindow extends javax.swing.JFrame {
         setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);  
+        
+        playerLabels.add(lblP1);
+        playerLabels.add(lblP2);
+        playerLabels.add(lblP3);
+        playerLabels.add(lblP4);
+        
+        lblPopulation.setText(CONSTANTS.POPULATION + "");
+        lblCustomers.setText(gm.getPopulationManager().getInterestedCustomers() + "");
+        
+        for (int i = 0; i < gm.getPlayers().size(); i++) 
+            playerLabels.get(i).setText(gm.getPlayers().get(i).getName());
+        
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -27,18 +51,18 @@ public class GameManagerWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblP1 = new javax.swing.JLabel();
+        lblPopulation = new javax.swing.JLabel();
+        lblCustomers = new javax.swing.JLabel();
+        lblP3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblP2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblP4 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -85,33 +109,33 @@ public class GameManagerWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel4.setText("Player 1");
+        lblP1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblP1.setText("Player 1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 3;
-        getContentPane().add(jLabel4, gridBagConstraints);
+        getContentPane().add(lblP1, gridBagConstraints);
 
-        jLabel5.setText("jLabel5");
+        lblPopulation.setText("jLabel5");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        getContentPane().add(jLabel5, gridBagConstraints);
+        getContentPane().add(lblPopulation, gridBagConstraints);
 
-        jLabel6.setText("jLabel6");
+        lblCustomers.setText("jLabel6");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
-        getContentPane().add(jLabel6, gridBagConstraints);
+        getContentPane().add(lblCustomers, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel7.setText("Player 3");
+        lblP3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblP3.setText("Player 3");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
         gridBagConstraints.gridwidth = 3;
-        getContentPane().add(jLabel7, gridBagConstraints);
+        getContentPane().add(lblP3, gridBagConstraints);
 
         jLabel8.setText("Items sold:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,13 +155,13 @@ public class GameManagerWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 12;
         getContentPane().add(jLabel10, gridBagConstraints);
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel11.setText("Player 2");
+        lblP2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblP2.setText("Player 2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 5;
-        getContentPane().add(jLabel11, gridBagConstraints);
+        getContentPane().add(lblP2, gridBagConstraints);
 
         jLabel12.setText("Items sold:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -157,13 +181,13 @@ public class GameManagerWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 12;
         getContentPane().add(jLabel14, gridBagConstraints);
 
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel15.setText("Player 4");
+        lblP4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblP4.setText("Player 4");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 14;
         gridBagConstraints.gridwidth = 5;
-        getContentPane().add(jLabel15, gridBagConstraints);
+        getContentPane().add(lblP4, gridBagConstraints);
 
         jLabel16.setText("Item sold:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -289,11 +313,9 @@ public class GameManagerWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -314,11 +336,13 @@ public class GameManagerWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblCustomers;
+    private javax.swing.JLabel lblP1;
+    private javax.swing.JLabel lblP2;
+    private javax.swing.JLabel lblP3;
+    private javax.swing.JLabel lblP4;
+    private javax.swing.JLabel lblPopulation;
     // End of variables declaration//GEN-END:variables
 }
