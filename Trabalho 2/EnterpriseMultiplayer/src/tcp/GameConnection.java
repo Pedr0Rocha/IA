@@ -44,7 +44,7 @@ public class GameConnection extends Thread
 
         finally
         {
-            System.out.println("[GameConnection] Cliente conectado - " + this.clientSocket.getInetAddress().getHostAddress() + ":" + this.clientSocket.getPort() + ".");
+            System.out.println("[GameConnection] Cliente desconectado - " + this.clientSocket.getInetAddress().getHostAddress() + ".");
             this.clientSocket.close();
         }
     }
