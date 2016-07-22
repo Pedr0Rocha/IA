@@ -4,20 +4,40 @@ package tcp;
 import java.net.*;
 import java.io.*;
 
-public class GameServer
+public class GameServer 
 {
-    public static void main(String args[]) throws IOException
+    private boolean enabled;
+    private ServerSocket socket;
+
+    public GameServer(int port)
     {
         try
         {
-            int serverPort = 7777;
-            ServerSocket listenSocket = new ServerSocket(serverPort);
-            System.out.println("Servidor iniciado na porta " + serverPort + ".");
-            while(true) new GameConnection(listenSocket.accept());
+            this.enabled = true;
+            this.socket = new ServerSocket(port);
+            System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
+
+            while(true)
+            {
+                Socket client = this.socket.accept();
+                new GameConnection(this, client);
+            }
         }
-        catch(IOException e)
+
+        catch(KeyboardInterrupt e) { /* Fazer nada */ }
+        
+        catch(Exception e)
+            System.out.println("[GameServer] Erro:" + e.getMessage());
+
+        finally
         {
-            e.printStackTrace();
+            if(this.socket) this.socket.close();
+            System.out.println("[GameServer] Servidor finalizado.");
         }
     }
+
+    public static void main(String[] args)
+    {
+        new GameServer(7777);    
+    }     
 }
