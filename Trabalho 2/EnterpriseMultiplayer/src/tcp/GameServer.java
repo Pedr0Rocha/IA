@@ -6,12 +6,16 @@ import java.io.*;
 
 public class GameServer 
 {
-    static int MaxPlayers = 4;
+    public static int MaxPlayers = 4;
+    private GameConnection[] clients;
     private ServerSocket socket;
-    private ArrayList<GameConnection> clients;
+    private int clientCount;
 
     public GameServer(int port)
     {
+        this.clients = new GameConnection[MaxPlayers];
+        this.clientCount = 0;
+
         try
         {
             // Inicializar socket TCP
@@ -19,10 +23,10 @@ public class GameServer
             System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
 
             // Esperar todos os players se conectarem
-            while(this.clients.size() < GameServer.MaxPlayers)
+            while(this.clientCount < GameServer.MaxPlayers)
             {
                 Socket client = this.socket.accept();
-                this.clients.add(new GameConnection(this, client));
+                this.clients[this.clientCount++] = new GameConnection(this, client);
             }
 
             // Acorda as threads

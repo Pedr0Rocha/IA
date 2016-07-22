@@ -6,6 +6,7 @@ import java.net.*;
 
 public class GameConnection extends Thread
 {
+    private static int MagicNumber = 0x1AD42823;
     Socket serverSocket;
     Socket clientSocket;
     String clientName;
@@ -30,9 +31,14 @@ public class GameConnection extends Thread
             ObjectInputStream obin = new ObjectInputStream(input);
             ObjectOutputStream obout = new ObjectOutputStream(output);
 
+            // Verifica se a conexão é autêntica
+            if(obin.readInt() != this.MagicNumber)
+                throw new InterruptedException();
+
             // Obtém os dados do jogador
             this.clientName = (String) obin.readObject();
             this.clientType = obin.readInt();
+            System.out.println("[GameConnection] Cliente identificado - " + this.clientName);
 
             // Dorme a thread até que todos os players se conectem
             wait();
@@ -41,14 +47,16 @@ public class GameConnection extends Thread
             // (?)
         }
 
-        catch (Exception e)
+        catch(InterruptedException e) { /* Apenas encerrar a conexão */ }
+
+        catch(Exception e)
         {
             System.out.println("[GameConnection] Erro:" + e.getMessage());
         }
 
         finally
         {
-            System.out.println("[GameConnection] Cliente desconectado - " + this.clientSocket.getInetAddress().getHostAddress() + ".");
+            System.out.println("[GameConnection] Cliente desconectado - " + this.clientName + ".");
             if(obin) obin.close();
             if(obout) obout.close();
             this.clientSocket.close();
