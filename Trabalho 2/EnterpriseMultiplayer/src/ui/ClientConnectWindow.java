@@ -7,11 +7,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+import structures.GameSettings;
 import structures.Player;
 import utils.CONSTANTS;
 import utils.DatabaseLoader;
@@ -42,10 +46,6 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         inputPlayerType.addItem("AI2 - ???");
     }
     
-    private void splitConfigs() {
-        
-    }
-      
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -182,30 +182,28 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 return;
             }
             try {
+                // initialize connection and player client
                 Socket socket = new Socket(serverHost, port);
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                InputStream input = socket.getInputStream();
+                OutputStream output = socket.getOutputStream();
+                ObjectInputStream obin = new ObjectInputStream(input);
+                ObjectOutputStream obout = new ObjectOutputStream(output);
                 
-                String infoToSend = playerName + "|" + pType;
+                obout.writeObject(playerName);
+                obout.writeInt(pType);
                 
-                output.write(infoToSend, 0, infoToSend.length());
-                output.newLine();
-                output.flush();
-                
-                String sameString = input.readLine();
-                System.out.println("Msg from server: " + sameString);
-                // recieve max months, starting money and business type;
-                /*
-                //String mainConfigs = input.readLine();
                 Player player = new Player(playerName, pType);
-                player.setCurrentMoney(700000);
-                player.setBusinessType(CONSTANTS.TECHBUSSINESS);
+                GameSettings gs = (GameSettings) obin.readObject();
+                
+                player.setCurrentMoney(gs.getInitialMoney());
+                player.setBusinessType(gs.getBusiness().getBussinessType());
                 
                 this.setVisible(false);
                 dispose();
                 new ClientGameWindow(player).setVisible(true);
-                */
             } catch (IOException ex) {
+                Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
