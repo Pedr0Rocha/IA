@@ -14,7 +14,7 @@ public class PopulationManager {
     private int[] customersByProductLevel = new int[3];
     
     public PopulationManager(double marketingInvestments) {
-        this.interestedCustomers = (int)Math.round(CONSTANTS.POPULATION * marketingInvestments);
+        this.interestedCustomers = (int)Math.round(CONSTANTS.POPULATION * marketingInvestments/100);
         arrangeCustomers();
     }
     

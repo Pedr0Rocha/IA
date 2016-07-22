@@ -207,7 +207,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 dispose();
                 new ClientGameWindow(player).setVisible(true);
             } catch (IOException ex) {
-                Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Server not found!");
+                ex.printStackTrace();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
