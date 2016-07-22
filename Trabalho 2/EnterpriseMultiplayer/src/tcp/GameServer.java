@@ -3,19 +3,17 @@ package tcp;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class GameServer 
 {
     public static int MaxPlayers = 4;
-    private GameConnection[] clients;
-    private ServerSocket socket;
-    private int clientCount;
+    private ArrayList<GameConnection> clients;
+    private ServerSocket socket = null;
 
     public GameServer(int port)
     {
-        this.clients = new GameConnection[MaxPlayers];
-        this.clientCount = 0;
-
+        this.clients = new ArrayList<GameConnection>();
         try
         {
             // Inicializar socket TCP
@@ -23,10 +21,15 @@ public class GameServer
             System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
 
             // Esperar todos os players se conectarem
-            while(this.clientCount < GameServer.MaxPlayers)
+            while(this.clients.size() < GameServer.MaxPlayers)
             {
+                // Aceitar a conexão e criar a thread
                 Socket client = this.socket.accept();
-                this.clients[this.clientCount++] = new GameConnection(this, client);
+                this.clients.add(new GameConnection(client));
+
+                // Caso alguma thread tenha sido encerrada, remover o jogador correspondente
+                for(GameConnection con : this.clients)
+                    if(!con.isAlive()) this.clients.remove(con);
             }
 
             // Acorda as threads
@@ -36,8 +39,6 @@ public class GameServer
             // (?)
         }
 
-        catch(KeyboardInterrupt e) { /* Apenas finalizar o servidor */ }
-
         catch(Exception e)
         {
             System.out.println("[GameServer] Erro:" + e.getMessage());
@@ -46,7 +47,8 @@ public class GameServer
         finally
         {
             // Finalizar socket
-            if(this.socket) this.socket.close();
+            try { this.socket.close(); }
+            catch(Exception e) { }
             System.out.println("[GameServer] Servidor finalizado.");
         }
     }
