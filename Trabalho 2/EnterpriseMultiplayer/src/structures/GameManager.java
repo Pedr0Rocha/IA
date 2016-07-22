@@ -38,5 +38,11 @@ public class GameManager {
     public PopulationManager getPopulationManager() {
         return populationManager;
     }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+    
+    
     
 }
