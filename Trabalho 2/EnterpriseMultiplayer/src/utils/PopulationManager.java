@@ -36,5 +36,9 @@ public class PopulationManager {
         return customersByProductLevel[prodLevel];
     }
     
+    public boolean productLevelHasDemand(int level) {
+        return customersByProductLevel[level] > 0 ? true : false;
+    }
+    
     
 }
