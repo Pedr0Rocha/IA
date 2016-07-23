@@ -31,11 +31,8 @@ public class GameServer
                 this.clients.add(new GameConnection(client, this.phaser));
 
                 // Caso alguma thread tenha sido encerrada, remover o jogador correspondente
-                for(GameConnection con: this.clients) if(!con.isAlive())
-                {
-                    this.clients.remove(con);
-                    this.phaser.arriveAndDeregister();
-                }
+                for(GameConnection con: this.clients)
+                    if(!con.isAlive()) this.clients.remove(con);
             }
 
             // Sincroniza as threads
@@ -53,6 +50,7 @@ public class GameServer
         finally
         {
             // Unir threads e encerrar socket
+            System.out.println("[GameServer] Finalizando...");
             try
             {
                 this.phaser.forceTermination();

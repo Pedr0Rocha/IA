@@ -45,10 +45,10 @@ public class GameConnection extends Thread
             // Obtém os dados do jogador
             this.clientName = (String) obin.readObject();
             this.clientType = obin.readInt();
-            System.out.println("[GameConnection] Cliente identificado - " + this.clientName + " => " + socket.getInetAddress().getHostAddress());
+            System.out.println("[GameConnection] Cliente identificado - " + this.clientName + " => " + this.socket.getInetAddress().getHostAddress());
 
             // Dorme a thread até que todos os players se conectem
-            phaser.arriveAndAwaitAdvance();
+            this.phaser.arriveAndAwaitAdvance();
 
             // Neste momento o jogo será iniciado
             // (?)
@@ -66,6 +66,7 @@ public class GameConnection extends Thread
             System.out.println("[GameConnection] Cliente desconectado - " + socket.getInetAddress().getHostAddress() + ".");
             try
             {
+                this.phaser.arriveAndDeregister();
                 obin.close();
                 obout.close();
                 this.socket.close();
