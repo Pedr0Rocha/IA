@@ -45,6 +45,10 @@ public class Player {
     public void setCurrentMoney(double currentMoney) {
         this.currentMoney = currentMoney;
     }
+    
+    public void updateCurrentMoney(double moneyToAdd) {
+        this.currentMoney += moneyToAdd;
+    }
 
     public Building getBuilding() {
         return building;

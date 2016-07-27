@@ -31,8 +31,7 @@ public class Warehouse {
         Product productInStock = stock.get(index);
         
         productInStock.setSellPrice(product.getSellPrice());
-        int quantityToUpdate = productInStock.getQuantityInStock() + product.getQuantityInStock();
-        productInStock.setQuantityInStock(quantityToUpdate);
+        productInStock.updateQuantityInStock(product.getQuantityInStock());
     }
     
     private int getIndexOnStock(String productName) {

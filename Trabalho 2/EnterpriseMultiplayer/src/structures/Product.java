@@ -80,5 +80,9 @@ public class Product {
     public void setQuantityInStock(int quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
+    
+    public void updateQuantityInStock(int quantityToAdd) {
+        this.quantityInStock += quantityToAdd;
+    }
      
 }
