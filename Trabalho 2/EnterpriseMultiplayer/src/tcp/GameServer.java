@@ -5,19 +5,19 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.Phaser;
-import java.util.concurrent.TimeUnit;
 
 public class GameServer 
 {
     public static int MaxPlayers = 1;
-    private ArrayList<GameConnection> clients;
-    private ServerSocket socket = null;
-    private Phaser phaser;
+    public ArrayList<GameConnection> clients;
+    public ServerSocket socket;
+    public Phaser phaser;
 
     public GameServer(int port)
     {
         this.clients = new ArrayList<GameConnection>();
         this.phaser = new Phaser(1);
+
         try
         {
             // Inicializar socket TCP
@@ -29,13 +29,7 @@ public class GameServer
             {
                 // Aceitar a conexão e criar a thread
                 Socket client = this.socket.accept();
-                this.clients.add(new GameConnection(client, this.phaser));
-
-                TimeUnit.SECONDS.sleep(1);
-                
-                // Caso alguma thread tenha sido encerrada, remover o jogador correspondente
-                for(GameConnection con: this.clients)
-                    if(!con.isAlive()) this.clients.remove(con);
+                this.clients.add(new GameConnection(this, client));
             }
 
             // Sincroniza as threads
@@ -43,6 +37,8 @@ public class GameServer
 
             // Iniciar o jogo
             System.out.println("[GameServer] Jogadores conectados. Iniciando jogo...");
+
+            // Aqui começa o jogo
         }
 
         catch(Exception e)
