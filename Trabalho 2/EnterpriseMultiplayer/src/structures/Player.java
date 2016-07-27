@@ -18,6 +18,7 @@ public class Player {
     private int businessType;
     private double marketingInvestment;
     private double researchInvestment;
+    private double profitThisRound = 0;
     
     public Player(String name, int IA) {
         this.name = name;
@@ -89,7 +90,16 @@ public class Player {
     public void setResearchInvestment(double researchInvestment) {
         this.researchInvestment = researchInvestment;
     }
+
+    public double getProfitThisRound() {
+        return profitThisRound;
+    }
+
+    public void setProfitThisRound(double profitThisRound) {
+        this.profitThisRound = profitThisRound;
+    }
     
-    
-    
+    public void updateProfitThisRound(double profitToAdd) {
+        this.profitThisRound += profitToAdd;
+    }
 }

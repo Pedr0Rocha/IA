@@ -15,8 +15,14 @@ public class GameManager {
     
     public GameManager(ArrayList<Player> playersList) {
         this.players = playersList;
+        resetLastRoundProfits();
         int marketingInvestment = calcMarketingInvestments();
         populationManager = new PopulationManager(marketingInvestment);
+    }
+    
+    private void resetLastRoundProfits() {
+        for (Player p : players)
+            p.setProfitThisRound(0);
     }
     
     private int calcMarketingInvestments() {
@@ -63,6 +69,7 @@ public class GameManager {
         int unitsSold = buyers - updatedQuantity;
         double moneyEarned = productToSell.getSellPrice() * unitsSold;
         player.updateCurrentMoney(moneyEarned);
+        player.updateProfitThisRound(moneyEarned);
     }
     
     /* Returns the player who has the best cost benefit of a product */
