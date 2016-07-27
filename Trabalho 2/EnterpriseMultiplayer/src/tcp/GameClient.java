@@ -10,58 +10,85 @@ public class GameClient
 	private static final int MAGICNUMBER = 0x1AD42823;
 	private final Socket socket;
 	private final ObjectInputStream input;
-        private final ObjectOutputStream output;
+	private final ObjectOutputStream output;
+	private final BufferedInputStream inputbuffer;
+	private final BufferedOutputStream outputbuffer;
 
 	public GameClient(InetAddress ip, int port) throws IOException
 	{
-            this.socket = new Socket(ip, port);
+		System.out.println("[GameClient] Conectando...");
+		this.socket = new Socket(ip, port);
 
-            // Inicializa o fluxo de dados
-            this.input = new ObjectInputStream(this.socket.getInputStream());
-            this.output = new ObjectOutputStream(this.socket.getOutputStream());
+		// Inicializa o fluxo de dados
+		this.inputbuffer = new BufferedInputStream(this.socket.getInputStream());
+		this.outputbuffer = new BufferedOutputStream(this.socket.getOutputStream());
+		this.input = new ObjectInputStream(this.inputbuffer);
+		this.output = new ObjectOutputStream(this.outputbuffer);
 
-            // Envia o magic number
-            this.output.writeInt(GameClient.MAGICNUMBER);
-            this.output.flush();
+		// Envia o magic number
+		this.send(GameClient.MAGICNUMBER);
+
+		// Conectado!
+		System.out.println("[GameClient] Conectado - " + ip.getHostAddress());
 	}
 
 	public void send(Object data) throws IOException
 	{
-            this.output.writeObject(data);
-            this.output.flush();
+		this.output.writeObject(data);
+		this.output.flush();
 	}
 
-	public Object receive() throws Exception
+	public Object receive() throws IOException
 	{
-            return this.input.readObject();
+		Object ret = null;
+		try
+		{
+			ret = this.input.readObject();
+		}
+		catch(ClassNotFoundException e)
+		{
+			this.close();
+			throw new IOException("Invalid object received");
+		}
+		return ret;
 	}
 
 	public void close()
 	{
+		try
+		{
+			this.input.close();
+			this.output.close();
+			this.socket.close();
+		}
+
+		catch(Exception e) {}
+	}
+        
+    public static void main(String[] args)
+    {
+        GameClient client = null;
+        
+        try
+        {
+            client = new GameClient(InetAddress.getLocalHost(), 7777);
+            client.send("Pedro");
+            client.send(1);
+        }
+        
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        finally
+        {
             try
             {
-                this.input.close();
-                this.output.close();
-                this.socket.close();
+                client.close();
             }
 
             catch(Exception e) {}
-	}
-        
-        public static void main(String[] args)
-        {
-            GameClient client;
-            
-            try
-            {
-                client = new GameClient(InetAddress.getByName("127.0.0.1"), 7777);
-                client.send("Pedro");
-                client.send(1);
-            }
-            
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
         }
+    }
 }

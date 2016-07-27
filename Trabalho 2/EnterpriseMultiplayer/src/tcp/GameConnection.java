@@ -3,20 +3,19 @@ package tcp;
 
 import java.io.*;
 import java.net.*;
-import java.util.concurrent.Phaser;
 
 public class GameConnection extends Thread
 {
     private static final int MAGICNUMBER = 0x1AD42823;
-    public Socket socket;
-    private GameServer server;
+    public final Socket socket;
+    private final GameServer server;
 
     public GameConnection(GameServer server, Socket client) throws IOException
     {
         this.socket = client;
         this.server = server;
         this.server.phaser.register();
-        System.out.println("[GameConnection] Cliente conectado - " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort() + ".");
+        System.out.println("[GameConnection] Cliente conectado - " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
         this.start();
     }
 
@@ -35,8 +34,8 @@ public class GameConnection extends Thread
             // Inicializa o fluxo de dados
             input = socket.getInputStream();
             output = socket.getOutputStream();
-            obin = new ObjectInputStream(input);
-            obout = new ObjectOutputStream(output);
+            obin = new ObjectInputStream(new BufferedInputStream(input));
+            obout = new ObjectOutputStream(new BufferedOutputStream(output));
 
             // Verifica se a conexão é autêntica
             if(obin.readInt() != GameConnection.MAGICNUMBER)
