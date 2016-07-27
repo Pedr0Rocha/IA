@@ -11,11 +11,13 @@ public class GameClient
 	private final Socket socket;
 	private final ObjectInputStream input;
 	private final ObjectOutputStream output;
+        private boolean closed;
 
 	public GameClient(InetAddress ip, int port) throws IOException
 	{
 		System.out.println("[GameClient] Conectando...");
 		this.socket = new Socket(ip, port);
+                this.closed = false;
 
 		// Inicializa o fluxo de dados
 		this.output = new ObjectOutputStream(this.socket.getOutputStream());
@@ -31,27 +33,35 @@ public class GameClient
 
 	public void send(Object data) throws IOException
 	{
-		this.output.writeObject(data);
-		this.output.flush();
+		try
+		{
+			this.output.writeObject(data);
+			this.output.flush();
+		}
+		catch(Exception e)
+		{
+			this.close();
+			throw new IOException("Connection closed");
+		}
 	}
 
 	public Object receive() throws IOException
 	{
-		Object ret = null;
 		try
 		{
-			ret = this.input.readObject();
+			return this.input.readObject();
 		}
-		catch(ClassNotFoundException e)
+		catch(Exception e)
 		{
 			this.close();
-			throw new IOException("Invalid object received");
+			throw new IOException("Connection closed");
 		}
-		return ret;
 	}
 
 	public void close()
 	{
+            if(!this.closed)
+            {
 		try
 		{
 			this.input.close();
@@ -60,6 +70,10 @@ public class GameClient
 		}
 
 		catch(Exception e) {}
+
+                this.closed = true;
+		System.out.println("[GameClient] Desconectado.");
+            }
 	}
         
     public static void main(String[] args)
@@ -72,6 +86,8 @@ public class GameClient
             client.send("Pedro");
             client.send(1);
         }
+        
+        catch(IOException e) {}
         
         catch(Exception e)
         {

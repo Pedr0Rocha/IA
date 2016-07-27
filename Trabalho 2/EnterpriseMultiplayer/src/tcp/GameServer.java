@@ -2,16 +2,15 @@
 package tcp;
 
 import java.net.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.Phaser;
 
 public class GameServer 
 {
     public static int MaxPlayers = 1;
-    public ArrayList<GameConnection> clients;
+    public final ArrayList<GameConnection> clients;
     public ServerSocket socket;
-    public Phaser phaser;
+    public final Phaser phaser;
 
     public GameServer(int port)
     {
@@ -22,7 +21,7 @@ public class GameServer
         {
             // Inicializar socket TCP
             this.socket = new ServerSocket(port);
-            System.out.println("[GameServer] Servidor iniciado na porta " + port + ".");
+            System.out.println("[GameServer] Iniciado na porta " + port + ".");
 
             // Esperar todos os players se conectarem
             while(this.clients.size() < MaxPlayers)
@@ -36,7 +35,7 @@ public class GameServer
             phaser.arriveAndAwaitAdvance();
 
             // Iniciar o jogo
-            System.out.println("[GameServer] Jogadores conectados. Iniciando jogo...");
+            System.out.println("[GameServer] Jogadores conectados. Iniciando...");
 
             // Aqui começa o jogo
         }
@@ -48,16 +47,19 @@ public class GameServer
 
         finally
         {
-            // Unir threads e encerrar socket
             System.out.println("[GameServer] Finalizando...");
+
             try
             {
+                // Unir threads e encerrar socket
                 this.phaser.forceTermination();
                 for(GameConnection con: this.clients)
                     if(con.isAlive()) con.join();
                 this.socket.close();
             }
+
             catch(Exception e) { }
+
             System.out.println("[GameServer] Servidor finalizado.");
         }
     }
