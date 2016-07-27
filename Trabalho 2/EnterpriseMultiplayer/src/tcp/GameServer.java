@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.Phaser;
+import java.util.concurrent.TimeUnit;
 
 public class GameServer 
 {
@@ -30,6 +31,8 @@ public class GameServer
                 Socket client = this.socket.accept();
                 this.clients.add(new GameConnection(client, this.phaser));
 
+                TimeUnit.SECONDS.sleep(1);
+                
                 // Caso alguma thread tenha sido encerrada, remover o jogador correspondente
                 for(GameConnection con: this.clients)
                     if(!con.isAlive()) this.clients.remove(con);

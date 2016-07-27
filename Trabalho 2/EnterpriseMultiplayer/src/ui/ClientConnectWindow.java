@@ -26,6 +26,7 @@ import utils.DatabaseLoader;
  */
 public class ClientConnectWindow extends javax.swing.JFrame {
 
+    private static final int MAGICNUMBER = 0x1AD42823;
     DatabaseLoader dbLoader;
     
     public ClientConnectWindow() {
@@ -190,26 +191,32 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 ObjectOutputStream obout = new ObjectOutputStream(output);
                 
                 // sending magic number to confirm application
-                obout.writeInt(0x1AD42823);
+                obout.writeInt(ClientConnectWindow.MAGICNUMBER);
                 
                 // sending player info to server
                 obout.writeObject(playerName);
                 obout.writeInt(pType);
+
+                // flush the buffer
+                obout.flush();
                 
                 // receiving game settings to start game
                 Player player = new Player(playerName, pType);
-                GameSettings gs = (GameSettings) obin.readObject();
+                //GameSettings gs = (GameSettings) obin.readObject();
                 
-                player.setCurrentMoney(gs.getInitialMoney());
-                player.setBusinessType(gs.getBusiness().getBussinessType());
+                //player.setCurrentMoney(gs.getInitialMoney());
+                //player.setBusinessType(gs.getBusiness().getBussinessType());
                 
                 this.setVisible(false);
                 dispose();
                 new ClientGameWindow(player).setVisible(true);
-            } catch (IOException ex) {
+            }
+            catch (IOException ex) 
+            {
                 System.out.println("Server not found!");
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
+            }
+            catch (Exception ex) 
+            {
                 Logger.getLogger(ClientConnectWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

@@ -38,13 +38,18 @@ public class GameConnection extends Thread
             obin = new ObjectInputStream(input);
             obout = new ObjectOutputStream(output);
 
-            // Verifica se a conexão é autêntica
-            if(obin.readInt() != GameConnection.MAGICNUMBER)
-                throw new InterruptedException("Magic number mismatch");
+            // Libera o buffer da conexão
+            obout.flush();
 
             // Obtém os dados do jogador
+            int magic = obin.readInt();
             this.clientName = (String) obin.readObject();
             this.clientType = obin.readInt();
+
+            // Verifica se a conexão é autêntica
+            if(magic != GameConnection.MAGICNUMBER)
+                throw new InterruptedException("Magic number mismatch");
+
             System.out.println("[GameConnection] Cliente identificado - " + this.clientName + " => " + this.socket.getInetAddress().getHostAddress());
 
             // Dorme a thread até que todos os players se conectem
@@ -55,10 +60,15 @@ public class GameConnection extends Thread
         }
 
         catch(InterruptedException e) { /* Apenas encerrar a conexão */ }
+        
+        catch(IOException e) 
+        { 
+            System.out.println("[GameConnection] Conexão interrompida: " + e.getMessage());
+        }
 
         catch(Exception e)
         {
-            System.out.println("[GameConnection] Erro:" + e.getMessage());
+            System.out.println("[GameConnection] Erro: " + e.getMessage());
         }
 
         finally
