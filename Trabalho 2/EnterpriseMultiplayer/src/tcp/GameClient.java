@@ -11,8 +11,6 @@ public class GameClient
 	private final Socket socket;
 	private final ObjectInputStream input;
 	private final ObjectOutputStream output;
-	private final BufferedInputStream inputbuffer;
-	private final BufferedOutputStream outputbuffer;
 
 	public GameClient(InetAddress ip, int port) throws IOException
 	{
@@ -20,10 +18,9 @@ public class GameClient
 		this.socket = new Socket(ip, port);
 
 		// Inicializa o fluxo de dados
-		this.inputbuffer = new BufferedInputStream(this.socket.getInputStream());
-		this.outputbuffer = new BufferedOutputStream(this.socket.getOutputStream());
-		this.input = new ObjectInputStream(this.inputbuffer);
-		this.output = new ObjectOutputStream(this.outputbuffer);
+		this.output = new ObjectOutputStream(this.socket.getOutputStream());
+		this.output.flush();
+		this.input = new ObjectInputStream(this.socket.getInputStream());
 
 		// Envia o magic number
 		this.send(GameClient.MAGICNUMBER);

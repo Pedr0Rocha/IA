@@ -36,6 +36,7 @@ public class GameConnection extends Thread
             output = socket.getOutputStream();
             obin = new ObjectInputStream(new BufferedInputStream(input));
             obout = new ObjectOutputStream(new BufferedOutputStream(output));
+            obout.flush();
 
             // Verifica se a conexão é autêntica
             if(obin.readInt() != GameConnection.MAGICNUMBER)
