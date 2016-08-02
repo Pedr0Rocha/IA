@@ -39,21 +39,31 @@ public class GameManager {
     }
     
     private void sellingManager() {
+        ArrayList<Player> temporarySellers = players;
         ArrayList<Product> products = db.getProductsByBusinessType(players.get(0).getBusinessType());
         /* if the product has a demand, sell to the player who has the best cost benefit of the product */        
-        for (int i = 0; i < 4; i++) 
+        for (int i = 0; i < 4; i++) {
             if (populationManager.productLevelHasDemand(i)) {
-                Player seller = getPlayerBestCostBenefit(products.get(i));
-                Product prodToSell = seller.getWarehouse().getProductOnStock(products.get(i));
                 int buyers = populationManager.getCustomerByProductLevel(i);
-                if (buyers > prodToSell.getQuantityInStock()) {
-                    /* still products to sell after this player */
-                } else {
-                    /* sold everything to this player */
-                    sellProduct(seller, prodToSell, buyers);
+                while(buyers >= 1) {
+                    Player seller = getPlayerBestCostBenefit(products.get(i));
+                    Product prodToSell = seller.getWarehouse().getProductOnStock(products.get(i));
+                    if (buyers > prodToSell.getQuantityInStock()) {
+                        /* multiple sales */
+                        int quantityBeforeSale = prodToSell.getQuantityInStock();
+                        sellProduct(seller, prodToSell, buyers);
+                        buyers -= quantityBeforeSale;
+                    } else {
+                        /* sold everything to this player */
+                        sellProduct(seller, prodToSell, buyers);
+                        buyers = 0;
+                    }
+                    seller.setAbleToSell(false);
                 }
             }
-        
+            for (Player p : players)
+                p.setAbleToSell(true);
+        }   
     }
     
     private void sellProduct(Player player, Product product, int buyers) {
@@ -77,14 +87,23 @@ public class GameManager {
         double bestCostBenefit = 0.0;
         int bestPlayerIndex = -1;
         for (int i = 0; i < players.size(); i++) {
-            Warehouse wh = players.get(i).getWarehouse();
-            if (wh.has(product)) 
-                if (wh.getProductOnStock(product).getCostBenefit() > bestCostBenefit) {
-                    bestCostBenefit = wh.getProductOnStock(product).getCostBenefit();
-                    bestPlayerIndex = i;
-                }
+            if (players.get(i).isAbleToSellThisRound()) {
+                Warehouse wh = players.get(i).getWarehouse();
+                if (wh.has(product)) 
+                    if (wh.getProductOnStock(product).getCostBenefit() > bestCostBenefit) {
+                        bestCostBenefit = wh.getProductOnStock(product).getCostBenefit();
+                        bestPlayerIndex = i;
+                    }
+            }
         }
         return players.get(bestPlayerIndex);        
+    }
+    
+    public void showProfits() {
+        System.out.println("Profits this round:");
+        for (Player p : players) {
+            System.out.println("Player " + p.getName() + ": " + p.getProfitThisRound());
+        }
     }
     
     public PopulationManager getPopulationManager() {

@@ -19,6 +19,7 @@ public class Player {
     private double marketingInvestment;
     private double researchInvestment;
     private double profitThisRound = 0;
+    private boolean ableToSellThisRound = false;
     
     public Player(String name, int IA) {
         this.name = name;
@@ -102,4 +103,14 @@ public class Player {
     public void updateProfitThisRound(double profitToAdd) {
         this.profitThisRound += profitToAdd;
     }
+
+    public boolean isAbleToSellThisRound() {
+        return ableToSellThisRound;
+    }
+
+    public void setAbleToSell(boolean ableToSellThisRound) {
+        this.ableToSellThisRound = ableToSellThisRound;
+    }
+    
+    
 }
