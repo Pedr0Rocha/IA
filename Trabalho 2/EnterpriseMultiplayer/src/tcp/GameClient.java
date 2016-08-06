@@ -25,15 +25,15 @@ public class GameClient
         this.input = new ObjectInputStream(this.socket.getInputStream());
 
         // Verifica o magic number
-        this.sendObject(GameClient.MAGICNUMBER);
-        int ans = this.receiveInt();
+        this.send(GameClient.MAGICNUMBER);
+        Integer ans = (Integer) this.receive();
         if(ans != 1) throw new IOException("Magic number mismatch");
 
         // Envia o nome do jogador
-        this.sendObject(this.clientname);
+        this.send(this.clientname);
     }
 
-    public void sendObject(Object data) throws IOException
+    public void send(Object data) throws IOException
     {
         try
         {
@@ -47,38 +47,11 @@ public class GameClient
         }
     }
 
-    public void sendInt(int data) throws IOException
-    {
-        try
-        {
-            this.output.writeInt(data);
-            this.output.flush();
-        }
-        catch(Exception e)
-        {
-            this.close();
-            throw new IOException("Connection closed");
-        }
-    }
-
-    public Object receiveObject() throws IOException
+    public Object receive() throws IOException
     {
         try
         {
             return this.input.readObject();
-        }
-        catch(Exception e)
-        {
-            this.close();
-            throw new IOException("Connection closed");
-        }
-    }
-
-    public int receiveInt() throws IOException
-    {
-        try
-        {
-            return this.input.readInt();
         }
         catch(Exception e)
         {

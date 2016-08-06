@@ -9,7 +9,6 @@ public class GameConnection extends Thread
     private static final int MAGICNUMBER = 0x1AD42823;
     public final Socket socket;
     private final GameServer server;
-    public final String clientname;
 
     public GameConnection(GameServer server, Socket client) throws IOException
     {
@@ -23,8 +22,9 @@ public class GameConnection extends Thread
     @Override
     public void run()
     {
-        ObjectInputStream input;
-        ObjectOutputStream output;
+        ObjectInputStream input = null;
+        ObjectOutputStream output = null;
+        String clientname;
 
         try 
         {
@@ -37,14 +37,14 @@ public class GameConnection extends Thread
 
             if(magic != GameConnection.MAGICNUMBER)
             {
-                input.writeInt(0);
+                output.writeObject(0);
                 throw new InterruptedException("Magic number mismatch");
             }
-            else input.writeInt(1);
+            else output.writeObject(1);
 
 
             // Obtém os dados do jogador
-            this.clientname = (String) input.readObject();
+            clientname = (String) input.readObject();
 
             // Dorme a thread até que todos os players se conectem
             this.server.phaser.arriveAndAwaitAdvance();
