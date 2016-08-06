@@ -9,6 +9,7 @@ public class GameConnection extends Thread
     private static final int MAGICNUMBER = 0x1AD42823;
     public final Socket socket;
     private final GameServer server;
+    public final String clientname;
 
     public GameConnection(GameServer server, Socket client) throws IOException
     {
@@ -22,31 +23,28 @@ public class GameConnection extends Thread
     @Override
     public void run()
     {
-        InputStream input;
-        OutputStream output;
-        ObjectInputStream obin = null;
-        ObjectOutputStream obout = null;
-        String clientName;
-        Integer clientType;
+        ObjectInputStream input;
+        ObjectOutputStream output;
 
         try 
         {
             // Inicializa o fluxo de dados
-            input = socket.getInputStream();
-            output = socket.getOutputStream();
-            obin = new ObjectInputStream(new BufferedInputStream(input));
-            obout = new ObjectOutputStream(new BufferedOutputStream(output));
-            obout.flush();
+            input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+            output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
             // Verifica se a conexão é autêntica
-            if(obin.readInt() != GameConnection.MAGICNUMBER)
+            int magic = input.readInt();
+
+            if(magic != GameConnection.MAGICNUMBER)
+            {
+                input.writeInt(0);
                 throw new InterruptedException("Magic number mismatch");
+            }
+            else input.writeInt(1);
+
 
             // Obtém os dados do jogador
-            clientName = (String) obin.readObject();
-            clientType = (Integer) obin.readObject();
-
-            System.out.println("[GameConnection] Cliente identificado - " + clientName + " => " + this.socket.getInetAddress().getHostAddress());
+            this.clientname = (String) input.readObject();
 
             // Dorme a thread até que todos os players se conectem
             this.server.phaser.arriveAndAwaitAdvance();
@@ -68,8 +66,8 @@ public class GameConnection extends Thread
 
             try
             {
-                obin.close();
-                obout.close();
+                input.close();
+                output.close();
                 this.socket.close();
                 this.server.clients.remove(this);
                 this.server.phaser.arriveAndDeregister();

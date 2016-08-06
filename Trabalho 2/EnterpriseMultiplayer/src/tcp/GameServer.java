@@ -7,7 +7,7 @@ import java.util.concurrent.Phaser;
 
 public class GameServer 
 {
-    public static int MaxPlayers = 1;
+    public static int MaxPlayers = 4;
     public final ArrayList<GameConnection> clients;
     public ServerSocket socket;
     public final Phaser phaser;
