@@ -28,6 +28,7 @@ public class GameClient
         // Verifica o magic number
         this.send(GameClient.MAGICNUMBER);
         Integer ans = (Integer) this.receive();
+        System.out.println("Recebi" + ans);
         if(ans != 1) throw new IOException("Magic number mismatch");
 
         // Envia o nome do jogador

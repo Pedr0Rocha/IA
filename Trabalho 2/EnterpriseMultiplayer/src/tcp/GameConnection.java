@@ -34,7 +34,7 @@ public class GameConnection extends Thread
             output.flush();
 
             // Verifica se a conexão é autêntica
-            int magic = input.readInt();
+            int magic = (Integer) input.readObject();
 
             if(magic != GameConnection.MAGICNUMBER)
             {
