@@ -22,6 +22,7 @@ public class GameClient
 
         // Inicializa o fluxo de dados
         this.output = new ObjectOutputStream(this.socket.getOutputStream());
+        this.output.flush();
         this.input = new ObjectInputStream(this.socket.getInputStream());
 
         // Verifica o magic number

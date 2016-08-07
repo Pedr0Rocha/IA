@@ -31,6 +31,7 @@ public class GameConnection extends Thread
             // Inicializa o fluxo de dados
             input = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
             output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            output.flush();
 
             // Verifica se a conexão é autêntica
             int magic = input.readInt();
@@ -74,9 +75,5 @@ public class GameConnection extends Thread
             }
             catch(Exception e) {}
         }
-    }
-    
-    public String getPlayerNameFromSocket() {
-        return this.socket.getInetAddress().getHostAddress();
     }
 }
