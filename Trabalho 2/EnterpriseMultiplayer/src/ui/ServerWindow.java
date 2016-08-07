@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import structures.GameDatabase;
 import structures.Player;
+import tcp.GameServer;
 import utils.CONSTANTS;
 import utils.DatabaseLoader;
 import utils.Popup;
@@ -22,6 +23,7 @@ public class ServerWindow extends javax.swing.JFrame {
     public ServerWindow() {
         initComponents();
         myInits();
+        new GameServer(7777);
     }
     
     private void myInits() {
@@ -30,13 +32,11 @@ public class ServerWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setInitialText();
+        
 
         players = new ArrayList<>();
         
-        // TPC - set number of players and wait for them to connect
-        // 3-wayhandshake
-        // test purposes
-        fakeStartGame();
+        //fakeStartGame();
     }
     
     private void setInitialText() {

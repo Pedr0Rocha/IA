@@ -11,12 +11,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import structures.GameSettings;
 import structures.Player;
+import tcp.GameClient;
 import utils.CONSTANTS;
 import utils.DatabaseLoader;
 
@@ -151,6 +153,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
+        GameClient client = null;
         String serverHost = "";
         int port = 0;
         String playerName = "";
@@ -183,24 +186,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 return;
             }
             try {
-                // initialize connection and player client
-                Socket socket = new Socket(serverHost, port);
-                InputStream input = socket.getInputStream();
-                OutputStream output = socket.getOutputStream();
-                ObjectInputStream obin = new ObjectInputStream(input);
-                ObjectOutputStream obout = new ObjectOutputStream(output);
-                
-                // sending magic number to confirm application
-                obout.writeInt(ClientConnectWindow.MAGICNUMBER);
-                
-                // sending player info to server
-                obout.writeObject(playerName);
-                obout.writeInt(pType);
-
-                // flush the buffer
-                obout.flush();
-                
-                // receiving game settings to start game
+                client = new GameClient(InetAddress.getByName(serverHost), port, playerName);
+                               
                 Player player = new Player(playerName, pType);
                 //GameSettings gs = (GameSettings) obin.readObject();
                 

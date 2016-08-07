@@ -18,6 +18,7 @@ public class GameManager {
         resetLastRoundProfits();
         int marketingInvestment = calcMarketingInvestments();
         populationManager = new PopulationManager(marketingInvestment);
+        sellingManager();
     }
     
     private void resetLastRoundProfits() {
@@ -100,9 +101,16 @@ public class GameManager {
     }
     
     public void showProfits() {
+        ArrayList<Player> temporaryPlayers = players;
+        Player[] orderedPlayers = new Player[players.size()];
+        int max = Integer.MIN_VALUE;
+        int index = 0;
         System.out.println("Profits this round:");
-        for (Player p : players) {
-            System.out.println("Player " + p.getName() + ": " + p.getProfitThisRound());
+        for (Player p : temporaryPlayers) {
+            if (p.getProfitThisRound() > max) {
+                orderedPlayers[0] = p;
+                temporaryPlayers.remove(p);
+            }
         }
     }
     

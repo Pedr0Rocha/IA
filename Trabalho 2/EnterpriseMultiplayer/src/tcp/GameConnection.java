@@ -75,4 +75,8 @@ public class GameConnection extends Thread
             catch(Exception e) {}
         }
     }
+    
+    public String getPlayerNameFromSocket() {
+        return this.socket.getInetAddress().getHostAddress();
+    }
 }
