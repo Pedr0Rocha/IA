@@ -23,7 +23,7 @@ public class ServerWindow extends javax.swing.JFrame {
     public ServerWindow() {
         initComponents();
         myInits();
-        new GameServer(7777);
+        new GameServer(7777, 50000.00, 0, 12);
     }
     
     private void myInits() {

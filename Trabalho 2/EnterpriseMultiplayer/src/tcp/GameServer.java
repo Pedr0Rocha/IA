@@ -44,6 +44,7 @@ public class GameServer
             System.out.println("[GameServer] Jogadores conectados. Iniciando...");
             
             // Aqui começa o jogo
+            phaser.arriveAndAwaitAdvance();
         }
 
         catch(Exception e)

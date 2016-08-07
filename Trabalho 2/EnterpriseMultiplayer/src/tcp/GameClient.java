@@ -13,9 +13,6 @@ public class GameClient
     private final ObjectOutputStream output;
     private final String clientname;
     private boolean closed;
-    private double initialMoney;
-    private int businessType;
-    private int maxMonths;
 
     public GameClient(InetAddress ip, int port, String clientname) throws IOException
     {
@@ -31,10 +28,6 @@ public class GameClient
         // Verifica o magic number
         this.send(GameClient.MAGICNUMBER);
         this.send(this.clientname);
-        
-        this.initialMoney = (Double) receive();
-        this.businessType = (Integer) receive();
-        this.maxMonths = (Integer) receive();
     }
 
     public void send(Object data) throws IOException
@@ -59,6 +52,7 @@ public class GameClient
         }
         catch(Exception e)
         {
+            e.printStackTrace();
             this.close();
             throw new IOException("Connection closed");
         }
@@ -102,19 +96,5 @@ public class GameClient
             System.out.println("[GameClient] Desconectado.");
             client.close();
         }
-    }
-
-    public double getInitialMoney() {
-        return initialMoney;
-    }
-
-    public int getBusinessType() {
-        return businessType;
-    }
-
-    public int getMaxMonths() {
-        return maxMonths;
-    }
-    
-    
+    }   
 }

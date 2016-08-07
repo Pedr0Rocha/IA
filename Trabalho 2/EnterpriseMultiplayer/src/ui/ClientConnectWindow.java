@@ -31,6 +31,10 @@ public class ClientConnectWindow extends javax.swing.JFrame {
     private static final int MAGICNUMBER = 0x1AD42823;
     DatabaseLoader dbLoader;
     
+    private double initialMoney;
+    private int businessType;
+    private int maxMonths;
+    
     public ClientConnectWindow() {
         initComponents();
         myInits();
@@ -187,17 +191,22 @@ public class ClientConnectWindow extends javax.swing.JFrame {
             }
             try {
                 client = new GameClient(InetAddress.getByName(serverHost), port, playerName);
-                               
+                this.initialMoney = (Double) client.receive();
+                this.businessType = (Integer) client.receive();
+                this.maxMonths = (Integer) client.receive();
+                client.send(1);
+
                 Player player = new Player(playerName, pType);
-                player.setCurrentMoney(client.getInitialMoney());
-                player.setBusinessType(client.getBusinessType());
-                
+                player.setCurrentMoney(initialMoney);
+                player.setBusinessType(businessType);
+
                 this.setVisible(false);
                 dispose();
                 new ClientGameWindow(player).setVisible(true);
             }
             catch (IOException ex) 
             {
+                ex.printStackTrace();
                 System.out.println("Server not found!");
             }
             catch (Exception ex) 
@@ -243,4 +252,16 @@ public class ClientConnectWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
+    public double getInitialMoney() {
+        return initialMoney;
+    }
+
+    public int getBusinessType() {
+        return businessType;
+    }
+
+    public int getMaxMonths() {
+        return maxMonths;
+    }
 }

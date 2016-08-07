@@ -55,6 +55,10 @@ public class GameConnection extends Thread
             output.writeObject(bsType);
             int months = server.getMaxMonths();
             output.writeObject(months);
+            output.flush();
+            
+            int confirm = (Integer) input.readObject();
+            this.server.phaser.arriveAndAwaitAdvance();
             
             // Neste momento o jogo será iniciado
             // (?)
