@@ -38,10 +38,8 @@ public class GameConnection extends Thread
 
             if(magic != GameConnection.MAGICNUMBER)
             {
-                output.writeObject(0);
                 throw new InterruptedException("Magic number mismatch");
             }
-            else output.writeObject(1);
 
 
             // Obtém os dados do jogador
@@ -50,6 +48,14 @@ public class GameConnection extends Thread
             // Dorme a thread até que todos os players se conectem
             this.server.phaser.arriveAndAwaitAdvance();
 
+            // mandando configs iniciais para os clients
+            double money = server.getInitialMoney();
+            output.writeObject(money);
+            int bsType = server.getBusinessType();
+            output.writeObject(bsType);
+            int months = server.getMaxMonths();
+            output.writeObject(months);
+            
             // Neste momento o jogo será iniciado
             // (?)
         }

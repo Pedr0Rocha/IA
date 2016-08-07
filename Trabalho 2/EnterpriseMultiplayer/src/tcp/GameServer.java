@@ -7,15 +7,21 @@ import java.util.concurrent.Phaser;
 
 public class GameServer 
 {
-    public static int MaxPlayers = 4;
+    public static int MaxPlayers = 1;
     public final ArrayList<GameConnection> clients;
     public ServerSocket socket;
     public final Phaser phaser;
+    private double initialMoney;
+    private int businessType;
+    private int maxMonths;
 
-    public GameServer(int port)
+    public GameServer(int port, double initialMoney, int businessType, int maxMonths)
     {
         this.clients = new ArrayList<GameConnection>();
         this.phaser = new Phaser(1);
+        this.initialMoney = initialMoney;
+        this.businessType = businessType;
+        this.maxMonths = maxMonths;
 
         try
         {
@@ -36,7 +42,7 @@ public class GameServer
 
             // Iniciar o jogo
             System.out.println("[GameServer] Jogadores conectados. Iniciando...");
-
+            
             // Aqui começa o jogo
         }
 
@@ -63,10 +69,25 @@ public class GameServer
             System.out.println("[GameServer] Servidor finalizado.");
         }
     }
-
+    
     public static void main(String[] args)
     {
         int serverPort = (args.length == 1) ? Integer.parseInt(args[0]) : 7777;
-        new GameServer(serverPort);
+        double money = (args.length == 1) ? Double.parseDouble(args[1]) : 50000.00;
+        int bsType = (args.length == 1) ? Integer.parseInt(args[2]) : 0;
+        int months = (args.length == 1) ? Integer.parseInt(args[3]) : 12;
+        new GameServer(serverPort, money, bsType, months);
     }     
+
+    public double getInitialMoney() {
+        return initialMoney;
+    }
+
+    public int getBusinessType() {
+        return businessType;
+    }
+
+    public int getMaxMonths() {
+        return maxMonths;
+    }
 }

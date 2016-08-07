@@ -13,6 +13,9 @@ public class GameClient
     private final ObjectOutputStream output;
     private final String clientname;
     private boolean closed;
+    private double initialMoney;
+    private int businessType;
+    private int maxMonths;
 
     public GameClient(InetAddress ip, int port, String clientname) throws IOException
     {
@@ -27,12 +30,11 @@ public class GameClient
 
         // Verifica o magic number
         this.send(GameClient.MAGICNUMBER);
-        Integer ans = (Integer) this.receive();
-        System.out.println("Recebi" + ans);
-        if(ans != 1) throw new IOException("Magic number mismatch");
-
-        // Envia o nome do jogador
         this.send(this.clientname);
+        
+        this.initialMoney = (Double) receive();
+        this.businessType = (Integer) receive();
+        this.maxMonths = (Integer) receive();
     }
 
     public void send(Object data) throws IOException
@@ -101,4 +103,18 @@ public class GameClient
             client.close();
         }
     }
+
+    public double getInitialMoney() {
+        return initialMoney;
+    }
+
+    public int getBusinessType() {
+        return businessType;
+    }
+
+    public int getMaxMonths() {
+        return maxMonths;
+    }
+    
+    
 }

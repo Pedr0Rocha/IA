@@ -189,10 +189,8 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 client = new GameClient(InetAddress.getByName(serverHost), port, playerName);
                                
                 Player player = new Player(playerName, pType);
-                //GameSettings gs = (GameSettings) obin.readObject();
-                
-                //player.setCurrentMoney(gs.getInitialMoney());
-                //player.setBusinessType(gs.getBusiness().getBussinessType());
+                player.setCurrentMoney(client.getInitialMoney());
+                player.setBusinessType(client.getBusinessType());
                 
                 this.setVisible(false);
                 dispose();
