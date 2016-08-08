@@ -63,7 +63,6 @@ public class GameConnection extends Thread
             this.server.phaser.arriveAndAwaitAdvance();
             
             for (int i = 0; i < server.getMaxMonths(); i++) {
-                System.out.println("Esperando jogada");
                 String playerName = (String) input.readObject();
                 String lastTurnWarehouse = (String) input.readObject();
                 double lastTurnMarketingInvestment = (Double) input.readObject();
@@ -71,6 +70,8 @@ public class GameConnection extends Thread
                 
                 message = new ProtocolMessage(playerName, lastTurnWarehouse, 
                 lastTurnMarketingInvestment, lastTurnResearchInvestment);
+                this.server.phaser.arriveAndAwaitAdvance();
+                // AQUI DEVE RETORNAR O WAREHOUSE AO PLAYER
                 this.server.phaser.arriveAndAwaitAdvance();
             }
             

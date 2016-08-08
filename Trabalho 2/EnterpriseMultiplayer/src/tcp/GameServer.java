@@ -85,27 +85,26 @@ public class GameServer
                         int buyers = populationManager.getCustomerByProductLevel(j);
                         while(buyers >= 1) {
                             int indexBestPlayer = getBestPlayer(whs, prods.get(j));
-                            Product prodToSell = whs.get(indexBestPlayer).getProductOnStock(prods.get(i));
+                            Product prodToSell = whs.get(indexBestPlayer).getProductOnStock(prods.get(j));
                             if (indexBestPlayer == -1) break;
                             
                             if (buyers > prodToSell.getQuantityInStock()) {
                                 System.out.println("Player " + indexBestPlayer + " sold " + prods.get(j).getName());
                                 int quantityBeforeSale = prodToSell.getQuantityInStock();
-                                this.clients.get(i).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                this.clients.get(j).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
                                 buyers -= quantityBeforeSale;
                             } else {
                                 System.out.println("Player " + indexBestPlayer + " sold ALL" + prods.get(j).getName());
-                                this.clients.get(i).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                this.clients.get(j).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
                                 buyers = 0;
                             }
                         }
                     }
                 }
                 for(int j = 0; j < this.clients.size(); j++) 
-                    this.clients.get(i).message.setSerializedWarehouse(Warehouse.serialize(whs.get(j)));
-                
-                // mensagem completa
-                
+                    this.clients.get(j).message.setSerializedWarehouse(Warehouse.serialize(whs.get(j)));
+
+                phaser.arriveAndAwaitAdvance();
             }
         }
 
