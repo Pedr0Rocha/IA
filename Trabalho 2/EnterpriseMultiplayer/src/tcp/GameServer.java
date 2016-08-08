@@ -41,10 +41,15 @@ public class GameServer
             phaser.arriveAndAwaitAdvance();
 
             // Iniciar o jogo
-            System.out.println("[GameServer] Jogadores conectados. Iniciando...");
+            System.out.println("[GameServer] Jogadores conectados. Enviando configurações Iniciais..");
             
             // Aqui começa o jogo
             phaser.arriveAndAwaitAdvance();
+            
+            for (int i = 0; i < this.maxMonths; i++) {
+                System.out.println("[GameServer] Month: " + i);
+                phaser.arriveAndAwaitAdvance();
+            }
         }
 
         catch(Exception e)
@@ -74,7 +79,7 @@ public class GameServer
     public static void main(String[] args)
     {
         int serverPort = (args.length == 1) ? Integer.parseInt(args[0]) : 7777;
-        double money = (args.length == 1) ? Double.parseDouble(args[1]) : 50000.00;
+        double money = (args.length == 1) ? Double.parseDouble(args[1]) : 100000.00;
         int bsType = (args.length == 1) ? Integer.parseInt(args[2]) : 0;
         int months = (args.length == 1) ? Integer.parseInt(args[3]) : 12;
         new GameServer(serverPort, money, bsType, months);

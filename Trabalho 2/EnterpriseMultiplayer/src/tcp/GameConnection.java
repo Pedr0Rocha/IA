@@ -60,6 +60,12 @@ public class GameConnection extends Thread
             int confirm = (Integer) input.readObject();
             this.server.phaser.arriveAndAwaitAdvance();
             
+            for (int i = 0; i < server.getMaxMonths(); i++) {
+                System.out.println("Esperando jogada");
+                input.readObject();
+                this.server.phaser.arriveAndAwaitAdvance();
+            }
+            
             // Neste momento o jogo será iniciado
             // (?)
         }

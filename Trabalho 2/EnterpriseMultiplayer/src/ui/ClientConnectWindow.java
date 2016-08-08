@@ -89,7 +89,12 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        inputServer.setText("192.168.0.212");
+        inputServer.setText("192.168.0.14");
+        inputServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputServerActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -197,12 +202,12 @@ public class ClientConnectWindow extends javax.swing.JFrame {
                 client.send(1);
 
                 Player player = new Player(playerName, pType);
-                player.setCurrentMoney(initialMoney);
+                player.setCurrentMoney(initialMoney); 
                 player.setBusinessType(businessType);
 
                 this.setVisible(false);
                 dispose();
-                new ClientGameWindow(player).setVisible(true);
+                new ClientGameWindow(player, client).setVisible(true);
             }
             catch (IOException ex) 
             {
@@ -221,6 +226,10 @@ public class ClientConnectWindow extends javax.swing.JFrame {
         if (input.length() > 16) 
             inputPlayerName.setText(input.substring(0, 16));
     }//GEN-LAST:event_inputPlayerNameFocusLost
+
+    private void inputServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputServerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputServerActionPerformed
 
     public static void main(String args[]) {
         /* Setting the GTK look and feel */

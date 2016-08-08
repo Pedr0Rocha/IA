@@ -1,6 +1,9 @@
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import structures.Building;
@@ -9,6 +12,7 @@ import structures.GameDatabase;
 import structures.GameSettings;
 import structures.Player;
 import structures.Product;
+import tcp.GameClient;
 import utils.CONSTANTS;
 import utils.Popup;
 
@@ -22,14 +26,16 @@ public class ClientGameWindow extends javax.swing.JFrame {
     Player player;
     ArrayList<Product> availableProducts;
     
+    private GameClient client;
     public int playState; // 0 - mainConfigs change, 1 - saved warehouse, 2 - confirm play
     
-    public ClientGameWindow(Player createdPlayer) {
+    public ClientGameWindow(Player createdPlayer, GameClient client) {
         initComponents();
-        myInits(createdPlayer);
+        this.client = client;
+        myInits(createdPlayer, 0);
     }
 
-    private void myInits(Player createdPlayer) {
+    private void myInits(Player createdPlayer, int currentTurn) {
         setTitle("Enterprise Multiplayer Client");
         setSize(800, 600);
         setLocationRelativeTo(null);
@@ -37,11 +43,10 @@ public class ClientGameWindow extends javax.swing.JFrame {
         this.player = createdPlayer;
         availableProducts = db.getProductsByBusinessType(player.getBusinessType());
         
-        // TCP - receive info from server to update all variables
-        GameDatabase db = GameDatabase.getInstance(); // not necessary after client/server sync
-        Business business = db.getBusinessByName("Technology"); // not necessary after client/server sync
-        GameSettings gs = new GameSettings(12, 20000.00, business);
-        gs.setCurrentMonth(10);
+        GameDatabase db = GameDatabase.getInstance();
+        Business business = db.getBusinessByType(createdPlayer.getBusinessType());
+        GameSettings gs = new GameSettings(12, createdPlayer.getCurrentMoney(), business);
+        gs.setCurrentMonth(currentTurn);
         updateMainConfigsValue(gs);
         updateBuildingValue();
         updateProductsValue();
@@ -554,9 +559,26 @@ public class ClientGameWindow extends javax.swing.JFrame {
         if (playState == CONSTANTS.PLAYSTATUS_WAREHOUSECHANGES) {
             playState = CONSTANTS.PLAYSTATUS_CONFIRMPLAY;
             setInvestments();
+            String serializedWh = player.getWarehouse().serialize(player.getWarehouse());
+            System.out.println(serializedWh);
+            player.getWarehouse().deserialize(player.getWarehouse(), serializedWh);
             // TCP - send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
+            try {
+                client.send(this);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             new Popup("Waiting for server response").setVisible(true);
+            Player updatedPlayer = null;
+            int currentTurn = -1;
+            try {
+                updatedPlayer = (Player) client.receive();
+                currentTurn = (Integer) client.receive();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientGameWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            myInits(updatedPlayer, currentTurn);
             // TCP - receive turn statistics from server
         } else {
             System.out.println("Missing info, can't confirm play");

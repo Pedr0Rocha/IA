@@ -49,6 +49,12 @@ public class GameDatabase {
         return null;
     }
     
+    public Business getBusinessByType(int type) {
+        for (Business b : this.businesses)
+            if (b.getBussinessType() == type) return b;
+        return null;
+    }
+    
     public ArrayList<Product> getProductsByBusinessType(int businessType) {
         ArrayList<Product> availableProds = new ArrayList<Product>();
         for (Product p : this.products)
