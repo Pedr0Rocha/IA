@@ -12,13 +12,24 @@ public class GameManager {
     private ArrayList<Player> players;
     private PopulationManager populationManager;
     GameDatabase db = GameDatabase.getInstance();
+    Warehouse warehouseDummy;
     
     public GameManager(ArrayList<Player> playersList) {
+        warehouseDummy = new Warehouse();
+        initWarehouse();
         this.players = playersList;
         resetLastRoundProfits();
         int marketingInvestment = calcMarketingInvestments();
         populationManager = new PopulationManager(marketingInvestment);
         sellingManager();
+    }
+    
+    private void initWarehouse() {
+        ArrayList<Product> prods = db.getProductsByBusinessType(0);
+        for (Product p : prods) {
+            p.setQuantityInStock(0);
+            this.warehouseDummy.addToStock(p);
+        }
     }
     
     private void resetLastRoundProfits() {

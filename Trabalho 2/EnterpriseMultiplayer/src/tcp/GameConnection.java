@@ -62,7 +62,9 @@ public class GameConnection extends Thread
             
             for (int i = 0; i < server.getMaxMonths(); i++) {
                 System.out.println("Esperando jogada");
-                input.readObject();
+                String warehouse = (String) input.readObject();
+                Double marketingInvestment = (Double) input.readObject();
+                Double researchInvestment  = (Double) input.readObject();
                 this.server.phaser.arriveAndAwaitAdvance();
             }
             

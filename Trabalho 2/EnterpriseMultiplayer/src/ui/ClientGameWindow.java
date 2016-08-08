@@ -560,25 +560,21 @@ public class ClientGameWindow extends javax.swing.JFrame {
             playState = CONSTANTS.PLAYSTATUS_CONFIRMPLAY;
             setInvestments();
             String serializedWh = player.getWarehouse().serialize(player.getWarehouse());
-            System.out.println(serializedWh);
-            player.getWarehouse().deserialize(player.getWarehouse(), serializedWh);
-            // TCP - send all info to the servers and wait for other players
-            System.out.println("Confirmed play from " + player.getName());
+            System.out.println("Sending " + serializedWh);
             try {
-                client.send(this);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            new Popup("Waiting for server response").setVisible(true);
-            Player updatedPlayer = null;
-            int currentTurn = -1;
-            try {
-                updatedPlayer = (Player) client.receive();
-                currentTurn = (Integer) client.receive();
+                this.client.send(serializedWh);
+                this.client.send(player.getMarketingInvestment());
+                this.client.send(player.getResearchInvestment());
             } catch (IOException ex) {
                 Logger.getLogger(ClientGameWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            myInits(updatedPlayer, currentTurn);
+            
+            player.getWarehouse().deserialize(player.getWarehouse(), serializedWh);
+            // TCP - send all info to the servers and wait for other players
+            System.out.println("Confirmed play from " + player.getName());
+            
+            new Popup("Waiting for server response").setVisible(true);
+            
             // TCP - receive turn statistics from server
         } else {
             System.out.println("Missing info, can't confirm play");

@@ -74,28 +74,27 @@ public class Warehouse {
     public String serialize(Warehouse wh) {
         String serializedWarehouse = "";
         ArrayList<Product> stock = wh.getStock();
-        serializedWarehouse += String.valueOf(stock.size());
         for (int i = 0; i < stock.size(); i++) {
-            serializedWarehouse += "|";
             serializedWarehouse += stock.get(i).getName();
             serializedWarehouse += "|";
             serializedWarehouse += stock.get(i).getQuantityInStock();
             serializedWarehouse += "|";
             serializedWarehouse += stock.get(i).getSellPrice();
+            serializedWarehouse += "|";
         }
         return serializedWarehouse;
     }
     
     public Warehouse deserialize(Warehouse currentWh, String serialized) {
-        int numItems = Character.getNumericValue(serialized.charAt(0));
-        Warehouse newWh = new Warehouse();
         String[] items = serialized.split("\\|");
-        for (int i = 1; i < items.length; i+=3) {
+        for (int i = 0; i < items.length; i+=3) {
             for (Product p : currentWh.getStock()) {
                 if (p.getName().equals(items[i])) {
                     p.setQuantityInStock(Integer.valueOf(items[i+1]));
                     p.setSellPrice(Double.valueOf(items[i+2]));
                 }
+                if (p.getQuantityInStock() == 0)
+                    currentWh.getStock().remove(p);
             }
         }
         return currentWh;
