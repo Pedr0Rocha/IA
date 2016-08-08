@@ -14,7 +14,7 @@ public class PopulationManager {
     private int[] customersByProductLevel = new int[3];
     
     public PopulationManager(double marketingInvestments) {
-        this.interestedCustomers = (int)Math.round(CONSTANTS.POPULATION * marketingInvestments/100);
+        this.interestedCustomers = (int)Math.round(CONSTANTS.POPULATION * marketingInvestments);
         arrangeCustomers();
     }
     
@@ -22,6 +22,9 @@ public class PopulationManager {
         customersByProductLevel[0] = (int)Math.round(interestedCustomers * CONSTANTS.LEVEL0_INTEREST);
         customersByProductLevel[1] = (int)Math.round(interestedCustomers * CONSTANTS.LEVEL1_INTEREST);
         customersByProductLevel[2] = (int)Math.round(interestedCustomers * CONSTANTS.LEVEL2_INTEREST);
+        System.out.println("Produto lvl 0 tem " + customersByProductLevel[0] + " compradores");
+        System.out.println("Produto lvl 1 tem " + customersByProductLevel[1] + " compradores");
+        System.out.println("Produto lvl 2 tem " + customersByProductLevel[2] + " compradores");
     }
 
     public int getInterestedCustomers() {

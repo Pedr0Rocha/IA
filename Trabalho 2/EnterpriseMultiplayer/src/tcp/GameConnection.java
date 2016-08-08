@@ -71,7 +71,9 @@ public class GameConnection extends Thread
                 message = new ProtocolMessage(playerName, lastTurnWarehouse, 
                 lastTurnMarketingInvestment, lastTurnResearchInvestment);
                 this.server.phaser.arriveAndAwaitAdvance();
-                // AQUI DEVE RETORNAR O WAREHOUSE AO PLAYER
+                
+                output.writeObject(this.message.getSerializedWarehouse());
+                
                 this.server.phaser.arriveAndAwaitAdvance();
             }
             

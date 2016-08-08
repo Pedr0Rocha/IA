@@ -14,7 +14,7 @@ import utils.ProtocolMessage;
 
 public class GameServer 
 {
-    public static int MaxPlayers = 1;
+    public static int MaxPlayers = 2;
     public final ArrayList<GameConnection> clients;
     public ServerSocket socket;
     public final Phaser phaser;
@@ -66,7 +66,7 @@ public class GameServer
                 phaser.arriveAndAwaitAdvance();
                 // Aqui vai a verificacao de jogadas
                 int k = 0;
-                int marketingInvestment = calcMarketingInvestments();
+                double marketingInvestment = calcMarketingInvestments();
                 populationManager = new PopulationManager(marketingInvestment);
                 ArrayList<Warehouse> whs = new ArrayList<Warehouse>();
                 
@@ -85,17 +85,14 @@ public class GameServer
                         int buyers = populationManager.getCustomerByProductLevel(j);
                         while(buyers >= 1) {
                             int indexBestPlayer = getBestPlayer(whs, prods.get(j));
-                            Product prodToSell = whs.get(indexBestPlayer).getProductOnStock(prods.get(j));
                             if (indexBestPlayer == -1) break;
-                            
+                            Product prodToSell = whs.get(indexBestPlayer).getProductOnStock(prods.get(j));
                             if (buyers > prodToSell.getQuantityInStock()) {
-                                System.out.println("Player " + indexBestPlayer + " sold " + prods.get(j).getName());
                                 int quantityBeforeSale = prodToSell.getQuantityInStock();
-                                this.clients.get(j).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                this.clients.get(indexBestPlayer).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
                                 buyers -= quantityBeforeSale;
                             } else {
-                                System.out.println("Player " + indexBestPlayer + " sold ALL" + prods.get(j).getName());
-                                this.clients.get(j).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                this.clients.get(indexBestPlayer).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
                                 buyers = 0;
                             }
                         }
@@ -103,7 +100,9 @@ public class GameServer
                 }
                 for(int j = 0; j < this.clients.size(); j++) 
                     this.clients.get(j).message.setSerializedWarehouse(Warehouse.serialize(whs.get(j)));
-
+                
+                for (int j = 0; j < this.clients.size(); j++)
+                    System.out.println("Player " + j + " Profit: " + this.clients.get(j).message.getProfit());
                 phaser.arriveAndAwaitAdvance();
             }
         }
@@ -154,11 +153,11 @@ public class GameServer
         return maxMonths;
     }
     
-    private int calcMarketingInvestments() {
-        int totalInvested = 0;
+    private double calcMarketingInvestments() {
+        double totalInvested = 0;
         for(GameConnection j : this.clients)
             totalInvested += j.message.getMarketingInvestment();
-        return (int)totalInvested;
+        return totalInvested;
     }
     
     private int getBestPlayer(ArrayList<Warehouse> whs, Product product) {
@@ -180,12 +179,13 @@ public class GameServer
         double sellingPrice = productToSell.getSellPrice();
         int quantityInStock = productToSell.getQuantityInStock();
         int updatedQuantity = buyers - quantityInStock;
-        if (updatedQuantity == 0)
-            warehouse.getStock().remove(prod);
-        else 
-            productToSell.setQuantityInStock(updatedQuantity);
-        
         int unitsSold = buyers - updatedQuantity;
+        if ((quantityInStock - unitsSold) <= 0) 
+            warehouse.getStock().remove(productToSell);
+         else 
+            productToSell.setQuantityInStock(quantityInStock - unitsSold);
+        
+        
         double moneyEarned = productToSell.getSellPrice() * unitsSold;
         
         return moneyEarned;
