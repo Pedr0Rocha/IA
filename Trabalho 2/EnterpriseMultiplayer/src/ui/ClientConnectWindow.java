@@ -207,7 +207,7 @@ public class ClientConnectWindow extends javax.swing.JFrame {
 
                 this.setVisible(false);
                 dispose();
-                new ClientGameWindow(player, client).setVisible(true);
+                new ClientGameWindow(player, client, 0).setVisible(true);
             }
             catch (IOException ex) 
             {

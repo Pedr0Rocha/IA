@@ -23,6 +23,7 @@ public class GameServer
     private int maxMonths;
     GameDatabase db = GameDatabase.getInstance();
     DatabaseLoader gl = new DatabaseLoader();
+    public double[] profits = new double[MaxPlayers];
     
     private PopulationManager populationManager;
 
@@ -65,13 +66,13 @@ public class GameServer
                 System.out.println("[GameServer] Iniciado mes " + i + ".");
                 phaser.arriveAndAwaitAdvance();
                 // Aqui vai a verificacao de jogadas
-                int k = 0;
+                int currentMonth = 0;
                 double marketingInvestment = calcMarketingInvestments();
                 populationManager = new PopulationManager(marketingInvestment);
                 ArrayList<Warehouse> whs = new ArrayList<Warehouse>();
                 
                 for(GameConnection gc : this.clients) {
-                    ++k;
+                    ++currentMonth;
                     ProtocolMessage msg = gc.message;
                     Warehouse wh = Warehouse.deserialize(msg.getSerializedWarehouse());
                     for (Product p : wh.getStock())
@@ -101,12 +102,25 @@ public class GameServer
                 for(int j = 0; j < this.clients.size(); j++) 
                     this.clients.get(j).message.setSerializedWarehouse(Warehouse.serialize(whs.get(j)));
                 
-                for (int j = 0; j < this.clients.size(); j++)
+                for (int j = 0; j < this.clients.size(); j++) {
                     System.out.println("Player " + j + " Profit: " + this.clients.get(j).message.getProfit());
+                    profits[j] += this.clients.get(j).message.getProfit();
+                }
+                
                 phaser.arriveAndAwaitAdvance();
             }
+            double bestProfit = 0.0;
+            int winner = -1;
+            for (int j = 0; j < MaxPlayers; j++) {
+                if (profits[j] > bestProfit) {
+                    bestProfit = profits[j];
+                    winner = j;
+                }
+            }
+            System.out.println("Player " + winner + " won! Total Profit: " + bestProfit);
+              
         }
-
+        
         catch(Exception e)
         {
             e.printStackTrace();

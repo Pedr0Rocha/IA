@@ -72,9 +72,12 @@ public class GameConnection extends Thread
                 lastTurnMarketingInvestment, lastTurnResearchInvestment);
                 this.server.phaser.arriveAndAwaitAdvance();
                 
-                output.writeObject(this.message.getSerializedWarehouse());
-                
+                // calculos
                 this.server.phaser.arriveAndAwaitAdvance();
+                output.writeObject(this.message.getSerializedWarehouse());
+                output.writeObject(this.message.getProfit());
+                output.writeObject(i);
+                output.flush();
             }
             
             // Neste momento o jogo será iniciado

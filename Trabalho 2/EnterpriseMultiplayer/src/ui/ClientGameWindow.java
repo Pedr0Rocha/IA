@@ -12,6 +12,7 @@ import structures.GameDatabase;
 import structures.GameSettings;
 import structures.Player;
 import structures.Product;
+import structures.Warehouse;
 import tcp.GameClient;
 import utils.CONSTANTS;
 import utils.Popup;
@@ -29,10 +30,10 @@ public class ClientGameWindow extends javax.swing.JFrame {
     private GameClient client;
     public int playState; // 0 - mainConfigs change, 1 - saved warehouse, 2 - confirm play
     
-    public ClientGameWindow(Player createdPlayer, GameClient client) {
+    public ClientGameWindow(Player createdPlayer, GameClient client, int turn) {
         initComponents();
         this.client = client;
-        myInits(createdPlayer, 0);
+        myInits(createdPlayer, turn);
     }
 
     private void myInits(Player createdPlayer, int currentTurn) {
@@ -555,6 +556,12 @@ public class ClientGameWindow extends javax.swing.JFrame {
         comboResearchValues.setEnabled(true);
     }//GEN-LAST:event_btnSaveWarehouseActionPerformed
 
+    private void updateNewWarehouse(Warehouse oldwh, Warehouse newwh) {
+        for (Product p : newwh.getStock()) 
+            if (oldwh.has(p)) 
+                oldwh.getProductOnStock(p).updateQuantityInStock(p.getQuantityInStock());
+    }
+    
     private void btnConfirmPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmPlayActionPerformed
         if (playState == CONSTANTS.PLAYSTATUS_WAREHOUSECHANGES) {
             playState = CONSTANTS.PLAYSTATUS_CONFIRMPLAY;
@@ -562,20 +569,39 @@ public class ClientGameWindow extends javax.swing.JFrame {
             String serializedWh = player.getWarehouse().serialize(player.getWarehouse());
             System.out.println("Sending " + serializedWh);
             try {
+                player.setProfitThisRound(0);
                 this.client.send(player.getName());
                 this.client.send(serializedWh);
                 this.client.send(player.getMarketingInvestment());
                 this.client.send(player.getResearchInvestment());
+                
             } catch (IOException ex) {
                 Logger.getLogger(ClientGameWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            // TCP - send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
             
-            new Popup("Waiting for server response").setVisible(true);
+            //new Popup("Waiting for server response").setVisible(true);
             
-            // TCP - receive turn statistics from server
+            try {
+                serializedWh = (String) this.client.receive();
+                double profit = (Double) this.client.receive();
+                int turn = (Integer) this.client.receive();
+                
+                player.updateCurrentMoney(profit);
+                System.out.println("Client recebeu " + profit + " profit");
+                Warehouse dewh = Warehouse.deserialize(serializedWh);
+                updateNewWarehouse(player.getWarehouse(), dewh);
+                this.setVisible(false);
+                dispose();
+                new ClientGameWindow(player, this.client, turn).setVisible(true);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(ClientGameWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
         } else {
             System.out.println("Missing info, can't confirm play");
             new Popup("Save your warehouse changes before continuing").setVisible(true);
