@@ -1,6 +1,8 @@
 package structures;
 
 import java.util.ArrayList;
+import utils.CONSTANTS;
+import utils.DatabaseLoader;
 
 /**
  *
@@ -71,7 +73,7 @@ public class Warehouse {
         return null;
     }
     
-    public String serialize(Warehouse wh) {
+    public static String serialize(Warehouse wh) {
         String serializedWarehouse = "";
         ArrayList<Product> stock = wh.getStock();
         for (int i = 0; i < stock.size(); i++) {
@@ -85,18 +87,28 @@ public class Warehouse {
         return serializedWarehouse;
     }
     
-    public Warehouse deserialize(Warehouse currentWh, String serialized) {
+    public static Warehouse deserialize(String serialized) {
+        Warehouse wh = new Warehouse();
+        ArrayList<Product> prods = GameDatabase.getInstance().getProductsByBusinessType(CONSTANTS.TECHBUSSINESS);
+        for (Product p : prods) {
+            Product newP = new Product(p);
+            newP.setQuantityInStock(0);
+            wh.addToStock(newP);
+        }
+        
         String[] items = serialized.split("\\|");
         for (int i = 0; i < items.length; i+=3) {
-            for (Product p : currentWh.getStock()) {
+            for (Product p : wh.getStock()) {
                 if (p.getName().equals(items[i])) {
                     p.setQuantityInStock(Integer.valueOf(items[i+1]));
                     p.setSellPrice(Double.valueOf(items[i+2]));
                 }
-                if (p.getQuantityInStock() == 0)
-                    currentWh.getStock().remove(p);
             }
         }
-        return currentWh;
+        for (int i = 0; i < wh.getStock().size(); i++)
+            if (wh.getStock().get(i).getQuantityInStock() == 0)
+                wh.getStock().remove(wh.getStock().get(i));
+        
+        return wh;
     }
 }

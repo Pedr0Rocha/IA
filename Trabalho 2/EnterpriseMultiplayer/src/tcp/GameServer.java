@@ -4,6 +4,13 @@ package tcp;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.Phaser;
+import structures.GameDatabase;
+import structures.Product;
+import structures.Warehouse;
+import utils.CONSTANTS;
+import utils.DatabaseLoader;
+import utils.PopulationManager;
+import utils.ProtocolMessage;
 
 public class GameServer 
 {
@@ -14,6 +21,10 @@ public class GameServer
     private double initialMoney;
     private int businessType;
     private int maxMonths;
+    GameDatabase db = GameDatabase.getInstance();
+    DatabaseLoader gl = new DatabaseLoader();
+    
+    private PopulationManager populationManager;
 
     public GameServer(int port, double initialMoney, int businessType, int maxMonths)
     {
@@ -55,20 +66,52 @@ public class GameServer
                 phaser.arriveAndAwaitAdvance();
                 // Aqui vai a verificacao de jogadas
                 int k = 0;
-                for(GameConnection j : this.clients)
-                {
+                int marketingInvestment = calcMarketingInvestments();
+                populationManager = new PopulationManager(marketingInvestment);
+                ArrayList<Warehouse> whs = new ArrayList<Warehouse>();
+                
+                for(GameConnection gc : this.clients) {
                     ++k;
-                    System.out.println("Player: " + k);
-                    System.out.println("Warehouse: " + j.lastTurnWarehouse);
-                    System.out.println("Investimento em Marketing: " + j.lastTurnMarketingInvestment);
-                    System.out.println("Investimento em Pesquisa: " + j.lastTurnResearchInvestment);
-                    System.out.println();
+                    ProtocolMessage msg = gc.message;
+                    Warehouse wh = Warehouse.deserialize(msg.getSerializedWarehouse());
+                    for (Product p : wh.getStock())
+                        p.setCostBenefit(msg.getMarketingInvestment(), msg.getResearchInvestment());
+                    whs.add(wh);
                 }
+                
+                ArrayList<Product> prods = GameDatabase.getInstance().getProductsByBusinessType(CONSTANTS.TECHBUSSINESS);
+                for (int j = 0; j < prods.size(); j++) {
+                    if (populationManager.productLevelHasDemand(j)) {
+                        int buyers = populationManager.getCustomerByProductLevel(j);
+                        while(buyers >= 1) {
+                            int indexBestPlayer = getBestPlayer(whs, prods.get(j));
+                            Product prodToSell = whs.get(indexBestPlayer).getProductOnStock(prods.get(i));
+                            if (indexBestPlayer == -1) break;
+                            
+                            if (buyers > prodToSell.getQuantityInStock()) {
+                                System.out.println("Player " + indexBestPlayer + " sold " + prods.get(j).getName());
+                                int quantityBeforeSale = prodToSell.getQuantityInStock();
+                                this.clients.get(i).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                buyers -= quantityBeforeSale;
+                            } else {
+                                System.out.println("Player " + indexBestPlayer + " sold ALL" + prods.get(j).getName());
+                                this.clients.get(i).message.updateProfit(sellItem(whs.get(indexBestPlayer), prods.get(j), buyers));
+                                buyers = 0;
+                            }
+                        }
+                    }
+                }
+                for(int j = 0; j < this.clients.size(); j++) 
+                    this.clients.get(i).message.setSerializedWarehouse(Warehouse.serialize(whs.get(j)));
+                
+                // mensagem completa
+                
             }
         }
 
         catch(Exception e)
         {
+            e.printStackTrace();
             System.out.println("[GameServer] Erro:" + e.getMessage());
         }
 
@@ -110,5 +153,42 @@ public class GameServer
 
     public int getMaxMonths() {
         return maxMonths;
+    }
+    
+    private int calcMarketingInvestments() {
+        int totalInvested = 0;
+        for(GameConnection j : this.clients)
+            totalInvested += j.message.getMarketingInvestment();
+        return (int)totalInvested;
+    }
+    
+    private int getBestPlayer(ArrayList<Warehouse> whs, Product product) {
+        double bestCostBenefit = 0.0;
+        int bestPlayerIndex = -1;
+        for (int i = 0; i < this.clients.size(); i++) {
+            Warehouse wh = whs.get(i);
+            if (wh.has(product)) 
+                if (wh.getProductOnStock(product).getCostBenefit() > bestCostBenefit) {
+                    bestCostBenefit = wh.getProductOnStock(product).getCostBenefit();
+                    bestPlayerIndex = i;
+                }
+        }
+        return bestPlayerIndex; 
+    }
+    
+    private double sellItem(Warehouse warehouse, Product prod, int buyers) {
+        Product productToSell = warehouse.getProductOnStock(prod);
+        double sellingPrice = productToSell.getSellPrice();
+        int quantityInStock = productToSell.getQuantityInStock();
+        int updatedQuantity = buyers - quantityInStock;
+        if (updatedQuantity == 0)
+            warehouse.getStock().remove(prod);
+        else 
+            productToSell.setQuantityInStock(updatedQuantity);
+        
+        int unitsSold = buyers - updatedQuantity;
+        double moneyEarned = productToSell.getSellPrice() * unitsSold;
+        
+        return moneyEarned;
     }
 }

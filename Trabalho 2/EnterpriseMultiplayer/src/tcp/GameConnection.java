@@ -3,15 +3,14 @@ package tcp;
 
 import java.io.*;
 import java.net.*;
+import utils.ProtocolMessage;
 
 public class GameConnection extends Thread
 {
     private static final int MAGICNUMBER = 0x1AD42823;
     public final Socket socket;
     private final GameServer server;
-    public String lastTurnWarehouse = null;
-    public Double lastTurnMarketingInvestment = null;
-    public Double lastTurnResearchInvestment = null;
+    public ProtocolMessage message;
 
     public GameConnection(GameServer server, Socket client) throws IOException
     {
@@ -65,9 +64,13 @@ public class GameConnection extends Thread
             
             for (int i = 0; i < server.getMaxMonths(); i++) {
                 System.out.println("Esperando jogada");
-                lastTurnWarehouse = (String) input.readObject();
-                lastTurnMarketingInvestment = (Double) input.readObject();
-                lastTurnResearchInvestment  = (Double) input.readObject();
+                String playerName = (String) input.readObject();
+                String lastTurnWarehouse = (String) input.readObject();
+                double lastTurnMarketingInvestment = (Double) input.readObject();
+                double lastTurnResearchInvestment  = (Double) input.readObject();
+                
+                message = new ProtocolMessage(playerName, lastTurnWarehouse, 
+                lastTurnMarketingInvestment, lastTurnResearchInvestment);
                 this.server.phaser.arriveAndAwaitAdvance();
             }
             

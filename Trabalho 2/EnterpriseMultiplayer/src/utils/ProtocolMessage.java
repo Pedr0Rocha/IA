@@ -5,26 +5,18 @@ package utils;
  * @author pedro
  */
 public class ProtocolMessage {
-    
+       
+    private String playerName;
     private String serializedWarehouse;
     private double marketingInvestment;
     private double researchInvestment;
     private double profit;
     
-    public ProtocolMessage(String wh, double mi, double ri) {
+    public ProtocolMessage(String name, String wh, double mi, double ri) {
+        this.playerName = name;
         this.serializedWarehouse = wh;
         this.marketingInvestment = mi;
         this.researchInvestment = ri;
-    }
-
-    public String serializeMessage() {
-        String seri = "";
-        seri += serializedWarehouse;
-        seri += "|" + marketingInvestment;
-        seri += "|" + researchInvestment;
-        seri += "|" + profit;
-        
-        return seri;
     }
 
     public String getSerializedWarehouse() {
@@ -58,5 +50,18 @@ public class ProtocolMessage {
     public void setProfit(double profit) {
         this.profit = profit;
     }
+
+    public void updateProfit(double profit) {
+        this.profit += profit;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+    
     
 }

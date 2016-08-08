@@ -562,6 +562,7 @@ public class ClientGameWindow extends javax.swing.JFrame {
             String serializedWh = player.getWarehouse().serialize(player.getWarehouse());
             System.out.println("Sending " + serializedWh);
             try {
+                this.client.send(player.getName());
                 this.client.send(serializedWh);
                 this.client.send(player.getMarketingInvestment());
                 this.client.send(player.getResearchInvestment());
@@ -569,7 +570,6 @@ public class ClientGameWindow extends javax.swing.JFrame {
                 Logger.getLogger(ClientGameWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            player.getWarehouse().deserialize(player.getWarehouse(), serializedWh);
             // TCP - send all info to the servers and wait for other players
             System.out.println("Confirmed play from " + player.getName());
             
