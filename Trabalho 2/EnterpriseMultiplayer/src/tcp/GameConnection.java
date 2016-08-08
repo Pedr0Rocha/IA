@@ -9,6 +9,9 @@ public class GameConnection extends Thread
     private static final int MAGICNUMBER = 0x1AD42823;
     public final Socket socket;
     private final GameServer server;
+    public String lastTurnWarehouse = null;
+    public Double lastTurnMarketingInvestment = null;
+    public Double lastTurnResearchInvestment = null;
 
     public GameConnection(GameServer server, Socket client) throws IOException
     {
@@ -62,9 +65,9 @@ public class GameConnection extends Thread
             
             for (int i = 0; i < server.getMaxMonths(); i++) {
                 System.out.println("Esperando jogada");
-                String warehouse = (String) input.readObject();
-                Double marketingInvestment = (Double) input.readObject();
-                Double researchInvestment  = (Double) input.readObject();
+                lastTurnWarehouse = (String) input.readObject();
+                lastTurnMarketingInvestment = (Double) input.readObject();
+                lastTurnResearchInvestment  = (Double) input.readObject();
                 this.server.phaser.arriveAndAwaitAdvance();
             }
             
