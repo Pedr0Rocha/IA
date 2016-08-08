@@ -29,7 +29,7 @@ public class GameServer
             this.socket = new ServerSocket(port);
             System.out.println("[GameServer] Iniciado na porta " + port + ".");
 
-            // Esperar todos os players se conectarem
+            // Aceitar novos players até que a lista esteja completa
             while(this.clients.size() < MaxPlayers)
             {
                 // Aceitar a conexão e criar a thread
@@ -37,18 +37,33 @@ public class GameServer
                 this.clients.add(new GameConnection(this, client));
             }
 
-            // Sincroniza as threads
+            // Espera todos os players se conectarem
             phaser.arriveAndAwaitAdvance();
 
-            // Iniciar o jogo
-            System.out.println("[GameServer] Jogadores conectados. Enviando configurações Iniciais..");
+            // Envia configurações iniciais aos players
+            System.out.println("[GameServer] Jogadores conectados. Enviando configurações Iniciais...");
             
-            // Aqui começa o jogo
+            // Espera todos os players receberem a confirmação de jogo
             phaser.arriveAndAwaitAdvance();
+
+            // Iniciar
+            System.out.println("[GameServer] Jogo iniciado!");
             
-            for (int i = 0; i < this.maxMonths; i++) {
-                System.out.println("[GameServer] Month: " + i);
+            for (int i = 0; i < this.maxMonths; i++) 
+            {
+                System.out.println("[GameServer] Iniciado mes " + i + ".");
                 phaser.arriveAndAwaitAdvance();
+                // Aqui vai a verificacao de jogadas
+                int k = 0;
+                for(GameConnection j : this.clients)
+                {
+                    ++k;
+                    System.out.println("Player: " + k);
+                    System.out.println("Warehouse: " + j.lastTurnWarehouse);
+                    System.out.println("Investimento em Marketing: " + j.lastTurnMarketingInvestment);
+                    System.out.println("Investimento em Pesquisa: " + j.lastTurnResearchInvestment);
+                    System.out.println();
+                }
             }
         }
 
